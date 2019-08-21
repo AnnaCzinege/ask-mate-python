@@ -10,6 +10,10 @@
     <br>
     <h2>Questions</h2>
     <br>
+    <form action="{{ url_for('route_add_edit')}}">
+        <button type="submit">Add new question</button>
+    </form>
+    <br>
     <table>
         <tr>
             <th>ID&emsp;</th>
@@ -17,9 +21,13 @@
         </tr>
         {% for inner_list in question_table %}
             <tr>
-                <td>{{ inner_list[0] }}&emsp;</td>
+                <td><a href="{{ url_for('route_add_edit', id_=inner_list[0]) }}">{{ inner_list[0] }}</a>&emsp;</td>
                 <td>{{ inner_list[1] }}&emsp;</td>
-                <td>malac</td>
+                <td>
+                    <form action="http://www.google.com">
+                        <button type="submit">Delete question</button>
+                    </form>
+                </td>
             </tr>
         {% endfor %}
 
