@@ -28,8 +28,14 @@ def route_add_edit(id=None):
     return render_template("add_edit.html", id=None)  # When someone clicks on add new question button
 
 
-@app.route("/question_details")
-def show_question_details():
+@app.route("/question_details/")
+@app.route("/question_details/<int:id>")
+def show_question_details(id=None):
+    table = data_handler.get_data(QUESTION_TABLE)
+    row = data_handler.get_row_by_id(table, id)
+    row_title = row[1]
+    row_question = row[2]
+    return render_template("question_details.html", row_title=row_title, row_question=row_question)
 
 
 if __name__ == "__main__":
