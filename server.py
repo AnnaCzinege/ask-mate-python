@@ -21,7 +21,8 @@ def route_list():
 @app.route("/add_edit/<int:id>", methods=["POST", "GET"])
 def route_add_edit(id_=None):
 
-    if request.method == "GET" and id_ is not None:  # When you click on a title
+    # When you click on a title
+    if request.method == "GET" and id_ is not None:
         table = data_handler.get_data(QUESTION_TABLE)
         row = data_handler.get_row_by_id(table, id_)
         row_id = row[0]
@@ -29,7 +30,8 @@ def route_add_edit(id_=None):
         row_message = row[2]
         return render_template("add_edit.html", id_=row_id, row_title=row_title, row_message=row_message, title="Edit question")
 
-    if request.method == "POST" and id_ is None: # When you finished adding a new question
+    # When you finished adding a new question
+    if request.method == "POST" and id_ is None:
         row = [
             generate_id(),
             request.form["title"],
@@ -38,7 +40,8 @@ def route_add_edit(id_=None):
         data_handler.append_table(QUESTION_TABLE, row)
         return redirect("/")
 
-    return render_template("add_edit.html", id_=None, title='Add new question')  # When someone clicks on add new question button
+    # When someone clicks on add new question button
+    return render_template("add_edit.html", id_=None, title='Add new question')
 
 
 @app.route("/question_details/<int:id>")
