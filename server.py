@@ -20,8 +20,8 @@ def route_add_edit(id=None):
         table = data_handler.get_data(QUESTION_TABLE)
         row = data_handler.get_row_by_id(table, id)
         row_id = row[0]
-        row_title = row[4]
-        row_message = row[5]
+        row_title = row[1]
+        row_message = row[2]
         return render_template("add_edit.html", row_id=row_id, row_title=row_title, row_message=row_message)
 
     return render_template("add_edit.html", id=None)  # When someone clicks on add new question button
