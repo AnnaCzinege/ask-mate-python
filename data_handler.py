@@ -34,3 +34,6 @@ def edit_element(updated_list, table):
 
 def remove_element(table, id_):
     return [inner_list for inner_list in table if inner_list[0] != id_]
+
+
+
