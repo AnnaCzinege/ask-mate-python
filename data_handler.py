@@ -11,3 +11,13 @@ def save_data(data):
         for inner_list in data:
             line = ";".join(inner_list)
             file.write(line + "\n")
+
+
+def get_row_by_id(table, id):
+    row_we_want = None
+
+    for row in table:
+        if int(row[0]) == id:
+            row_we_want = row
+
+    return row_we_want
