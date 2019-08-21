@@ -20,6 +20,8 @@ def route_add_edit(id=None):
         row = get_row_by_id(get_table(TABLE), id)
         return render_template("add_edit.html", row=row)
 
+    return render_template("add_edit.html", id=None)  # When someone clicks on add new question button
+
 
 if __name__ == "__main__":
     app.run(debug=True)
