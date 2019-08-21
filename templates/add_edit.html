@@ -12,11 +12,15 @@
     <h2>{{ title }}</h2>
     <br>
 
-    <p>Question Title:</p>
-    <p><input type="text" name="title" value="{{ row_title if row_title else '' }}"></p>
-    <p>Question Message: </p>
-    <p><textarea name="message" rows="10" cols="50">{{ row_message if row_messages else '' }}</textarea></p>
-    <p>
+    <form action="{{ url_for('route_add_edit')}}" method="POST">
 
-    </p>
+        <input type="hidden" name="id_" value=" {{ id_ }}"/>
+        <p>Question Title:</p>
+        <p><input type="text" name="title" value="{{ row_title if row_title else '' }}"/></p>
+        <p>Question Message: </p>
+        <p><textarea name="message" rows="10" cols="50">{{ row_message if row_messages else '' }}</textarea></p>
+        <p><input type="submit" value="{{ 'Update question' if id_ else 'Add question'}}"/> </p>
+
+    </form>
+
 {% endblock %}
