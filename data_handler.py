@@ -1,3 +1,6 @@
+import csv
+
+
 def get_data(text):
     with open(text, "r") as file:
         file_in_list = "".join(file.readlines()).split("\n")
@@ -21,3 +24,9 @@ def get_row_by_id(table, id_):
             row_we_want = row
 
     return row_we_want
+
+
+def append_table(table, row):
+    with open(table, mode="a") as file:
+        row_writer = csv.writer(file, delimiter=";", lineterminator="\n")
+        row_writer.writerow(row)
