@@ -1,6 +1,3 @@
-import csv
-
-
 def get_data(text):
     with open(text, "r") as file:
         file_in_list = "".join(file.readlines()).split("\n")
@@ -25,16 +22,14 @@ def get_row_by_id(table, id_):
 
     return row_we_want
 
-
-def append_table(table, row):
-    with open(table, mode="a") as file:
-        row_writer = csv.writer(file, delimiter=";", lineterminator="\n")
-        row_writer.writerow(row)
+def add_element(text, list_to_save):
+    with open(text, "a") as file:
+        file.write(";".join(list_to_save) + "\n")
 
 
-def update_row_in_table_by_id(table, row, id_):
-    table[id_-1] = row
-    with open(TABLE, mode="w") as file:
-        row_writer = csv.writer(file, delimiter=";", lineterminator="\n")
-        for actual_row in table:
-            row_writer.writerow(actual_row)
+def edit_element(updated_list, table):
+    return [updated_list if inner_list[0] == updated_list[0] else inner_list for inner_list in table]
+
+
+def remove_element(table, id_):
+    return [inner_list for inner_list in table if inner_list[0] != id_]

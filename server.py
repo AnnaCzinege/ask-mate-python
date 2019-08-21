@@ -37,7 +37,7 @@ def route_add_edit(id_=None):
             request.form["title"],
             request.form["message"]
         ]
-        data_handler.append_table(QUESTION_TABLE, row)
+        data_handler.add_element(QUESTION_TABLE, row)
         return redirect("/")
 
     # When you finished updating the question
