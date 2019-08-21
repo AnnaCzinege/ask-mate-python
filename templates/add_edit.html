@@ -8,16 +8,15 @@
 
     <h1>AskMate</h1>
     <br>
-    <h2>Questions</h2>
+
+    <h2>{{ title }}</h2>
     <br>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Title</th>
-        </tr>
 
-        <tr>
+    <p>Question Title:</p>
+    <p><input type="text" name="title" value="{{ row_title if row_title else '' }}"></p>
+    <p>Question Message: </p>
+    <p><textarea name="message" rows="10" cols="50">{{ row_message if row_messages else '' }}</textarea></p>
+    <p>
 
-        </tr>
-    </table>
+    </p>
 {% endblock %}
