@@ -30,3 +30,11 @@ def append_table(table, row):
     with open(table, mode="a") as file:
         row_writer = csv.writer(file, delimiter=";", lineterminator="\n")
         row_writer.writerow(row)
+
+
+def update_row_in_table_by_id(table, row, id_):
+    table[id_-1] = row
+    with open(TABLE, mode="w") as file:
+        row_writer = csv.writer(file, delimiter=";", lineterminator="\n")
+        for actual_row in table:
+            row_writer.writerow(actual_row)

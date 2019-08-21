@@ -40,6 +40,16 @@ def route_add_edit(id_=None):
         data_handler.append_table(QUESTION_TABLE, row)
         return redirect("/")
 
+    # When you finished updating the question
+    if request.method == "POST" and id_ is not None:
+        row = [
+            request.form["id_"],
+            request.form["title"],
+            request.form["message"]
+        ]
+        data_handler.update_row_in_table_by_id(QUESTION_TABLE, row, id_)
+        return redirect("/")
+
     # When someone clicks on add new question button
     return render_template("add_edit.html", id_=None, title='Add new question')
 
