@@ -7,7 +7,7 @@ QUESTION_TABLE = 'sample_data/question.csv'
 
 
 def generate_id():
-    return len(data_handler.get_data(QUESTION_TABLE))+1
+    return str(len(data_handler.get_data(QUESTION_TABLE))+1)
 
 
 @app.route("/")
@@ -18,7 +18,7 @@ def route_list():
 
 
 @app.route("/add_edit", methods=["POST", "GET"])
-@app.route("/add_edit/<int:id_>", methods=["POST", "GET"])
+@app.route("/add_edit/<id_>", methods=["POST", "GET"])
 def route_add_edit(id_=None):
 
     # When you click on an ID
@@ -54,7 +54,7 @@ def route_add_edit(id_=None):
     return render_template("add_edit.html", id_=None, title='Add new question')
 
 
-@app.route("/question_details/<int:id>")
+@app.route("/question_details/<id>")
 def show_question_details(id=None):
     table = data_handler.get_data(QUESTION_TABLE)
     row = data_handler.get_row_by_id(table, id)
