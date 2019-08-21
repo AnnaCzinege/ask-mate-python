@@ -18,10 +18,10 @@ def route_list():
 
 
 @app.route("/add_edit", methods=["POST", "GET"])
-@app.route("/add_edit/<int:id>", methods=["POST", "GET"])
+@app.route("/add_edit/<int:id_>", methods=["POST", "GET"])
 def route_add_edit(id_=None):
 
-    # When you click on a title
+    # When you click on an ID
     if request.method == "GET" and id_ is not None:
         table = data_handler.get_data(QUESTION_TABLE)
         row = data_handler.get_row_by_id(table, id_)
