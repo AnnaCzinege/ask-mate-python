@@ -21,7 +21,7 @@
         </tr>
         {% for inner_list in question_table %}
             <tr>
-                <td><a href="{{ url_for('route_add_edit', id_=inner_list[0]) }}">{{ inner_list[0] }}</a>&emsp;</td>
+                <td><a href="{{ url_for('route_add_edit') }}/{{ inner_list[0] }}">{{ inner_list[0] }}</a>&emsp;</td>
                 <td><a href="{{ url_for('show_question_details', id=inner_list[0]) }}">{{ inner_list[1] }}</a>&emsp;</td>
                 <td>
                     <form action="http://www.google.com">
