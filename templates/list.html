@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    Welcome!
+    Welcome! | AskMate
 {% endblock %}
 
 {% block content %}
@@ -12,12 +12,16 @@
     <br>
     <table>
         <tr>
-            <th>ID</th>
+            <th>ID&emsp;</th>
             <th>Title</th>
         </tr>
+        {% for inner_list in question_table %}
+            <tr>
+                <td>{{ inner_list[0] }}&emsp;</td>
+                <td>{{ inner_list[1] }}&emsp;</td>
+                <td>malac</td>
+            </tr>
+        {% endfor %}
 
-        <tr>
-
-        </tr>
     </table>
 {% endblock %}

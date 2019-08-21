@@ -3,7 +3,7 @@ import data_handler
 
 
 app = Flask(__name__)
-QUESTION_TABLE = "question.csv"
+QUESTION_TABLE = 'sample_data/question.csv'
 
 
 @app.route("/")
