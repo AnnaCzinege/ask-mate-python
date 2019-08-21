@@ -28,7 +28,6 @@ def route_add_edit(id_=None):
     return render_template("add_edit.html", id_=None, title='Add new question')  # When someone clicks on add new question button
 
 
-@app.route("/question_details/")
 @app.route("/question_details/<int:id>")
 def show_question_details(id=None):
     table = data_handler.get_data(QUESTION_TABLE)
