@@ -1,10 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'layout.html' %}
 
-</body>
-</html>
+{% block title %}
+    Welcome! | AskMate
+{% endblock %}
+
+{% block content %}
+
+    <h1>AskMate</h1>
+    <br>
+    <h2>Questions</h2>
+    <br>
+    <table>
+        <tr>
+            <th>ID&emsp;</th>
+            <th>Title</th>
+        </tr>
+        {% for inner_list in question_table %}
+            <tr>
+                <td>{{ inner_list[0] }}&emsp;</td>
+                <td>{{ inner_list[1] }}&emsp;</td>
+                <td>malac</td>
+            </tr>
+        {% endfor %}
+
+    </table>
+{% endblock %}

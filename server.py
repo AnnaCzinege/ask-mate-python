@@ -3,7 +3,7 @@ import data_handler
 
 
 app = Flask(__name__)
-QUESTION_TABLE = "question.csv"
+QUESTION_TABLE = 'sample_data/question.csv'
 
 
 @app.route("/")
@@ -17,8 +17,12 @@ def route_list():
 def route_add_edit(id=None):
 
     if request.method == "GET" and id is not None:  # When someone clicks on a title
-        row = get_row_by_id(get_table(TABLE), id)
-        return render_template("add_edit.html", row=row)
+        table = data_handler.get_data(QUESTION_TABLE)
+        row = data_handler.get_row_by_id(table, id)
+        row_id = row[0]
+        row_title = row[4]
+        row_message = row[5]
+        return render_template("add_edit.html", row_id=row_id, row_title=row_title, row_message=row_message)
 
     return render_template("add_edit.html", id=None)  # When someone clicks on add new question button
 
