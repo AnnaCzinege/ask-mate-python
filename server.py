@@ -7,6 +7,7 @@ QUESTION_TABLE = 'sample_data/question.csv'
 
 
 @app.route("/")
+@app.route("list")
 def route_list():
     question_table = data_handler.get_data(QUESTION_TABLE)
     return render_template("list.html", question_table=question_table)
