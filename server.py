@@ -14,7 +14,7 @@ def route_list():
 
 
 @app.route("/add_edit", methods=["POST", "GET"])
-@app.route("/add_edit/<id_>", methods=["POST", "GET"])
+@app.route("/add_edit/<string:id_>", methods=["POST", "GET"])
 def route_add_edit(id_=None):
 
     # When you click on an ID
@@ -40,7 +40,7 @@ def route_add_edit(id_=None):
     return render_template("add_edit.html", id_=None, title='Add new question')
 
 
-@app.route("/question_details/<id_>")
+@app.route("/question_details/<string:id_>")
 def show_question_details(id_=None):
     table = data_handler.get_data(QUESTION_TABLE)
     row = data_handler.get_row_by_id(table, id_)

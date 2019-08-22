@@ -21,7 +21,7 @@ def get_row_by_id(table, id_):
     row_we_want = None
 
     for row in table:
-        if row[0] == id_:
+        if str(row[0]) == str(id_):
             row_we_want = row
 
     return row_we_want
@@ -43,7 +43,7 @@ def remove_element(table, id_):
 def generate_id(table):
     random_id = table[0][0]
     while random_id in [inner_list[0] for inner_list in table]:
-        random_id = "##" + str(random.randint(1, 99)) + random.choice(string.ascii_lowercase)
+        random_id = str(random.randint(1, 99)) + "##" + random.choice(string.ascii_lowercase)
     return random_id
 
 
