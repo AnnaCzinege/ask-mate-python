@@ -12,7 +12,8 @@
     <h2>{{ title }}</h2>
     <br>
 
-    <form action="{{ url_for('route_add_edit')}}" method="POST">
+    <form action="{{ url_for('route_add') if title == 'Add new question' else url_for('route_edit', id_=id_) }}" method="POST">
+
         <input type="hidden" name="id_" value="{{ id_ }}"/>
         <p>Question Title:</p>
         <p><input type="text" name="title" value="{{ row_title if row_title else '' }}"></p>
