@@ -6,30 +6,32 @@
 
 {% block content %}
 
-    <h1>AskMate</h1>
+    <center><img src="{{ url_for('static', filename='img/logo.png') }}"></center>
     <br>
-    <h2>Questions</h2>
-    <br>
-    <form action="{{ url_for('route_add') }}">
-        <button type="submit">Add new question</button>
-    </form>
-    <br>
-    <table>
-        <tr>
-            <th>ID&emsp;</th>
-            <th>Title</th>
-        </tr>
-        {% for inner_list in question_table %}
+    <div id="list_div">
+        <p id="questions_text">Questions
+            <a href="{{ url_for('route_add') }}">
+                <img src="{{ url_for('static', filename='img/add.png') }}" width="40px" align="left"/>
+            </a>
+        </p>
+        <table id="questions_list">
             <tr>
-                <td><a href="{{ url_for('route_edit', id_=inner_list[0]) }}">{{ inner_list[0] }}</a>&emsp;</td>
-                <td><a href="{{ url_for('show_question_details', id_=inner_list[0]) }}">{{ inner_list[1] }}</a>&emsp;</td>
-                <td>
-                    <form action="{{ url_for('route_list', id_=inner_list[0]) }}", method="POST">
-                        <button type="submit">Delete question</button>
-                    </form>
-                </td>
+                <th>ID&emsp;</th>
+                <th>Title</th>
+                <th>Actions</th>
             </tr>
-        {% endfor %}
+            {% for inner_list in question_table %}
+                <tr>
+                    <td><a href="{{ url_for('route_edit', id_=inner_list[0]) }}">{{ inner_list[0] }}</a>&emsp;</td>
+                    <td><a href="{{ url_for('show_question_details', id_=inner_list[0]) }}">{{ inner_list[1] }}</a>&emsp;</td>
+                    <td>
+                        <form action="{{ url_for('route_list', id_=inner_list[0]) }}", method="POST">
+                            <input type="image" name="Submit" src="{{ url_for('static', filename='img/trash.png') }}" width="30px"/>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
 
-    </table>
+        </table>
+    </div>
 {% endblock %}

@@ -1,0 +1,50 @@
+html {
+  background: url(../img/background.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+a{
+  text-decoration: none;
+  color: black;
+}
+#list_div{
+  border: none;
+  margin: auto;
+  width: 65%;
+}
+#questions_text{
+  font-size: 40px;
+  color: white;
+  -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+}
+#questions_list {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: -20px;
+}
+
+#questions_list td{
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#questions_list tr:nth-child(even){background-color: #f6f6f6;}
+
+#questions_list tr:nth-child(odd){background-color: #ffffff;}
+
+#questions_list tr:hover {background-color: #EDFDFF;}
+
+#questions_list th {
+  padding-left: 12px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  font-size: 20px;
+  background-color: #8DD0FF;
+  color: white;
+}
