@@ -48,3 +48,7 @@ a{
   background-color: #8DD0FF;
   color: white;
 }
+
+#questions_list th a{
+  color: white;
+}
