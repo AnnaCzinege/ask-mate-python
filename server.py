@@ -3,16 +3,20 @@ import data_handler
 
 
 app = Flask(__name__)
-QUESTION_TABLE = 'sample_data/question.csv'
 
 
 @app.route("/")
+@app.route("/<int:num>")
 @app.route("/list/<string:id_>", methods=["GET", "POST"])
-def route_list(id_=None):
-    question_table = data_handler.get_data(QUESTION_TABLE)
+def route_list(id_=None, num=None):
+    question_table = data_handler.get_data()
+    if num is not None:
+        dir_ = request.args.get("dir_")
+        question_table = data_handler.sort_columns(question_table, num, dir_)
+        return render_template("list.html", question_table=question_table, dir_=dir_)
     if request.method == "POST":
         question_table = data_handler.remove_element(question_table, id_)
-        data_handler.save_data(QUESTION_TABLE, question_table)
+        data_handler.save_data(question_table)
         return redirect("/")
     return render_template("list.html", question_table=question_table)
 
@@ -23,11 +27,11 @@ def route_add():
     # When you finished adding a new question
     if request.method == "POST":
         row = [
-            data_handler.generate_id(data_handler.get_data(QUESTION_TABLE)),
+            data_handler.generate_id(data_handler.get_data()),
             request.form["title"],
             request.form["message"]
         ]
-        data_handler.add_element(QUESTION_TABLE, row)
+        data_handler.add_element(row)
         return redirect("/")
 
     # When someone clicks on add new question button
@@ -45,13 +49,13 @@ def route_edit(id_=None):
             request.form["title"],
             request.form["message"]
         ]
-        new_question_table = data_handler.edit_element(row, data_handler.get_data(QUESTION_TABLE))
-        data_handler.save_data(QUESTION_TABLE, new_question_table)
+        new_question_table = data_handler.edit_element(row, data_handler.get_data())
+        data_handler.save_data(new_question_table)
         return redirect("/")
 
     # When you click on an ID
     if id_ is not None:
-        table = data_handler.get_data(QUESTION_TABLE)
+        table = data_handler.get_data()
         row = data_handler.get_row_by_id(table, id_)
         row_id = row[0]
         row_title = row[1]
@@ -60,13 +64,24 @@ def route_edit(id_=None):
                                title="Edit question")
 
 
-@app.route("/question_details/<string:id_>")
+@app.route("/question_details/<string:id_>", methods=["GET", "POST"])
 def show_question_details(id_=None):
-    table = data_handler.get_data(QUESTION_TABLE)
+    table = data_handler.get_data()
+    answer_table = data_handler.get_answers()
+    answer_list = data_handler.get_list_from_dict(answer_table, id_)
     row = data_handler.get_row_by_id(table, id_)
     row_title = row[1]
     row_question = row[2]
-    return render_template("question_details.html", row_title=row_title, row_question=row_question)
+    if request.method == "POST":
+        answer = request.form("answer")
+        id_ = row[0]
+        data_handler.add_answers(id_,answer, answer_table)
+        return redirect("/question_details")
+    return render_template("question_details.html",
+                           row_title=row_title,
+                           row_question=row_question,
+                           answer_list=answer_list,
+                           where_url=url_for("show_question_details"))
 
 
 if __name__ == "__main__":
