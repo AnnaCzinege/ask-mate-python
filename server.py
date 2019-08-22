@@ -6,13 +6,6 @@ app = Flask(__name__)
 QUESTION_TABLE = 'sample_data/question.csv'
 
 
-def generate_id():
-    if len(data_handler.get_data(QUESTION_TABLE)) == 0:
-        return "0"
-    else:
-        return str(len(data_handler.get_data(QUESTION_TABLE))+1)
-
-
 @app.route("/")
 @app.route("/list")
 def route_list():
@@ -21,7 +14,7 @@ def route_list():
 
 
 @app.route("/add_edit", methods=["POST", "GET"])
-@app.route("/add_edit/<string:id_>", methods=["POST", "GET"])
+@app.route("/add_edit/<id_>", methods=["POST", "GET"])
 def route_add_edit(id_=None):
 
     # When you click on an ID
@@ -36,7 +29,7 @@ def route_add_edit(id_=None):
     # When you finished adding a new question
     if request.method == "POST" and id_ is None:
         row = [
-            generate_id(),
+            data_handler.generate_id(data_handler.get_data(QUESTION_TABLE)),
             request.form["title"],
             request.form["message"]
         ]
@@ -47,7 +40,7 @@ def route_add_edit(id_=None):
     return render_template("add_edit.html", id_=None, title='Add new question')
 
 
-@app.route("/question_details/<string:id_>")
+@app.route("/question_details/<id_>")
 def show_question_details(id_=None):
     table = data_handler.get_data(QUESTION_TABLE)
     row = data_handler.get_row_by_id(table, id_)

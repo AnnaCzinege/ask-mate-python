@@ -1,3 +1,7 @@
+import string
+import random
+
+
 def get_data(text):
     with open(text, "r") as file:
         file_in_list = "".join(file.readlines()).split("\n")
@@ -17,7 +21,7 @@ def get_row_by_id(table, id_):
     row_we_want = None
 
     for row in table:
-        if int(row[0]) == id_:
+        if row[0] == id_:
             row_we_want = row
 
     return row_we_want
@@ -34,6 +38,13 @@ def edit_element(updated_list, table):
 
 def remove_element(table, id_):
     return [inner_list for inner_list in table if inner_list[0] != id_]
+
+
+def generate_id(table):
+    random_id = table[0][0]
+    while random_id in [inner_list[0] for inner_list in table]:
+        random_id = "##" + str(random.randint(1, 99)) + random.choice(string.ascii_lowercase)
+    return random_id
 
 
 
