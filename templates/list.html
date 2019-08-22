@@ -16,8 +16,8 @@
     <br>
     <table>
         <tr>
-            <th>ID&emsp;</th>
-            <th>Title</th>
+            <th><a href="{{ url_for('route_list', num=0) }}">ID</a>&emsp;</th>
+            <th><a href="{{ url_for('route_list', num=1) }}">Title</a></th>
         </tr>
         {% for inner_list in question_table %}
             <tr>

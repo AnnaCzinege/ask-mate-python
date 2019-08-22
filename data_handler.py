@@ -45,3 +45,8 @@ def generate_id(table):
         random_id = "##" + str(random.randint(1, 99)) + random.choice(string.ascii_lowercase)
         if random_id not in [inner_list[0] for inner_list in table]:
             return random_id
+
+
+def sort_columns(table, num):
+    return table.sort(key=lambda x: x[int(num)])
+

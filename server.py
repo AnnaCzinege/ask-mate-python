@@ -8,8 +8,10 @@ QUESTION_TABLE = 'sample_data/question.csv'
 
 @app.route("/")
 @app.route("/list/<string:id_>", methods=["GET", "POST"])
-def route_list(id_=None):
+def route_list(id_=None, num=None):
     question_table = data_handler.get_data(QUESTION_TABLE)
+    if num is not None:
+        question_table = data_handler.sort_columns(question_table, num)
     if request.method == "POST":
         question_table = data_handler.remove_element(question_table, id_)
         data_handler.save_data(QUESTION_TABLE, question_table)
