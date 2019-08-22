@@ -7,9 +7,13 @@ QUESTION_TABLE = 'sample_data/question.csv'
 
 
 @app.route("/")
-@app.route("/list")
-def route_list():
+@app.route("/list/<string:id_>", methods=["GET", "POST"])
+def route_list(id_=None):
     question_table = data_handler.get_data(QUESTION_TABLE)
+    if request.method == "POST":
+        question_table = data_handler.remove_element(question_table, id_)
+        data_handler.save_data(QUESTION_TABLE, question_table)
+        return redirect("/")
     return render_template("list.html", question_table=question_table)
 
 
@@ -56,7 +60,7 @@ def route_edit(id_=None):
                                title="Edit question")
 
 
-@app.route("/question_details/<id_>")
+@app.route("/question_details/<string:id_>")
 def show_question_details(id_=None):
     table = data_handler.get_data(QUESTION_TABLE)
     row = data_handler.get_row_by_id(table, id_)
