@@ -47,6 +47,9 @@ def generate_id(table):
             return random_id
 
 
-def sort_columns(table, num):
-    return table.sort(key=lambda x: x[int(num)])
+def sort_columns(table, num, count):
+    reverse_ = True
+    if count % 2 == 0:
+        reverse_ = False
+    return sorted(table, key=lambda x: x[int(num)], reverse=reverse_)
 

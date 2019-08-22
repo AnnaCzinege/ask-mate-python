@@ -4,14 +4,19 @@ import data_handler
 
 app = Flask(__name__)
 QUESTION_TABLE = 'sample_data/question.csv'
+COUNT = 0
 
 
 @app.route("/")
+@app.route("/<int:num>")
 @app.route("/list/<string:id_>", methods=["GET", "POST"])
 def route_list(id_=None, num=None):
+    global COUNT
     question_table = data_handler.get_data(QUESTION_TABLE)
     if num is not None:
-        question_table = data_handler.sort_columns(question_table, num)
+        COUNT += 1
+        print(num)
+        question_table = data_handler.sort_columns(question_table, num, COUNT)
     if request.method == "POST":
         question_table = data_handler.remove_element(question_table, id_)
         data_handler.save_data(QUESTION_TABLE, question_table)
