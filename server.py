@@ -45,7 +45,7 @@ def route_edit(id_=None):
             request.form["title"],
             request.form["message"]
         ]
-        new_question_table = data_handler.edit_element(row, QUESTION_TABLE)
+        new_question_table = data_handler.edit_element(row, data_handler.get_data(QUESTION_TABLE))
         data_handler.save_data(QUESTION_TABLE, new_question_table)
         return redirect("/")
 
