@@ -7,9 +7,13 @@ QUESTION_TABLE = 'sample_data/question.csv'
 
 
 @app.route("/")
-@app.route("/list")
-def route_list():
+@app.route("/list/<string:id_>", methods=["GET", "POST"])
+def route_list(id_=None):
     question_table = data_handler.get_data(QUESTION_TABLE)
+    if request.method == "POST":
+        question_table = data_handler.remove_element(question_table, id_)
+        data_handler.save_data(QUESTION_TABLE, question_table)
+        return redirect("/")
     return render_template("list.html", question_table=question_table)
 
 

@@ -41,10 +41,11 @@ def remove_element(table, id_):
 
 
 def generate_id(table):
-    random_id = table[0][0]
-    while random_id in [inner_list[0] for inner_list in table]:
-        random_id = str(random.randint(1, 99)) + "##" + random.choice(string.ascii_lowercase)
-    return random_id
+    while True:
+        random_id = "##" + str(random.randint(1, 99)) + random.choice(string.ascii_lowercase)
+        if random_id not in [inner_list[0] for inner_list in table]:
+            return random_id
+
 
 
 
