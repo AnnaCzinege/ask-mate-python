@@ -70,18 +70,19 @@ def show_question_details(id_=None):
     answer_table = data_handler.get_answers()
     answer_list = data_handler.get_list_from_dict(answer_table, id_)
     row = data_handler.get_row_by_id(table, id_)
+    row_id = row[0]
     row_title = row[1]
     row_question = row[2]
     if request.method == "POST":
-        answer = request.form("answer")
-        id_ = row[0]
-        data_handler.add_answers(id_,answer, answer_table)
-        return redirect("/question_details")
+        answer = request.form['answer']
+        data_handler.add_answers(row_id, answer, answer_table)
+        return redirect(url_for('show_question_details', id_=row_id))
     return render_template("question_details.html",
                            row_title=row_title,
                            row_question=row_question,
                            answer_list=answer_list,
-                           where_url=url_for("show_question_details"))
+                           where_url=url_for("show_question_details", id_=row_id)
+                           )
 
 
 if __name__ == "__main__":

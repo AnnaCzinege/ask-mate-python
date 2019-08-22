@@ -11,7 +11,7 @@ def get_data():
 
 
 def get_answers():
-    with open('sample_data/answers.csv', "r") as file:
+    with open('sample_data/answer.csv', "r") as file:
         file_in_list = "".join(file.readlines()).split("\n")
         file_in_matrix = [item.split(";") for item in file_in_list]
         file_in_matrix.pop(-1)
@@ -23,7 +23,7 @@ def add_answers(id_, answer, table):
         table[id_].append(answer)
     else:
         table[id_] = [answer]
-    with open('sample_data/answers.csv', "w") as file:
+    with open('sample_data/answer.csv', "w") as file:
         for key, value in table.items():
             line = ";".join([key] + value)
             file.write(line + "\n")
