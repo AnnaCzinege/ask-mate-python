@@ -7,9 +7,8 @@
 {% block content %}
 
     <center><img src="{{ url_for('static', filename='img/logo.png') }}"></center>
-    <br>
     <div id="list_div">
-        <p id="questions_text">Questions
+        <p id="title_text"> Questions
             <a href="{{ url_for('route_add') }}">
                 <img src="{{ url_for('static', filename='img/add.png') }}" width="40px" align="left"/>
             </a>
@@ -18,17 +17,17 @@
     <table id="questions_list">
         <tr>
             <th><a href="{{ url_for('route_list', num='0', dir_='asc' if dir_ == 'desc' else 'desc') }}">ID</a></th>
-            <th><a href="{{ url_for('route_list', num='1', dir_='asc' if dir_ == 'desc' else 'desc') }}">Title</a></th>
+            <th style="width: 80%;"><a href="{{ url_for('route_list', num='1', dir_='asc' if dir_ == 'desc' else 'desc') }}">Title</a></th>
             <th>Actions</th>
         </tr>
         {% for inner_list in question_table %}
             <tr>
                 <td><a href="{{ url_for('route_edit', id_=inner_list[0]) }}">{{ inner_list[0] }}</a>&emsp;</td>
                 <td><a href="{{ url_for('show_question_details', id_=inner_list[0]) }}">{{ inner_list[1] }}</a></td>
-                <td>
-                    <form action="{{ url_for('route_list', id_=inner_list[0]) }}", method="POST">
-                        <button type="submit">Delete question</button>
-                    </form>
+                <td align="center">
+                <form action="{{ url_for('route_list', id_=inner_list[0]) }}", method="POST">
+                    <input type="image" name="submit" src="{{ url_for('static', filename='img/trash.png') }}" width="30px"/>
+                </form>
                 </td>
             </tr>
         {% endfor %}

@@ -14,7 +14,8 @@ a{
   margin: auto;
   width: 65%;
 }
-#questions_text{
+#title_text{
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   font-size: 40px;
   color: white;
   -webkit-text-fill-color: white; /* Will override color (regardless of order) */
@@ -33,13 +34,13 @@ a{
   padding: 8px;
 }
 
-#questions_list tr:nth-child(even){background-color: #f6f6f6;}
+#questions_list tr:nth-child(even){background-color: #ffffff;}
 
-#questions_list tr:nth-child(odd){background-color: #ffffff;}
+#questions_list tr:nth-child(odd){background-color: #f6f6f6;}
 
 #questions_list tr:hover {background-color: #EDFDFF;}
 
-#questions_list th {
+#questions_list th{
   padding-left: 12px;
   padding-top: 12px;
   padding-bottom: 12px;
@@ -51,4 +52,64 @@ a{
 
 #questions_list th a{
   color: white;
+}
+
+#add_edit_button {
+  height: 40px;
+  font-size: 20px;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  background: #8DD0FF;
+  color: #fff;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px #eee;
+  text-shadow:none;
+}
+
+#add_edit_button:hover {
+  height: 40px;
+  background: #016ABC;
+  color: #fff;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px #eee;
+  text-shadow:none;
+}
+
+#question_details {
+  background-color: white;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  font-size: 18px;
+}
+
+#answer_list {
+  margin: 0 auto;
+}
+
+#answer_list tr:nth-child(even){background-color: #ffffff;}
+#answer_list tr:nth-child(odd){background-color: #f6f6f6;}
+
+#answer_details{
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  font-size: 18px;
+}
+
+.add_edit_input{
+  padding:8px;
+  display:block;
+  border:none;
+  width:97%; <!-- Check later. -->
+}
+
+.add_edit_label{
+  height: 30px;
+  text-align: center;
+  font-size: 20px;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  background-color: #8DD0FF;
+  color: white;
+}
+.align_to_center{
+  margin: 0 auto;
 }

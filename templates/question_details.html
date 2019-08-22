@@ -6,31 +6,32 @@
 
 {% block content %}
 
-    <h1>AskMate</h1>
-    <br>
-    <h2>{{ row_title }}</h2>
-    <p>
-    {{ row_question }}
-    </p>
-    {% for item in answer_list %}
-    <p>
-        {{ item }}
-    </p>
-    {% endfor %}
-    <p>
+    <center><img src="{{ url_for('static', filename='img/logo.png') }}"></center>
+    <div id="list_div">
+        <p id="title_text"> {{ row_title }}
+            <a href="{{ url_for('route_list') }}">
+                <img src="{{ url_for('static', filename='img/home.png') }}" width="40px" align="left" alt="Back to home"/>
+            </a>
+        </p>
+        <table class="align_to_center">
+            <tr><td class="add_edit_label">Question:</td></tr>
+            <tr><td id="question_details">{{ row_question }}</td></tr>
+        </table>
+        <hr>
+        <table id="answer_list">
+            <tr><td class="add_edit_label">Answers:</td></tr>
+            {% for item in answer_list %}
+                <tr><td id="answer_details">{{ item }}</td></tr>
+            {% endfor %}
+        </table>
+        <hr>
         <form action="{{ where_url }}", method="POST">
-            <p>Your Answer:</p>
-            <p>
-                <textarea name="answer" rows="10" cols="50"></textarea>
-            </p>
-            <p>
-                <input type="submit" value="Submit Answer">
-            </p>
+            <table class="align_to_center">
+                <tr><td class="add_edit_label">Your Answer:</td></tr>
+                <tr><td><textarea class="add_edit_input" name="answer" rows="10" cols="50"></textarea></td></tr>
+                <tr><td align="center"><input id="add_edit_button" type="submit" value="Submit Answer"></td></tr>
+            </table>
         </form>
-    </p>
-    <p>
-        <a href="{{ url_for('route_list')}}">Back to the home page</a>
-    </p>
-
+    </div>
 
 {% endblock %}
