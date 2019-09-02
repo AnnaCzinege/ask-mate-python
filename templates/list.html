@@ -20,12 +20,12 @@
             <th style="width: 80%;"><a href="{{ url_for('route_list', num='1', dir_='asc' if dir_ == 'desc' else 'desc') }}">Title</a></th>
             <th>Actions</th>
         </tr>
-        {% for inner_list in question_table %}
+        {% for row in id_title %}
             <tr>
-                <td><a href="{{ url_for('route_edit', id_=inner_list[0]) }}">{{ inner_list[0] }}</a>&emsp;</td>
-                <td><a href="{{ url_for('show_question_details', id_=inner_list[0]) }}">{{ inner_list[1] }}</a></td>
+                <td><a href="{{ url_for('route_edit', id_=row['id']) }}">{{ row['id'] }}</a>&emsp;</td>
+                <td><a href="{{ url_for('show_question_details', id_=row['id']) }}">{{ row['title'] }}</a></td>
                 <td align="center">
-                <form action="{{ url_for('route_list', id_=inner_list[0]) }}", method="POST">
+                <form action="{{ url_for('route_list', id_=row['id']) }}", method="POST">
                     <input type="image" name="submit" src="{{ url_for('static', filename='img/trash.png') }}" width="30px"/>
                 </form>
                 </td>

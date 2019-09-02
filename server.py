@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template, redirect, url_for
 import data_handler
+import sql_handler
 
 
 app = Flask(__name__)
@@ -9,21 +10,27 @@ app = Flask(__name__)
 @app.route("/<int:num>")
 @app.route("/list/<string:id_>", methods=["GET", "POST"])
 def route_list(id_=None, num=None):
-    question_table = data_handler.get_data()
+    id_title = sql_handler.get_question_id_title()
+    '''question_table = data_handler.get_data()
+
     if num is not None:
         dir_ = request.args.get("dir_")
         question_table = data_handler.sort_columns(question_table, num, dir_)
         return render_template("list.html", question_table=question_table, dir_=dir_)
+
+    # When you click on the remove button.
     if request.method == "POST":
         question_table = data_handler.remove_element(question_table, id_)
         data_handler.save_data(question_table)
         return redirect("/")
-    return render_template("list.html", question_table=question_table)
+    '''
+
+    return render_template("list.html", id_title=id_title)
 
 
 @app.route("/add", methods=["POST", "GET"])
 def route_add():
-
+    '''
     # When you finished adding a new question
     if request.method == "POST":
         row = [
@@ -33,7 +40,7 @@ def route_add():
         ]
         data_handler.add_element(row)
         return redirect("/")
-
+    '''
     # When someone clicks on add new question button
     return render_template("add_edit.html", id_=None, title='Add new question')
 
@@ -41,7 +48,7 @@ def route_add():
 @app.route("/edit", methods=["POST", "GET"])
 @app.route("/edit/<id_>", methods=["POST", "GET"])
 def route_edit(id_=None):
-
+    '''
     # When you finished updating the question
     if request.method == "POST" and id_ is not None:
         row = [
@@ -62,10 +69,11 @@ def route_edit(id_=None):
         row_message = row[2]
         return render_template("add_edit.html", id_=row_id, row_title=row_title, row_message=row_message,
                                title="Edit question")
-
+    '''
 
 @app.route("/question_details/<string:id_>", methods=["GET", "POST"])
 def show_question_details(id_=None):
+    '''
     table = data_handler.get_data()
     answer_table = data_handler.get_answers()
     answer_list = data_handler.get_list_from_dict(answer_table, id_)
@@ -83,6 +91,8 @@ def show_question_details(id_=None):
                            answer_list=answer_list,
                            where_url=url_for("show_question_details", id_=row_id)
                            )
+     '''
+    pass
 
 
 if __name__ == "__main__":
