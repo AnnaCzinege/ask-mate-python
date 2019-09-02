@@ -19,14 +19,19 @@ def route_list(id_=None, num=None):
         question_table = data_handler.sort_columns(question_table, num, dir_)
         return render_template("list.html", question_table=question_table, dir_=dir_)
 
-    # When you click on the remove button.
-    if request.method == "POST":
-        question_table = data_handler.remove_element(question_table, id_)
-        data_handler.save_data(question_table)
-        return redirect("/")
     '''
 
     return render_template("list.html", id_title=id_title)
+
+
+@app.route("/delete/<int:id_>", methods=["POST", "GET"])
+def route_delete(id_=None):
+
+    if request.method == "POST":
+        sql_handler.delete_question_by_id(id_)
+        return redirect("/")
+
+    return "Azt te csak szeretnéd! :)"
 
 
 @app.route("/add", methods=["POST", "GET"])
