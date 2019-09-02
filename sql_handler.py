@@ -18,6 +18,7 @@ def get_question_id_title(cursor):
     question = cursor.fetchall()
     return question
 
+
 @database_common.connection_handler
 def add_new_question(cursor, add_dict):
     title = add_dict['title']
@@ -60,3 +61,10 @@ def get_question_details_by_id(cursor, question_id):
                     """, {'question_id': question_id})
     return cursor.fetchall()
 
+
+@database_common.connection_handler
+def delete_question_by_id(cursor, question_id):
+    cursor.execute("""
+                    DELETE FROM questions
+                    WHERE id = %(question_id)s
+                    """, {'question_id': question_id})
