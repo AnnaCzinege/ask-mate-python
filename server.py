@@ -2,7 +2,6 @@ from flask import Flask, request, render_template, redirect, url_for
 import data_handler
 import sql_handler
 
-
 app = Flask(__name__)
 
 
@@ -26,7 +25,6 @@ def route_list(id_=None, num=None):
 
 @app.route("/delete/<int:id_>", methods=["POST", "GET"])
 def route_delete(id_=None):
-
     if request.method == "POST":
         sql_handler.delete_question_by_id(id_)
         return redirect("/")
@@ -36,7 +34,6 @@ def route_delete(id_=None):
 
 @app.route("/add", methods=["POST", "GET"])
 def route_add():
-
     # When finished adding
     if request.method == "POST":
         row = {'title': str(request.form["title"]), 'message': str(request.form["message"])}
@@ -73,29 +70,24 @@ def route_edit(id_=None):
                                title="Edit question")
     '''
 
+
 @app.route("/question_details/<string:id_>", methods=["GET", "POST"])
 def show_question_details(id_=None):
+    question = sql_handler.get_question_details_by_id(id_)
+    answers = sql_handler.list_answers_by_question_id(id_)
     '''
-    table = data_handler.get_data()
-    answer_table = data_handler.get_answers()
-    answer_list = data_handler.get_list_from_dict(answer_table, id_)
-    row = data_handler.get_row_by_id(table, id_)
-    row_id = row[0]
-    row_title = row[1]
-    row_question = row[2]
-    if request.method == "POST":
+    if request.method == "POST":  # When you submit an answer
         answer = request.form['answer']
         data_handler.add_answers(row_id, answer, answer_table)
         return redirect(url_for('show_question_details', id_=row_id))
+    '''
     return render_template("question_details.html",
-                           row_title=row_title,
-                           row_question=row_question,
-                           answer_list=answer_list,
-                           where_url=url_for("show_question_details", id_=row_id)
+                           row_title=question['title'],
+                           row_question=question['message'],
+                           answer_list=answers,
+                           where_url=url_for("show_question_details",
+                                             id_=id_)
                            )
-     '''
-    pass
-
 
 if __name__ == "__main__":
     app.run(debug=True)
