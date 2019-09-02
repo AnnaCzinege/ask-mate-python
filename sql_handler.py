@@ -2,14 +2,21 @@ import database_common
 
 
 @database_common.connection_handler
-def list_all_questions(cursor):
+def get_questions(cursor):
     cursor.execute("""
-                    SELECT id, title
-                    FROM questions;
-                    """)
-    question_table = cursor.fetchall()
-    return question_table
+        SELECT * FROM questions;
+    """)
+    question_details = cursor.fetchall()
+    return question_details
 
+
+@database_common.connection_handler
+def get_question_id_title(cursor):
+    cursor.execute("""
+        SELECT id, title FROM questions;
+    """)
+    question = cursor.fetchall()
+    return question
 
 @database_common.connection_handler
 def add_new_question(cursor, add_dict):
