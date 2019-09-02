@@ -8,6 +8,7 @@ app = Flask(__name__)
 
 @app.route("/")
 @app.route("/<int:num>")
+@app.route("/show/<int:id_>", methods=["GET", "POST"])
 @app.route("/list/<string:id_>", methods=["GET", "POST"])
 def route_list(id_=None, num=None):
     id_title = sql_handler.get_question_id_title()
