@@ -24,7 +24,7 @@ def add_new_question(cursor, add_dict):
     title = add_dict['title']
     message = add_dict['message']
     cursor.execute("""
-                    INSERT INTO questions
+                    INSERT INTO questions (title,message)
                     VALUES (%(title)s, %(message)s);
                     """,
                    {'title': title, 'message': message})
