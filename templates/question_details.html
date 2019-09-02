@@ -21,7 +21,7 @@
         <table id="answer_list">
             <tr><td class="add_edit_label">Answers:</td></tr>
             {% for item in answer_list %}
-                <tr><td id="answer_details">{{ item }}</td></tr>
+                <tr><td id="answer_details">{{ item['message'] }}</td></tr>
             {% endfor %}
         </table>
         <hr>
