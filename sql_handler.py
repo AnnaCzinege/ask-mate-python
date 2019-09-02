@@ -23,4 +23,16 @@ def add_new_question(cursor, add_dict):
 
 
 @database_common.connection_handler
-de
+def edit_question(cursor, edit_dict):
+    new_title = edit_dict['title']
+    question_id = edit_dict['id']
+    new_message = edit_dict['message']
+    cursor.execute("""
+                    UPDATE questions
+                    SET title = %(new_title)s,
+                    message = %(new_message)s
+                    WHERE id = %(question_id)s;
+                    """,
+                   {'id': question_id, 'title': new_title, 'message': new_message})
+
+
