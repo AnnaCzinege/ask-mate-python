@@ -25,7 +25,7 @@
                 <td><a href="{{ url_for('route_edit', id_=row['id']) }}">{{ row['id'] }}</a>&emsp;</td>
                 <td><a href="{{ url_for('show_question_details', id_=row['id']) }}">{{ row['title'] }}</a></td>
                 <td align="center">
-                <form action="{{ url_for('route_list', id_=row['id']) }}", method="POST">
+                <form action="{{ url_for('route_delete', id_=row['id']) }}", method="POST">
                     <input type="image" name="submit" src="{{ url_for('static', filename='img/trash.png') }}" width="30px"/>
                 </form>
                 </td>
