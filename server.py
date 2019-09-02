@@ -36,17 +36,13 @@ def route_delete(id_=None):
 
 @app.route("/add", methods=["POST", "GET"])
 def route_add():
-    '''
-    # When you finished adding a new question
+
+    # When finished adding
     if request.method == "POST":
-        row = [
-            data_handler.generate_id(data_handler.get_data()),
-            request.form["title"],
-            request.form["message"]
-        ]
-        data_handler.add_element(row)
+        row = {'title': str(request.form["title"]), 'message': str(request.form["message"])}
+        sql_handler.add_new_question(row)
         return redirect("/")
-    '''
+
     # When someone clicks on add new question button
     return render_template("add_edit.html", id_=None, title='Add new question')
 
