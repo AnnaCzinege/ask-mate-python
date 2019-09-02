@@ -36,3 +36,20 @@ def edit_question(cursor, edit_dict):
                    {'id': question_id, 'title': new_title, 'message': new_message})
 
 
+@database_common.connection_handler
+def list_answers_by_question_id(cursor, question_id):
+    cursor.execute("""
+                    SELECT * FROM answers
+                    WHERE question_id = %(question_id)s
+                    """, {'question_id': question_id})
+    return cursor.fetchall()
+
+
+@database_common.connection_handler
+def get_question_details_by_id(cursor, question_id):
+    cursor.execute("""
+                    SELECT * FROM questions
+                    WHERE id = %(question_id)s
+                    """, {'question_id': question_id})
+    return cursor.fetchall()
+
