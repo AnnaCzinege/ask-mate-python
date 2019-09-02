@@ -1,6 +1,23 @@
 import database_common
 
 
+def normalize_output_single_row(brainfuck):  # Creates a simple dictionary
+    dump_dictionary = {}
+    for row in brainfuck:
+        for key, value in row.items():
+            dump_dictionary[key] = value
+    return dump_dictionary
+
+
+def normalize_output_multiple_rows(brainfuck):  # Creates dictionaries in a list
+    normalized_output = []
+    for row in brainfuck:
+        dump_dictionary = {}
+        for key, value in row.items():
+            dump_dictionary[key] = value
+        normalized_output.append(dump_dictionary)
+    return normalized_output
+
 @database_common.connection_handler
 def get_questions(cursor):
     cursor.execute("""
@@ -50,7 +67,9 @@ def list_answers_by_question_id(cursor, question_id):
                     SELECT * FROM answers
                     WHERE question_id = %(question_id)s
                     """, {'question_id': question_id})
-    return cursor.fetchall()
+    answers = cursor.fetchall()
+    answers = normalize_output_multiple_rows(answers)
+    return answers
 
 
 @database_common.connection_handler
@@ -59,7 +78,9 @@ def get_question_details_by_id(cursor, question_id):
                     SELECT * FROM questions
                     WHERE id = %(question_id)s
                     """, {'question_id': question_id})
-    return cursor.fetchall()
+    question_details = cursor.fetchall()
+    question_details = normalize_output_single_row(question_details)
+    return question_details
 
 
 @database_common.connection_handler
