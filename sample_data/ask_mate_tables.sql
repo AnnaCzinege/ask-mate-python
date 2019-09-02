@@ -1,9 +1,9 @@
 DROP TABLE IF EXISTS questions, answers, comment_table;
 
 CREATE TABLE questions (
-   id SERIAL PRIMARY KEY,
-   title VARCHAR(255) NOT NULL,
-   message VARCHAR(2048) NOT NULL
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    message VARCHAR(2048) NOT NULL
 );
 
 CREATE TABLE answers (
@@ -17,3 +17,4 @@ CREATE TABLE comment_table (
     question_id int NOT NULL,
     comment VARCHAR(2048) NOT NULL
 );
+
