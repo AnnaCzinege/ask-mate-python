@@ -74,6 +74,7 @@ def show_question_details(id_=None):
                                              id_=id_)
                            )
 
+
 @app.route('/edit-answer', methods=["POST", "GET"])
 @app.route('/edit-answer/<answer_id>', methods=["POST", "GET"])
 def edit_answer(answer_id):
@@ -83,7 +84,6 @@ def edit_answer(answer_id):
         updated_answer = {'answer_id': answer_id, 'message': request.form['answer']}
         sql_handler.edit_answer(updated_answer)
         return redirect(f"/question_details/{question_id}")
-
 
     answer_list = sql_handler.list_answers_by_question_id(question_id)
     question = sql_handler.get_question_details_by_id(question_id)
@@ -96,7 +96,6 @@ def edit_answer(answer_id):
                            where_url=url_for("edit_answer", answer_id=answer_id))
 
 
-
 @app.route("/delete-answer/<answer_id>", methods=["POST", "GET"])
 def delete_answer(answer_id):
     answer = sql_handler.get_answer_by_answer_id(answer_id)
@@ -104,6 +103,7 @@ def delete_answer(answer_id):
     if request.method == "POST":
         sql_handler.delete_answer(answer_id)
         return redirect(f"/question_details/{question_id}")
+
 
 if __name__ == "__main__":
     app.run(debug=True)

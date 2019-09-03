@@ -30,9 +30,12 @@
         </table>
         <hr>
         <table id="answer_list" style="width: 80%;">
-            <tr><td class="add_edit_label">Answers:</td></tr>
+            <tr>
+                <td class="add_edit_label" colspan="2">Answers:</td>
+            </tr>
             {% for item in answer_list %}
-                <tr><td id="answer_details">{{ item['message'] }}</td></tr>
+                <tr>
+                    <td id="answer_details">{{ item['message'] }}</td>
                 <!--here comes the edit button-->
                     <td>
                         <form>
@@ -43,6 +46,7 @@
                             <input type="image" name="submit" src="{{ url_for('static', filename='img/trash.png') }}" width="30px"/>
                         </form>
                     </td>
+                </tr>
             {% endfor %}
         </table>
         <hr>
