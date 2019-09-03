@@ -131,7 +131,9 @@ def delete_answer(cursor, answer_id):
 
 
 @database_common.connection_handler
-def edit_answer(cursor, answer_id, message):
+def edit_answer(cursor, add_dict):
+    answer_id = add_dict['answer_id']
+    message = add_dict['message']
     cursor.execute("""
                     UPDATE answers
                     SET message = %(message)s
@@ -147,3 +149,22 @@ def add_question_comment(cursor, add_dict):
                     INSERT INTO answer_comments (question_id, comment)
                     VALUES (%(question_id)s, %(comment)s);
                     """, {'question_id': question_id, 'comment': comment})
+
+
+@database_common.connection_handler
+def delete_question_comment(cursor, question_id):
+    cursor.execute("""
+                    DELETE FROM question_comments
+                    WHERE question_id = %(question_id)s;
+                    """, {'question_id': question_id})
+
+
+@database_common.connection_handler
+def edit_question_comment(cursor, add_dict):
+    comment_id = add_dict['comment_id']
+    comment = add_dict['comment']
+    cursor.execute("""
+                    UPDATE question_comments
+                    SET comment = %(comment)s
+                    WHERE id = %(comment_id)s  
+                    """, {'comment_id': comment_id, 'comment': comment})
