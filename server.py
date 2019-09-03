@@ -97,5 +97,13 @@ def edit_answer(answer_id):
 
 
 
+@app.route("/delete-answer/<answer_id>", methods=["POST", "GET"])
+def delete_answer(answer_id):
+    answer = sql_handler.get_answer_by_answer_id(answer_id)
+    question_id = answer['question_id']
+    if request.method == "POST":
+        sql_handler.delete_answer(answer_id)
+        return redirect(f"/question_details/{question_id}")
+
 if __name__ == "__main__":
     app.run(debug=True)
