@@ -58,7 +58,7 @@ def edit_question(cursor, edit_dict):
                     message = %(new_message)s
                     WHERE id = %(question_id)s;
                     """,
-                   {'id': question_id, 'title': new_title, 'message': new_message})
+                   {'question_id': question_id, 'new_title': new_title, 'new_message': new_message})
 
 
 @database_common.connection_handler

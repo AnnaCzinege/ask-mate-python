@@ -25,10 +25,12 @@ def route_list(id_=None, num=None):
 
 @app.route("/delete/<int:id_>", methods=["POST", "GET"])
 def route_delete(id_=None):
+    # When you click on delete action button
     if request.method == "POST":
         sql_handler.delete_question_by_id(id_)
         return redirect("/")
 
+    # This message will be shown when you try to delete something by hand in the URL
     return "Azt te csak szeretnéd! :)"
 
 
@@ -47,40 +49,29 @@ def route_add():
 @app.route("/edit", methods=["POST", "GET"])
 @app.route("/edit/<id_>", methods=["POST", "GET"])
 def route_edit(id_=None):
-    '''
     # When you finished updating the question
     if request.method == "POST" and id_ is not None:
-        row = [
-            request.form["id_"],
-            request.form["title"],
-            request.form["message"]
-        ]
-        new_question_table = data_handler.edit_element(row, data_handler.get_data())
-        data_handler.save_data(new_question_table)
+        updated_row = {'id': request.form["id_"], 'title': request.form["title"], 'message': request.form["message"]}
+        sql_handler.edit_question(updated_row)
         return redirect("/")
 
-    # When you click on an ID
+    # When you click the edit action button
     if id_ is not None:
-        table = data_handler.get_data()
-        row = data_handler.get_row_by_id(table, id_)
-        row_id = row[0]
-        row_title = row[1]
-        row_message = row[2]
-        return render_template("add_edit.html", id_=row_id, row_title=row_title, row_message=row_message,
+        question = sql_handler.get_question_details_by_id(id_)
+        return render_template("add_edit.html", id_=question['id'], row_title=question['title'], row_message=question['message'],
                                title="Edit question")
-    '''
 
 
 @app.route("/question_details/<string:id_>", methods=["GET", "POST"])
 def show_question_details(id_=None):
     question = sql_handler.get_question_details_by_id(id_)
     answers = sql_handler.list_answers_by_question_id(id_)
-    '''
+
     if request.method == "POST":  # When you submit an answer
         answer = request.form['answer']
         data_handler.add_answers(row_id, answer, answer_table)
         return redirect(url_for('show_question_details', id_=row_id))
-    '''
+    
     return render_template("question_details.html",
                            row_title=question['title'],
                            row_question=question['message'],
