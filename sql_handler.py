@@ -42,7 +42,7 @@ def add_new_question(cursor, add_dict):
     title = add_dict['title']
     message = add_dict['message']
     cursor.execute("""
-                    INSERT INTO questions (title,message)
+                    INSERT INTO questions (title, message)
                     VALUES (%(title)s, %(message)s);
                     """,
                    {'title': title, 'message': message})
@@ -137,3 +137,13 @@ def edit_answer(cursor, answer_id, message):
                     SET message = %(message)s
                     WHERE id = %(answers_id)s
                     """, {'message': message, 'answer_id': answer_id})
+
+
+@database_common.connection_handler
+def add_question_comment(cursor, add_dict):
+    question_id = add_dict['question_id']
+    comment = add_dict['comment']
+    cursor.execute("""
+                    INSERT INTO answer_comments (question_id, comment)
+                    VALUES (%(question_id)s, %(comment)s);
+                    """, {'question_id': question_id, 'comment': comment})
