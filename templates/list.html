@@ -16,24 +16,24 @@
     <table id="questions_list">
         <tr>
             <th style="width: 80%;"><a href="{{ url_for('route_list', num='1', dir_='asc' if dir_ == 'desc' else 'desc') }}">Title</a></th>
-            <th>Actions</th>
+            <th> </th>
         </tr>
         {% for row in id_title %}
-            <tr>
-                <td><a href="{{ url_for('show_question_details', id_=row['id']) }}">{{ row['title'] }}</a></td>
-                <td align="center">
-                    <div>
-                        <div class="action_button">
-                            <a href="{{ url_for('route_edit', id_=row['id']) }}" style="text-decoration: none;"><img src="{{ url_for('static', filename='img/edit.png') }}"></a>
-                        </div>
-                        <div class="action_button">
-                            <form action="{{ url_for('route_delete', id_=row['id']) }}", method="POST">
-                                <input type="image" name="submit" src="{{ url_for('static', filename='img/trash.png') }}" width="30px"/>
-                            </form>
-                        </div>
+        <tr>
+            <td><a href="{{ url_for('show_question_details', id_=row['id']) }}">{{ row['title'] }}</a></td>
+            <td align="center">
+                <div>
+                    <div class="action_button">
+                        <a href="{{ url_for('route_edit', id_=row['id']) }}" style="text-decoration: none;"><img src="{{ url_for('static', filename='img/edit.png') }}"></a>
                     </div>
-                </td>
-            </tr>
+                    <div class="action_button">
+                        <form action="{{ url_for('route_delete', id_=row['id']) }}", method="POST">
+                            <input type="image" name="submit" src="{{ url_for('static', filename='img/trash.png') }}" width="30px"/>
+                        </form>
+                    </div>
+                </div>
+            </td>
+        </tr>
         {% endfor %}
 
         </table>

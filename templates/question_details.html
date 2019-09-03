@@ -14,11 +14,22 @@
             </a>
         </p>
         <table class="align_to_center">
-            <tr><td class="add_edit_label">Question:</td></tr>
-            <tr><td id="question_details">{{ row_question }}</td></tr>
+            <tr>
+                <th class="add_edit_label" colspan="2">Question description:</th>
+            </tr>
+            <tr id="question_details">
+                <td>{{ row_question }}</td>
+                <td>
+                    <a href="#" style="text-decoration: none;"><img src="{{ url_for('static', filename='img/comment.jpg') }}" width="30px"></a>
+                    <a href="#" style="text-decoration: none;"><img src="{{ url_for('static', filename='img/edit.png') }}"></a>
+                    <form action="#", method="POST">
+                        <input type="image" name="submit" src="{{ url_for('static', filename='img/trash.png') }}" width="30px"/>
+                    </form>
+                </td>
+            </tr>
         </table>
         <hr>
-        <table id="answer_list">
+        <table id="answer_list" style="width: 80%;">
             <tr><td class="add_edit_label">Answers:</td></tr>
             {% for item in answer_list %}
                 <tr><td id="answer_details">{{ item['message'] }}</td></tr>
