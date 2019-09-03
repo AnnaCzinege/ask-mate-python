@@ -1,5 +1,4 @@
 from flask import Flask, request, render_template, redirect, url_for
-import data_handler
 import sql_handler
 
 app = Flask(__name__)
@@ -11,15 +10,10 @@ app = Flask(__name__)
 @app.route("/list/<string:id_>", methods=["GET", "POST"])
 def route_list(id_=None, num=None):
     id_title = sql_handler.get_question_id_title()
-    '''question_table = data_handler.get_data()
-
     if num is not None:
         dir_ = request.args.get("dir_")
-        question_table = data_handler.sort_columns(question_table, num, dir_)
-        return render_template("list.html", question_table=question_table, dir_=dir_)
-
-    '''
-
+        id_title = sql_handler.sort_questions(dir_)
+        return render_template("list.html", id_title=id_title, dir_=dir_)
     return render_template("list.html", id_title=id_title)
 
 
@@ -79,6 +73,7 @@ def show_question_details(id_=None):
                            where_url=url_for("show_question_details",
                                              id_=id_)
                            )
+
 
 if __name__ == "__main__":
     app.run(debug=True)

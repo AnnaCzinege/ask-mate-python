@@ -18,6 +18,7 @@ def normalize_output_multiple_rows(brainfuck):  # Creates dictionaries in a list
         normalized_output.append(dump_dictionary)
     return normalized_output
 
+
 @database_common.connection_handler
 def get_questions(cursor):
     cursor.execute("""
@@ -89,3 +90,19 @@ def delete_question_by_id(cursor, question_id):
                     DELETE FROM questions
                     WHERE id = %(question_id)s
                     """, {'question_id': question_id})
+
+
+@database_common.connection_handler
+def sort_questions(cursor, direction):
+    if direction == 'asc':
+        cursor.execute("""
+                        SELECT id, title FROM questions
+                        ORDER BY title;
+                        """)
+        return normalize_output_multiple_rows(cursor.fetchall())
+    else:
+        cursor.execute("""
+                        SELECT id, title FROM questions
+                        ORDER BY title DESC;
+                        """)
+        return normalize_output_multiple_rows(cursor.fetchall())
