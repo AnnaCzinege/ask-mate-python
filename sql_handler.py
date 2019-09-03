@@ -85,6 +85,17 @@ def list_answers_by_question_id(cursor, question_id):
 
 
 @database_common.connection_handler
+def get_answer_by_answer_id(cursor, answer_id):
+    cursor.execute("""
+                    SELECT message, question_id FROM answers
+                    WHERE id = %(answer_id)s
+                    """,
+                   {'answer_id': answer_id})
+    answer = cursor.fetchall()
+    answer = normalize_output_single_row(answer)
+    return answer
+
+@database_common.connection_handler
 def get_question_details_by_id(cursor, question_id):
     cursor.execute("""
                     SELECT * FROM questions
@@ -137,7 +148,7 @@ def edit_answer(cursor, add_dict):
     cursor.execute("""
                     UPDATE answers
                     SET message = %(message)s
-                    WHERE id = %(answers_id)s
+                    WHERE id = %(answer_id)s
                     """, {'message': message, 'answer_id': answer_id})
 
 
