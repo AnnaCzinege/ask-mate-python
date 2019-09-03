@@ -99,7 +99,10 @@ def get_question_details_by_id(cursor, question_id):
 def delete_question_by_id(cursor, question_id):
     cursor.execute("""
                     DELETE FROM questions
-                    WHERE id = %(question_id)s
+                    WHERE id = %(question_id)s;
+                    
+                    DELETE FROM answers
+                    WHERE question_id = %(question_id)s;                    
                     """, {'question_id': question_id})
 
 
@@ -117,3 +120,20 @@ def sort_questions(cursor, direction):
                         ORDER BY title DESC;
                         """)
         return normalize_output_multiple_rows(cursor.fetchall())
+
+
+@database_common.connection_handler
+def delete_answer(cursor, answer_id):
+    cursor.execute("""
+                    DELETE FROM answers
+                    WHERE id = %(answer_id)s
+                    """, {'answer_id': answer_id})
+
+
+@database_common.connection_handler
+def edit_answer(cursor, answer_id, message):
+    cursor.execute("""
+                    UPDATE answers
+                    SET message = %(message)s
+                    WHERE id = %(answers_id)s
+                    """, {'message': message, 'answer_id': answer_id})
