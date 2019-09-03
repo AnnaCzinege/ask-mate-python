@@ -62,9 +62,9 @@ def show_question_details(id_=None):
     answers = sql_handler.list_answers_by_question_id(id_)
 
     if request.method == "POST":  # When you submit an answer
-        answer = request.form['answer']
-        data_handler.add_answers(row_id, answer, answer_table)
-        return redirect(url_for('show_question_details', id_=row_id))
+        answer = {'id': id_, 'message': str(request.form['answer'])}
+        sql_handler.add_new_answer(answer)
+        return redirect(url_for('show_question_details', id_=id_))
     
     return render_template("question_details.html",
                            row_title=question['title'],

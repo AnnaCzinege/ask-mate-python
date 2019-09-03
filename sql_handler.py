@@ -49,6 +49,17 @@ def add_new_question(cursor, add_dict):
 
 
 @database_common.connection_handler
+def add_new_answer(cursor, add_dict):
+    question_id = add_dict['id']
+    question_message = add_dict['message']
+    cursor.execute("""
+                    INSERT INTO answers (question_id, message)
+                    VALUES (%(id)s, %(message)s);
+                    """,
+                   {'id': question_id, 'message': question_message})
+
+
+@database_common.connection_handler
 def edit_question(cursor, edit_dict):
     new_title = edit_dict['title']
     question_id = edit_dict['id']
