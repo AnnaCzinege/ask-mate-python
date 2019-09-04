@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    AskMate
+{% endblock %}
+    {% for row in found_search %}
+        {{ row.title }}<br>
+        {{ row.message }}<br>
+    {% endfor %}
+{% block content %}
+
+{% endblock %}
