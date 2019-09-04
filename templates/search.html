@@ -13,13 +13,15 @@
                 <img src="{{ url_for('static', filename='img/home.png') }}" width="40px" align="left" alt="Back to home"/>
             </a>
         </p>
+
     <br>
     <table id="questions_list">
         <tr>
-            <th style="width: 80%;">Title</th>
+            <th style="width: 80%;"><a href="{{ url_for('search', search_phrase=search_phrase, dir_='asc' if dir_ == 'desc' else 'desc') }}">Title</th>
             <th> </th>
         </tr>
-    {% for item in found_search %}
+
+        {% for item in found_search %}
         <tr>
             <td><a href="{{ url_for('show_question_details', id_=item['id']) }}">{{ item['title'] }}</td><br>
             <td align="center">
@@ -35,8 +37,9 @@
                 </div>
             </td>
         </tr>
+        {% endfor %}
     </table>
-    {% endfor %}
+    </div>
 
 
 {% endblock %}

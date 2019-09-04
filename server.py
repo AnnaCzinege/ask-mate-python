@@ -4,12 +4,16 @@ import sql_handler
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 @app.route("/<int:num>")
 @app.route("/show/<int:id_>", methods=["GET", "POST"])
 @app.route("/list/<string:id_>", methods=["GET", "POST"])
 def route_list(id_=None, num=None):
     id_title = sql_handler.get_question_id_title()
+    if request.method == "POST":
+        found_search = sql_handler.search_by_phrase(request.form['search_phrase'])
+        dir_ = request.args.get("dir_")
+        return render_template("search.html", found_search=found_search, dir_=dir_, search_phrase=request.form['search_phrase'])
     if num is not None:
         dir_ = request.args.get("dir_")
         id_title = sql_handler.sort_questions(dir_)
@@ -132,13 +136,10 @@ def display_latest_question_by_id():
     return render_template('latest_question.html', latest_question=latest_question, question_id=question_id)
 
 
-@app.route("/search", methods=["GET", "POST"])
-def search():
-    if request.method == "POST":
-        found_search = sql_handler.search_by_phrase(request.form['search_phrase'])
-        return render_template("/search.html", found_search=found_search)
-    elif request.method == "GET":
-        return redirect("/")
+@app.route("/search/<search_phrase>/<dir_>", methods=["GET", "POST"])
+def search(search_phrase, dir_):
+    found_search = sql_handler.search_sort(dir_, search_phrase)
+    return render_template("search.html", search_phrase=search_phrase, found_search=found_search, dir_=dir_)
 
 
 if __name__ == "__main__":
