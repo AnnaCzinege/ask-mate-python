@@ -78,6 +78,7 @@ def list_answers_by_question_id(cursor, question_id):
     cursor.execute("""
                     SELECT * FROM answers
                     WHERE question_id = %(question_id)s
+                    ORDER BY id
                     """, {'question_id': question_id})
     answers = cursor.fetchall()
     answers = normalize_output_multiple_rows(answers)
@@ -179,3 +180,5 @@ def edit_question_comment(cursor, add_dict):
                     SET comment = %(comment)s
                     WHERE id = %(comment_id)s  
                     """, {'comment_id': comment_id, 'comment': comment})
+
+
