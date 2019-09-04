@@ -3,10 +3,14 @@
 {% block title %}
     AskMate
 {% endblock %}
-    {% for row in found_search %}
-        {{ row.title }}<br>
-        {{ row.message }}<br>
-    {% endfor %}
+
+
 {% block content %}
+    <h1>Something here</h1>
+{{ found_search }}
+    {% for item in found_search %}
+        {{ item }}<br>
+    {% endfor %}
+
 
 {% endblock %}

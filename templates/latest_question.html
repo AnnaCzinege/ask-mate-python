@@ -19,7 +19,7 @@
         </tr>
 
         <tr>
-            <td>{{ latest_question['title'] }}</td>
+            <td><a href="{{ url_for('show_question_details', id_=latest_question['id']) }}">{{ latest_question['title'] }}</td>
             <td align="center">
                 <div>
                     <div class="action_button">

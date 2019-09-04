@@ -123,7 +123,7 @@ def display_latest_question_by_id():
 @app.route("/search", methods=["GET", "POST"])
 def search():
     if request.method == "POST":
-        found_search = str(sql_handler.search_by_phrase(request.form['search_phrase']))
+        found_search = sql_handler.search_by_phrase(request.form['search_phrase'])
         return render_template("/search.html", found_search=found_search)
     elif request.method == "GET":
         return redirect("/")
