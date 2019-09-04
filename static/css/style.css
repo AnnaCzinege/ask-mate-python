@@ -54,6 +54,54 @@ a{
   color: white;
 }
 
+#add_question_button {
+  color: white;
+  width: 150px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  background: #8DD0FF;
+  border: 1px solid #eee;
+  border-radius: 5px;
+}
+
+#add_question_button:hover {
+  background: #016ABC;
+  border: 1px solid #eee;
+  border-radius: 5px;
+}
+
+#add_question_button a{
+  color: white;
+}
+
+#latest_question_button {
+  color: white;
+  width: 150px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  background: #FF6B69;
+  border: 1px solid #eee;
+  border-radius: 5px;
+}
+
+#latest_question_button:hover {
+  background: #D95B59;
+  border: 1px solid #eee;
+  border-radius: 5px;
+}
+
+#latest_question_button a{
+  color: white;
+}
+
 #add_edit_button {
   height: 40px;
   font-size: 20px;
@@ -82,12 +130,12 @@ a{
   font-size: 18px;
 }
 
-#answer_list {
+.style_this_table {
   margin: 0 auto;
 }
 
-#answer_list tr:nth-child(even){background-color: #ffffff;}
-#answer_list tr:nth-child(odd){background-color: #f6f6f6;}
+.style_this_table tr:nth-child(even){background-color: #ffffff;}
+.style_this_table tr:nth-child(odd){background-color: #f6f6f6;}
 
 #answer_details{
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;

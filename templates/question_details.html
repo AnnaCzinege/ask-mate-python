@@ -13,7 +13,7 @@
                 <img src="{{ url_for('static', filename='img/home.png') }}" width="40px" align="left" alt="Back to home"/>
             </a>
         </p>
-        <table class="align_to_center">
+        <table class="style_this_table">
             <tr>
                 <th class="add_edit_label" colspan="2">Question description:</th>
             </tr>
@@ -28,7 +28,7 @@
             </tr>
         </table>
         <hr>
-        <table id="answer_list" style="width: 80%;">
+        <table class="style_this_table">
             <tr>
                 <td class="add_edit_label" colspan="2">Answers:</td>
             </tr>
@@ -55,7 +55,7 @@
         </table>
         <hr>
         <form action="{{ where_url }}", method="POST">
-            <table class="align_to_center">
+            <table class="style_this_table">
                 <tr><td class="add_edit_label">Your Answer:</td></tr>
                 <tr><td><textarea class="add_edit_input" name="answer" rows="10" cols="50" >{{ answer_message if answer_message else '' }}</textarea></td></tr>
                 <tr><td align="center"><input id="add_edit_button" type="submit" value="{{ 'Update Answer' if answer_message else 'Submit Answer'}}"></td></tr>
