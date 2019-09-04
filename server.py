@@ -60,6 +60,7 @@ def route_edit(id_=None):
 def show_question_details(id_=None):
     question = sql_handler.get_question_details_by_id(id_)
     answers = sql_handler.list_answers_by_question_id(id_)
+    comment_number = sql_handler.count_comments_for_question(id_)
 
     if request.method == "POST":  # When you submit an answer
         answer = {'id': id_, 'message': str(request.form['answer'])}
@@ -70,8 +71,8 @@ def show_question_details(id_=None):
                            row_title=question['title'],
                            row_question=question['message'],
                            answer_list=answers,
-                           where_url=url_for("show_question_details",
-                                             id_=id_)
+                           where_url=url_for("show_question_details", id_=id_),
+                           comment_number=comment_number
                            )
 
 

@@ -1,17 +1,17 @@
 import database_common
 
 
-def normalize_output_single_row(brainfuck):  # Creates a simple dictionary
+def normalize_output_single_row(normalize_me):  # Creates a simple dictionary
     dump_dictionary = {}
-    for row in brainfuck:
+    for row in normalize_me:
         for key, value in row.items():
             dump_dictionary[key] = value
     return dump_dictionary
 
 
-def normalize_output_multiple_rows(brainfuck):  # Creates dictionaries in a list
+def normalize_output_multiple_rows(normalize_me):  # Creates dictionaries in a list
     normalized_output = []
-    for row in brainfuck:
+    for row in normalize_me:
         dump_dictionary = {}
         for key, value in row.items():
             dump_dictionary[key] = value
@@ -157,7 +157,7 @@ def add_question_comment(cursor, add_dict):
     question_id = add_dict['question_id']
     comment = add_dict['comment']
     cursor.execute("""
-                    INSERT INTO answer_comments (question_id, comment)
+                    INSERT INTO answer_comments (answer_id, comment)
                     VALUES (%(question_id)s, %(comment)s);
                     """, {'question_id': question_id, 'comment': comment})
 
@@ -179,3 +179,25 @@ def edit_question_comment(cursor, add_dict):
                     SET comment = %(comment)s
                     WHERE id = %(comment_id)s  
                     """, {'comment_id': comment_id, 'comment': comment})
+
+
+@database_common.connection_handler
+def count_comments_for_question(cursor, question_id_):
+    cursor.execute("""
+                    SELECT COUNT(question_id)
+                    FROM question_comments
+                    WHERE question_id = %(question_id_)s;
+                    """, {'question_id_': question_id_})
+    comments = cursor.fetchone()
+    return comments['count']
+
+
+@database_common.connection_handler
+def count_comments_for_answer(cursor, answer_id_):
+    cursor.execute("""
+                    SELECT COUNT(answer_id)
+                    FROM answer_comments
+                    WHERE answer_id = %(answer_id_)s;
+                    """, {'answer_id_': answer_id_})
+    comments = cursor.fetchone()
+    return comments['count']
