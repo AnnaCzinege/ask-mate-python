@@ -258,7 +258,7 @@ def display_latest_question(cursor):
 def search_by_phrase(cursor, phrase):
     phrase = str(phrase)
     cursor.execute(sql.SQL("""
-                    SELECT title, message FROM questions
+                    SELECT id, title, message FROM questions
                     WHERE title LIKE '%{match}%' OR message LIKE '%{match}%'
                     """).format(match=sql.SQL(phrase)))
     match = cursor.fetchall()
