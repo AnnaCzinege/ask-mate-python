@@ -257,12 +257,13 @@ def display_latest_question(cursor):
 @database_common.connection_handler
 def search_by_phrase(cursor, phrase):
     phrase = str(phrase)
-    cursor.execute("""
+    cursor.execute(sql.SQL("""
                     SELECT title, message FROM questions
-                    WHERE title = %(phrase)s OR message = %(phrase)s;
-                    """)
-
-    return cursor.fetchall()
+                    WHERE title LIKE '%{match}%' OR message LIKE '%{match}%'
+                    """).format(match=sql.SQL(phrase)))
+    match = cursor.fetchall()
+    match = normalize_output_multiple_rows(match)
+    return match
 
 
 @database_common.connection_handler
