@@ -34,8 +34,8 @@
                             <a href="#" style="text-decoration: none;"><img src="{{ url_for('static', filename='img/edit.png') }}"></a>
                         </form>
 
-                        <form action="#", method="POST">
-                            <input type="image" name="submit" src="{{ url_for('static', filename='img/trash.png') }}" width="30px"/>
+                        <form>
+                            <a href="{{ url_for('delete_question_comment', comment_id=comment['id'], question_id=id_) }}" style="text-decoration: none;"><img src="{{ url_for('static', filename='img/trash.png') }}" width="30px"></a>
                         </form>
                     </td>
                 </tr>

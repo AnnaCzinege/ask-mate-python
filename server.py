@@ -52,7 +52,9 @@ def route_edit(id_=None):
     # When you click the edit action button
     if id_ is not None:
         question = sql_handler.get_question_details_by_id(id_)
-        return render_template("add_edit.html", id_=question['id'], row_title=question['title'], row_message=question['message'],
+        return render_template("add_edit.html", id_=question['id'],
+                               row_title=question['title'],
+                               row_message=question['message'],
                                title="Edit question")
 
 
@@ -120,8 +122,15 @@ def show_question_comments(id_):
                            where_url=url_for('show_question_comments', id_=id_),
                            question=question['message'],
                            question_title=question['title'],
-                           back_url=url_for("show_question_details", id_=id_)
+                           back_url=url_for("show_question_details", id_=id_),
+                           id_=id_
                            )
+
+
+@app.route("/delete-comment/<comment_id>/<question_id>", methods=['GET', 'POST'])
+def delete_question_comment(comment_id, question_id):
+    sql_handler.delete_question_comment(comment_id)
+    return redirect(f'/show-comments/{question_id}')
 
 
 @app.route('/latest-question/', methods=["POST", "GET"])

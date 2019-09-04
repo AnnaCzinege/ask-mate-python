@@ -97,6 +97,7 @@ def get_answer_by_answer_id(cursor, answer_id):
     answer = normalize_output_single_row(answer)
     return answer
 
+
 @database_common.connection_handler
 def get_question_details_by_id(cursor, question_id):
     cursor.execute("""
@@ -115,6 +116,9 @@ def delete_question_by_id(cursor, question_id):
                     WHERE id = %(question_id)s;
                     
                     DELETE FROM answers
+                    WHERE question_id = %(question_id)s;
+                    
+                    DELETE FROM question_comments
                     WHERE question_id = %(question_id)s;                    
                     """, {'question_id': question_id})
 
@@ -165,11 +169,11 @@ def add_question_comment(cursor, add_dict):
 
 
 @database_common.connection_handler
-def delete_question_comment(cursor, question_id):
+def delete_question_comment(cursor, comment_id):
     cursor.execute("""
                     DELETE FROM question_comments
-                    WHERE question_id = %(question_id)s;
-                    """, {'question_id': question_id})
+                    WHERE id = %(comment_id)s;
+                    """, {'comment_id': comment_id})
 
 
 @database_common.connection_handler
@@ -269,7 +273,7 @@ def search_by_phrase(cursor, phrase):
 @database_common.connection_handler
 def get_question_comments(cursor, question_id):
     cursor.execute("""
-                    SELECT comment FROM question_comments
+                    SELECT comment, id FROM question_comments
                     WHERE question_id = %(question_id)s
                     """, {'question_id': question_id})
     return normalize_output_multiple_rows(cursor.fetchall())
