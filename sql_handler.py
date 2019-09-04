@@ -256,10 +256,10 @@ def display_latest_question(cursor):
 
 @database_common.connection_handler
 def search_by_phrase(cursor, phrase):
-    phrase = str(phrase)
+    phrase = phrase.lower()
     cursor.execute(sql.SQL("""
                     SELECT id, title, message FROM questions
-                    WHERE title LIKE '%{match}%' OR message LIKE '%{match}%'
+                    WHERE LOWER(title) LIKE '%{match}%' OR LOWER(message) LIKE '%{match}%'
                     """).format(match=sql.SQL(phrase)))
     match = cursor.fetchall()
     match = normalize_output_multiple_rows(match)
