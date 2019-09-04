@@ -10,9 +10,9 @@
         <p id="title_text"> Questions </p>
         <div>
             <form action=" {{ url_for('search') }}" method="POST">
-                <a href="{{ url_for('search') }}" style="float: right;" onclick="form.submit();">
-                <img src="{{ url_for('static', filename='img/search.png') }}" id="search_img" width="35px" height="35px">
-                </a>
+
+                <input type="image" src="{{ url_for('static', filename='img/search.png') }}"  width="35px" height="35px" style="float: right;" onclick="form.submit();">
+
                 <input id="search_bar" name="search_phrase" type="text" placeholder="Search..">
             </form>
             <div id="add_question_button" class="action_button">
