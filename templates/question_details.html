@@ -8,11 +8,12 @@
 
     <center><img src="{{ url_for('static', filename='img/logo.png') }}"></center>
     <div id="list_div">
-        <p id="title_text"> {{ row_title }}
-            <a href="{{ url_for('route_list') }}">
-                <img src="{{ url_for('static', filename='img/home.png') }}" width="40px" align="left" alt="Back to home"/>
-            </a>
-        </p>
+        <p id="title_text"> {{ row_title }}</p>
+        <div>
+            <div id="latest_question_button" class="action_button">
+                <a href="{{ url_for('route_list') }}">Go back</a>
+            </div>
+        </div>
         <table class="style_this_table">
             <tr>
                 <th class="add_edit_label" colspan="2">Question description:</th>
