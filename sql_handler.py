@@ -78,6 +78,7 @@ def list_answers_by_question_id(cursor, question_id):
     cursor.execute("""
                     SELECT * FROM answers
                     WHERE question_id = %(question_id)s
+                    ORDER BY id
                     """, {'question_id': question_id})
     answers = cursor.fetchall()
     answers = normalize_output_multiple_rows(answers)
@@ -94,6 +95,7 @@ def get_answer_by_answer_id(cursor, answer_id):
     answer = cursor.fetchall()
     answer = normalize_output_single_row(answer)
     return answer
+
 
 @database_common.connection_handler
 def get_question_details_by_id(cursor, question_id):
@@ -201,3 +203,43 @@ def count_comments_for_answer(cursor, answer_id_):
                     """, {'answer_id_': answer_id_})
     comments = cursor.fetchone()
     return comments['count']
+
+
+@database_common.connection_handler
+def add_answer_comment(cursor, add_dict):
+    answer_id = add_dict['answer_id']
+    comment = add_dict['comment']
+    cursor.execute("""
+                    INSERT INTO answer_comments (answer_id, comment)
+                    VALUES (%(answer_id)s, %(comment)s)
+                    """, {'answer_id': answer_id, 'comment': comment})
+
+
+@database_common.connection_handler
+def delete_answer_comment(cursor, comment_id):
+    cursor.execute("""
+                    DELETE FROM answer_comments
+                    WHERE id = %(comment_id)s
+                    """, {'comment_id': comment_id})
+
+
+@database_common.connection_handler
+def edit_answer_comment(cursor, add_dict):
+    comment_id = add_dict['comment_id']
+    comment = add_dict['comment']
+    cursor.execute("""
+                    UPDATE answer_comments 
+                    SET comment = %(comment)s
+                    """, {'comment_id': comment_id, 'comment': comment})
+
+
+@database_common.connection_handler
+def display_latest_question(cursor):
+    cursor.execute("""
+                    SELECT title, id FROM questions
+                    ORDER BY id DESC 
+                    LIMIT 1;
+                    """)
+    latest_question = cursor.fetchall()
+    latest_question = normalize_output_single_row(latest_question)
+    return latest_question

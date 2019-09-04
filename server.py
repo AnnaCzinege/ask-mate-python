@@ -106,5 +106,12 @@ def delete_answer(answer_id):
         return redirect(f"/question_details/{question_id}")
 
 
+@app.route('/latest-question/', methods=["POST", "GET"])
+def display_latest_question_by_id():
+    latest_question = sql_handler.display_latest_question()
+    question_id = latest_question['id']
+    return render_template('latest_question.html', latest_question=latest_question, question_id=question_id)
+
+
 if __name__ == "__main__":
     app.run(debug=True)
