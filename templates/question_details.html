@@ -24,7 +24,9 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="2">{{ comment_number }} comment(s)</td>
+                <td colspan="2">
+                    <a href="{{ url_for('show_question_comments', id_=id_) }}">{{ comment_number }} comment(s)</a>
+                </td>
             </tr>
         </table>
         <hr>

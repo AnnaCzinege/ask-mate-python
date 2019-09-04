@@ -79,7 +79,8 @@ def show_question_details(id_=None):
                            answer_list=answers,
                            where_url=url_for("show_question_details", id_=id_),
                            comment_number=comment_number,
-                           comment_number_answer=list_of_comment_numbers_on_answers
+                           comment_number_answer=list_of_comment_numbers_on_answers,
+                           id_=id_
                            )
 
 
@@ -111,6 +112,17 @@ def delete_answer(answer_id):
     if request.method == "POST":
         sql_handler.delete_answer(answer_id)
         return redirect(f"/question_details/{question_id}")
+
+
+@app.route("/show-comments/<id_>", methods=['GET', 'POST'])
+def show_question_comments(id_):
+    if request.method == 'POST':
+        add_dict = {'question_id': id_, 'comment': request.form['comment']}
+        sql_handler.add_question_comment(add_dict)
+    comments = sql_handler.get_question_comments(id_)
+    return render_template('comments.html',
+                           comments=comments,
+                           where_url=url_for('show_question_comments', id_=id_))
 
 
 @app.route('/latest-question/', methods=["POST", "GET"])
