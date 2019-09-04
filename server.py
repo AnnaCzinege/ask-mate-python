@@ -61,6 +61,12 @@ def show_question_details(id_=None):
     question = sql_handler.get_question_details_by_id(id_)
     answers = sql_handler.list_answers_by_question_id(id_)
     comment_number = sql_handler.count_comments_for_question(id_)
+    list_of_comment_numbers_on_answers = []
+
+    for item in answers:
+        answer_id = item['id']
+        num_of_comments = sql_handler.count_comments_for_answer(answer_id)
+        list_of_comment_numbers_on_answers.append(num_of_comments)
 
     if request.method == "POST":  # When you submit an answer
         answer = {'id': id_, 'message': str(request.form['answer'])}
@@ -72,7 +78,8 @@ def show_question_details(id_=None):
                            row_question=question['message'],
                            answer_list=answers,
                            where_url=url_for("show_question_details", id_=id_),
-                           comment_number=comment_number
+                           comment_number=comment_number,
+                           comment_number_answer=list_of_comment_numbers_on_answers
                            )
 
 
