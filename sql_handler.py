@@ -96,6 +96,7 @@ def get_answer_by_answer_id(cursor, answer_id):
     answer = normalize_output_single_row(answer)
     return answer
 
+
 @database_common.connection_handler
 def get_question_details_by_id(cursor, question_id):
     cursor.execute("""
@@ -208,3 +209,14 @@ def edit_answer_comment(cursor, add_dict):
                     UPDATE answer_comments 
                     SET comment = %(comment)s
                     """, {'comment_id': comment_id, 'comment': comment})
+
+
+@database_common.connection_handler
+def display_latest_question(cursor):
+    cursor.execute("""
+                    SELECT title FROM questions
+                    ORDER BY id DESC 
+                    LIMIT 1;
+                    """)
+    latest_question = cursor.fetchall()
+    return latest_question
