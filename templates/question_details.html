@@ -19,9 +19,6 @@
             </tr>
             <tr id="question_details">
                 <td>{{ row_question }}</td>
-                <td>
-                    <a href="#" style="text-decoration: none;"><img src="{{ url_for('static', filename='img/comment.jpg') }}" width="30px"></a>
-                </td>
             </tr>
             <tr>
                 <td colspan="2">
@@ -39,8 +36,6 @@
                     <td id="answer_details">{{ item['message'] }}</td>
                 <!--here comes the edit button-->
                     <td>
-                        <a href="#" style="text-decoration: none;"><img src="{{ url_for('static', filename='img/comment.jpg') }}" width="30px"></a>
-
                         <form>
                             <a href="{{ url_for('edit_answer', answer_id=item['id']) }}" style="text-decoration: none;"><img src="{{ url_for('static', filename='img/edit.png') }}"></a>
                         </form>

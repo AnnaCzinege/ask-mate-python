@@ -5,17 +5,51 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Question\Answer</h1>
-    <div>
-        {% for comment in comments %}
-            {{ comment['comment'] }}<br>
-        {% endfor %}
-    </div>
-    <form action="{{ where_url }}", method="POST">
-            <table class="align_to_center">
+    <center><img src="{{ url_for('static', filename='img/logo.png') }}"></center>
+    <div id="list_div">
+        <p id="title_text"> HOME
+            <a href="{{ url_for('route_list') }}">
+                <img src="{{ url_for('static', filename='img/home.png') }}" width="40px" align="left" alt="Back to home"/>
+            </a>
+        </p>
+        <table class="style_this_table">
+            <tr>
+                <th class="add_edit_label" colspan="2">Question description:</th>
+            </tr>
+            <tr id="question_details">
+                <td>{{ row_question }}</td>
+            </tr>
+        </table>
+        <hr>
+        <table class="style_this_table">
+            <tr>
+                <td class="add_edit_label" colspan="2">Comments:</td>
+            </tr>
+            {% for comment in comments %}
+                <tr>
+                    <td id="answer_details">{{ comment['comment'] }}</td>
+                <!--here comes the edit button-->
+                    <td>
+                        <form>
+                            <a href="#" style="text-decoration: none;"><img src="{{ url_for('static', filename='img/edit.png') }}"></a>
+                        </form>
+
+                        <form action="#", method="POST">
+                            <input type="image" name="submit" src="{{ url_for('static', filename='img/trash.png') }}" width="30px"/>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+            </tr>
+            {% endfor %}
+        </table>
+        <hr>
+        <form action="{{ where_url }}", method="POST">
+            <table class="style_this_table">
                 <tr><td class="add_edit_label">Your Comment:</td></tr>
                 <tr><td><textarea class="add_edit_input" name="comment" rows="10" cols="50" ></textarea></td></tr>
                 <tr><td align="center"><input id="add_edit_button" type="submit" value="Submit comment"></td></tr>
             </table>
         </form>
+    </div>
 {% endblock %}
