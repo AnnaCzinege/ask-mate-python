@@ -5,4 +5,17 @@
 {% endblock %}
 
 {% block content %}
+    <h1>Question\Answer</h1>
+    <div>
+        {% for comment in comments %}
+            {{ comment['comment'] }}<br>
+        {% endfor %}
+    </div>
+    <form action="{{ where_url }}", method="POST">
+            <table class="align_to_center">
+                <tr><td class="add_edit_label">Your Comment:</td></tr>
+                <tr><td><textarea class="add_edit_input" name="comment" rows="10" cols="50" ></textarea></td></tr>
+                <tr><td align="center"><input id="add_edit_button" type="submit" value="Submit comment"></td></tr>
+            </table>
+        </form>
 {% endblock %}

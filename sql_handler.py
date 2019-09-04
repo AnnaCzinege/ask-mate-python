@@ -159,7 +159,7 @@ def add_question_comment(cursor, add_dict):
     question_id = add_dict['question_id']
     comment = add_dict['comment']
     cursor.execute("""
-                    INSERT INTO answer_comments (answer_id, comment)
+                    INSERT INTO question_comments (question_id, comment)
                     VALUES (%(question_id)s, %(comment)s);
                     """, {'question_id': question_id, 'comment': comment})
 
@@ -234,6 +234,15 @@ def edit_answer_comment(cursor, add_dict):
 
 
 @database_common.connection_handler
+def get_answer_comments(cursor, answer_id):
+    cursor.execute("""
+                    SELECT comment FROM answer_comments
+                    WHERE answer_id = %(answer_id)s
+                    """, {'answer_id': answer_id})
+    return normalize_output_multiple_rows(cursor.fetchall())
+
+
+@database_common.connection_handler
 def display_latest_question(cursor):
     cursor.execute("""
                     SELECT title, id FROM questions
@@ -254,3 +263,12 @@ def search_by_phrase(cursor, phrase):
                     """)
 
     return cursor.fetchall()
+
+
+@database_common.connection_handler
+def get_question_comments(cursor, question_id):
+    cursor.execute("""
+                    SELECT comment FROM question_comments
+                    WHERE question_id = %(question_id)s
+                    """, {'question_id': question_id})
+    return normalize_output_multiple_rows(cursor.fetchall())
