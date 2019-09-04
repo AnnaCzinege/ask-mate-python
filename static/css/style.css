@@ -94,6 +94,10 @@ a{
   font-size: 18px;
 }
 
+#search_bar:hover{
+    background-color: #e5d8e2;
+}
+
 #search_bar{
   float: right;
   font-family: Arial, sans-serif;
