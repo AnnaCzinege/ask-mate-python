@@ -89,7 +89,7 @@ def list_answers_by_question_id(cursor, question_id):
 @database_common.connection_handler
 def get_answer_by_answer_id(cursor, answer_id):
     cursor.execute("""
-                    SELECT message, question_id FROM answers
+                    SELECT message, question_id, id FROM answers
                     WHERE id = %(answer_id)s
                     """,
                    {'answer_id': answer_id})
