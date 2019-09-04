@@ -94,6 +94,19 @@ a{
   font-size: 18px;
 }
 
+#search_bar{
+  float: right;
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  -webkit-text-fill-color: black;
+  -webkit-text-stroke-width: 0;
+  -webkit-text-stroke-color: black;
+}
+
+#search_img:hover{
+  opacity: 0.5;
+}
+
 .add_edit_input{
   padding:8px;
   display:block;

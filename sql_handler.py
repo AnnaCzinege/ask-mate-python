@@ -1,4 +1,5 @@
 import database_common
+from psycopg2 import sql
 
 
 def normalize_output_single_row(normalize_me):  # Creates a simple dictionary
@@ -95,7 +96,6 @@ def get_answer_by_answer_id(cursor, answer_id):
     answer = cursor.fetchall()
     answer = normalize_output_single_row(answer)
     return answer
-
 
 @database_common.connection_handler
 def get_question_details_by_id(cursor, question_id):
@@ -243,3 +243,13 @@ def display_latest_question(cursor):
     latest_question = cursor.fetchall()
     latest_question = normalize_output_single_row(latest_question)
     return latest_question
+@database_common.connection_handler
+def search_by_phrase(cursor, phrase):
+    phrase = phrase.lower()
+    cursor.execute(
+            sql.SQL("""
+                    SELECT title, message FROM questions
+                    WHERE lower(title) LIKE '%phrase%' OR lower(message) LIKE '%phrase%';
+                    """).format(phrase=sql.SQL(phrase)))
+
+    return cursor.fetchall()

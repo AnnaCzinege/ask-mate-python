@@ -11,6 +11,12 @@
             <a href="{{ url_for('route_add') }}">
                 <img src="{{ url_for('static', filename='img/add.png') }}" width="40px" align="left"/>
             </a>
+            <form action=" {{ url_for('search') }}" method="POST">
+                <a href="{{ url_for('search') }}" style="float: right;" onclick="form.submit();">
+                <img src="{{ url_for('static', filename='img/search.png') }}" id="search_img" width="35px" height="35px">
+                </a>
+                <input id="search_bar" name="search_phrase" type="text" placeholder="Search..">
+            </form>
         </p>
         <p>
             <a href="{{ url_for('display_latest_question_by_id') }}">Latest question</a>
@@ -39,7 +45,6 @@
             </td>
         </tr>
         {% endfor %}
-
         </table>
     </div>
 {% endblock %}

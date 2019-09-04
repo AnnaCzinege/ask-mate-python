@@ -113,5 +113,14 @@ def display_latest_question_by_id():
     return render_template('latest_question.html', latest_question=latest_question, question_id=question_id)
 
 
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    if request.method == "POST":
+        found_search = str(sql_handler.search_by_phrase(request.form['search_phrase']))
+        return render_template("/search.html", found_search=found_search)
+    elif request.method == "GET":
+        return redirect("/")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
