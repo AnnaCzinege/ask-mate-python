@@ -186,9 +186,10 @@ def edit_question_comment(cursor, add_dict):
 @database_common.connection_handler
 def display_latest_question(cursor):
     cursor.execute("""
-                    SELECT title FROM questions
+                    SELECT title, id FROM questions
                     ORDER BY id DESC 
                     LIMIT 1;
                     """)
     latest_question = cursor.fetchall()
+    latest_question = normalize_output_single_row(latest_question)
     return latest_question

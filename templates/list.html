@@ -12,7 +12,11 @@
                 <img src="{{ url_for('static', filename='img/add.png') }}" width="40px" align="left"/>
             </a>
         </p>
+        <p>
+            <a href="{{ url_for('display_latest_question_by_id') }}">Latest question</a>
+        </p>
     <br>
+
     <table id="questions_list">
         <tr>
             <th style="width: 80%;"><a href="{{ url_for('route_list', num='1', dir_='asc' if dir_ == 'desc' else 'desc') }}">Title</a></th>
