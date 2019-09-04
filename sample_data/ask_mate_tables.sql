@@ -14,7 +14,7 @@ CREATE TABLE answers (
 
 CREATE TABLE answer_comments (
     id SERIAL PRIMARY KEY,
-    question_id INT NOT NULL,
+    answer_id INT NOT NULL,
     comment VARCHAR(2048) NOT NULL
 );
 
