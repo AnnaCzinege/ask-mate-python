@@ -264,11 +264,30 @@ def search_by_phrase(cursor, phrase):
     cursor.execute(sql.SQL("""
                     SELECT id, title, message FROM questions
                     WHERE LOWER(title) LIKE '%{match}%' OR LOWER(message) LIKE '%{match}%'
+                    ORDER BY id DESC
                     """).format(match=sql.SQL(phrase)))
     match = cursor.fetchall()
     match = normalize_output_multiple_rows(match)
     return match
 
+
+@database_common.connection_handler
+def search_sort(cursor, direction, search_phrase):
+    search_phrase = search_phrase.lower()
+    if direction == 'asc':
+        cursor.execute(sql.SQL("""
+                        SELECT id, title FROM questions
+                        WHERE LOWER(title) LIKE '%{match}%' OR LOWER(message) LIKE '%{match}%'
+                        ORDER BY title
+                        """).format(match=sql.SQL(search_phrase)))
+        return normalize_output_multiple_rows(cursor.fetchall())
+    else:
+        cursor.execute(sql.SQL("""
+                        SELECT id, title FROM questions
+                         WHERE LOWER(title) LIKE '%{match}%' OR LOWER(message) LIKE '%{match}%'
+                        ORDER BY title DESC;
+                        """).format(match=sql.SQL(search_phrase)))
+        return normalize_output_multiple_rows(cursor.fetchall())
 
 @database_common.connection_handler
 def get_question_comments(cursor, question_id):
