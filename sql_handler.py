@@ -159,7 +159,7 @@ def add_question_comment(cursor, add_dict):
     question_id = add_dict['question_id']
     comment = add_dict['comment']
     cursor.execute("""
-                    INSERT INTO answer_comments (question_id, comment)
+                    INSERT INTO question_comments (question_id, comment)
                     VALUES (%(question_id)s, %(comment)s);
                     """, {'question_id': question_id, 'comment': comment})
 
@@ -180,6 +180,34 @@ def edit_question_comment(cursor, add_dict):
                     UPDATE question_comments
                     SET comment = %(comment)s
                     WHERE id = %(comment_id)s  
+                    """, {'comment_id': comment_id, 'comment': comment})
+
+
+@database_common.connection_handler
+def add_answer_comment(cursor, add_dict):
+    answer_id = add_dict['answer_id']
+    comment = add_dict['comment']
+    cursor.execute("""
+                    INSERT INTO answer_comments (answer_id, comment)
+                    VALUES (%(answer_id)s, %(comment)s)
+                    """, {'answer_id': answer_id, 'comment': comment})
+
+
+@database_common.connection_handler
+def delete_answer_comment(cursor, comment_id):
+    cursor.execute("""
+                    DELETE FROM answer_comments
+                    WHERE id = %(comment_id)s
+                    """, {'comment_id': comment_id})
+
+
+@database_common.connection_handler
+def edit_answer_comment(cursor, add_dict):
+    comment_id = add_dict['comment_id']
+    comment = add_dict['comment']
+    cursor.execute("""
+                    UPDATE answer_comments 
+                    SET comment = %(comment)s
                     """, {'comment_id': comment_id, 'comment': comment})
 
 
