@@ -60,8 +60,9 @@ def route_edit(id_=None):
                                title="Edit question")
 
 
-@app.route("/question_details/<string:id_>", methods=["GET", "POST"])
-def show_question_details(id_=None):
+@app.route("/question_details/<id_>", methods=['GET', 'POST'])
+@app.route("/question_details/<id_>/<answer_message>", methods=["GET", "POST"])
+def show_question_details(id_=None, answer_message=''):
     question = sql_handler.get_question_details_by_id(id_)
     answers = sql_handler.list_answers_by_question_id(id_)
     comment_number = sql_handler.count_comments_for_question(id_)
@@ -84,7 +85,8 @@ def show_question_details(id_=None):
                            where_url=url_for("show_question_details", id_=id_),
                            comment_number=comment_number,
                            comment_number_answer=list_of_comment_numbers_on_answers,
-                           id_=id_
+                           id_=id_,
+                           answer_message=answer_message
                            )
 
 
@@ -97,16 +99,8 @@ def edit_answer(answer_id):
         updated_answer = {'answer_id': answer_id, 'message': request.form['answer']}
         sql_handler.edit_answer(updated_answer)
         return redirect(f"/question_details/{question_id}")
-
-    answer_list = sql_handler.list_answers_by_question_id(question_id)
-    question = sql_handler.get_question_details_by_id(question_id)
     answer_message = answer['message']
-    return render_template("question_details.html",
-                           row_title=question['title'],
-                           row_question=question['message'],
-                           answer_list=answer_list,
-                           answer_message=answer_message,
-                           where_url=url_for("edit_answer", answer_id=answer_id))
+    return redirect(f'/question_details/{question_id}/{answer_message}')
 
 
 @app.route("/delete-answer/<answer_id>", methods=["POST", "GET"])
@@ -124,9 +118,14 @@ def show_question_comments(id_):
         add_dict = {'question_id': id_, 'comment': request.form['comment']}
         sql_handler.add_question_comment(add_dict)
     comments = sql_handler.get_question_comments(id_)
+    question = sql_handler.get_question_details_by_id(id_)
     return render_template('comments.html',
                            comments=comments,
-                           where_url=url_for('show_question_comments', id_=id_))
+                           where_url=url_for('show_question_comments', id_=id_),
+                           question=question['message'],
+                           question_title=question['title'],
+                           back_url=url_for("show_question_details", id_=id_)
+                           )
 
 
 @app.route('/latest-question/', methods=["POST", "GET"])

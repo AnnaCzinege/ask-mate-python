@@ -7,8 +7,8 @@
 {% block content %}
     <center><img src="{{ url_for('static', filename='img/logo.png') }}"></center>
     <div id="list_div">
-        <p id="title_text"> HOME
-            <a href="{{ url_for('route_list') }}">
+        <p id="title_text"> {{ question_title }}
+            <a href="{{ back_url }}">
                 <img src="{{ url_for('static', filename='img/home.png') }}" width="40px" align="left" alt="Back to home"/>
             </a>
         </p>
@@ -17,7 +17,7 @@
                 <th class="add_edit_label" colspan="2">Question description:</th>
             </tr>
             <tr id="question_details">
-                <td>{{ row_question }}</td>
+                <td>{{ question }}</td>
             </tr>
         </table>
         <hr>
