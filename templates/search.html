@@ -6,7 +6,13 @@
 
 
 {% block content %}
-    <h1>Search results</h1>
+    <center><img src="{{ url_for('static', filename='img/logo.png') }}"></center>
+    <div id="list_div">
+        <p id="title_text"> Search results
+            <a href="{{ url_for('route_list') }}">
+                <img src="{{ url_for('static', filename='img/home.png') }}" width="40px" align="left" alt="Back to home"/>
+            </a>
+        </p>
     <br>
     <table id="questions_list">
         <tr>
