@@ -120,9 +120,14 @@ def show_question_comments(id_):
         add_dict = {'question_id': id_, 'comment': request.form['comment']}
         sql_handler.add_question_comment(add_dict)
     comments = sql_handler.get_question_comments(id_)
+    question = sql_handler.get_question_details_by_id(id_)
     return render_template('comments.html',
                            comments=comments,
-                           where_url=url_for('show_question_comments', id_=id_))
+                           where_url=url_for('show_question_comments', id_=id_),
+                           question=question['message'],
+                           question_title=question['title'],
+                           back_url=url_for("show_question_details", id_=id_)
+                           )
 
 
 @app.route('/latest-question/', methods=["POST", "GET"])
