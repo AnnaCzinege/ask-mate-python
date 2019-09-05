@@ -64,13 +64,16 @@ def route_edit(id_=None):
 
 
 @app.route("/question_details/<id_>", methods=['GET', 'POST'])
-@app.route("/question_details/<id_>/<answer_message>", methods=["GET", "POST"])
-def show_question_details(id_=None, answer_message=''):
+@app.route("/question_details/<id_>/<answer_id>/<answer_message>", methods=["GET", "POST"])
+def show_question_details(id_=None, answer_id=None, answer_message=''):
     question = sql_handler.get_question_details_by_id(id_)
     answers = sql_handler.list_answers_by_question_id(id_)
     comment_number = sql_handler.count_comments_for_question(id_)
     list_of_comment_numbers_on_answers = []
-
+    if answer_id is not None:
+        where_url = url_for("edit_answer", answer_id=answer_id)
+    else:
+        where_url = url_for("show_question_details", id_=id_)
     for item in answers:
         answer_id = item['id']
         num_of_comments = sql_handler.count_comments_for_answer(answer_id)
@@ -85,7 +88,7 @@ def show_question_details(id_=None, answer_message=''):
                            row_title=question['title'],
                            row_question=question['message'],
                            answer_list=answers,
-                           where_url=url_for("show_question_details", id_=id_),
+                           where_url=where_url,
                            comment_number=comment_number,
                            comment_number_answer=list_of_comment_numbers_on_answers,
                            id_=id_,
@@ -103,7 +106,7 @@ def edit_answer(answer_id):
         sql_handler.edit_answer(updated_answer)
         return redirect(f"/question_details/{question_id}")
     answer_message = answer['message']
-    return redirect(f'/question_details/{question_id}/{answer_message}')
+    return redirect(f'/question_details/{question_id}/{answer_id}/{answer_message}')
 
 
 @app.route("/delete-answer/<answer_id>", methods=["POST", "GET"])

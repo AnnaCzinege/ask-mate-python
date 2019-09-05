@@ -23,7 +23,8 @@ def normalize_output_multiple_rows(normalize_me):  # Creates dictionaries in a l
 @database_common.connection_handler
 def get_questions(cursor):
     cursor.execute("""
-        SELECT * FROM questions;
+        SELECT * FROM questions
+            ORDER BY id;
     """)
     question_details = cursor.fetchall()
     return question_details
@@ -79,7 +80,7 @@ def list_answers_by_question_id(cursor, question_id):
     cursor.execute("""
                     SELECT * FROM answers
                     WHERE question_id = %(question_id)s
-                    ORDER BY id
+                    ORDER BY id;
                     """, {'question_id': question_id})
     answers = cursor.fetchall()
     answers = normalize_output_multiple_rows(answers)
@@ -264,6 +265,7 @@ def edit_answer_comment(cursor, add_dict):
     cursor.execute("""
                     UPDATE answer_comments 
                     SET comment = %(comment)s
+                    WHERE id = %(comment_id)s
                     """, {'comment_id': comment_id, 'comment': comment})
 
 
@@ -272,6 +274,7 @@ def get_answer_comments(cursor, answer_id):
     cursor.execute("""
                     SELECT * FROM answer_comments
                     WHERE answer_id = %(answer_id)s
+                    ORDER BY id
                     """, {'answer_id': answer_id})
     return normalize_output_multiple_rows(cursor.fetchall())
 
@@ -298,6 +301,12 @@ def search_by_phrase(cursor, phrase):
                     """).format(match=sql.SQL(phrase)))
     match = cursor.fetchall()
     match = normalize_output_multiple_rows(match)
+    match_matrix = [dict_['message'].split(' ') for dict_ in match]
+    for index, word_list in enumerate(match_matrix):
+        for word_index, word in enumerate(word_list):
+            if phrase.lower() in word.lower():
+                word_list[word_index] = f"<mark>{word}</mark>"
+                match[index]['message'] = " ".join(match_matrix[index])
     return match
 
 
@@ -325,5 +334,6 @@ def get_question_comments(cursor, question_id):
     cursor.execute("""
                     SELECT comment, id FROM question_comments
                     WHERE question_id = %(question_id)s
+                    ORDER BY id;
                     """, {'question_id': question_id})
     return normalize_output_multiple_rows(cursor.fetchall())

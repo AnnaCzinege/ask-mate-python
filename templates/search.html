@@ -37,6 +37,10 @@
                 </div>
             </td>
         </tr>
+
+        <tr>
+            <td>{{ item['message'] | safe }}</td>
+        </tr>
         {% endfor %}
     </table>
     </div>
