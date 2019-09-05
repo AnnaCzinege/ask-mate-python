@@ -112,6 +112,17 @@ def get_question_details_by_id(cursor, question_id):
 @database_common.connection_handler
 def delete_question_by_id(cursor, question_id):
     cursor.execute("""
+                    SELECT id FROM answers
+                    WHERE question_id = %(question_id)s
+                    """, {'question_id': question_id})
+    answer_id_list = [little_dict['id'] for little_dict in normalize_output_multiple_rows(cursor.fetchall())]
+    for item in answer_id_list:
+        cursor.execute("""
+                        DELETE FROM answer_comments
+                        WHERE answer_id = %(item)s
+                        """, {'item': item})
+
+    cursor.execute("""
                     DELETE FROM questions
                     WHERE id = %(question_id)s;
                     
@@ -119,7 +130,7 @@ def delete_question_by_id(cursor, question_id):
                     WHERE question_id = %(question_id)s;
                     
                     DELETE FROM question_comments
-                    WHERE question_id = %(question_id)s;                    
+                    WHERE question_id = %(question_id)s;                   
                     """, {'question_id': question_id})
 
 
