@@ -197,6 +197,16 @@ def get_comment(cursor, comment_id):
 
 
 @database_common.connection_handler
+def get_answer_comment(cursor, comment_id):
+    cursor.execute("""
+                    SELECT * FROM answer_comments
+                    WHERE id = %(comment_id)s
+                    """,
+                   {'comment_id': comment_id})
+    return normalize_output_single_row(cursor.fetchall())
+
+
+@database_common.connection_handler
 def edit_question_comment(cursor, add_dict):
     comment_id = add_dict['comment_id']
     comment = add_dict['comment']

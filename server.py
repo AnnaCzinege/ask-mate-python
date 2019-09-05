@@ -116,11 +116,15 @@ def delete_answer(answer_id):
 
 
 @app.route('/show-answer-comments/<question_id>/<answer_id>', methods=["POST", "GET"])
+@app.route('/show-answer-comments/<question_id>/<answer_id>/<comment_id>/<comment_message>', methods=["POST", "GET"])
 def show_answer_comments(question_id, answer_id, comment_id=None, comment_message=''):
     if request.method == "POST":
         add_dict = {'answer_id': answer_id, 'comment': request.form['comment']}
         sql_handler.add_answer_comment(add_dict)
-    where_url = url_for('show_answer_comments', question_id=question_id, answer_id=answer_id)
+    if comment_id is not None:
+        where_url = url_for('edit_answer_comment', question_id=question_id, answer_id=answer_id, comment_id=comment_id)
+    else:
+        where_url = url_for('show_answer_comments', question_id=question_id, answer_id=answer_id)
     comments = sql_handler.get_answer_comments(answer_id)
     answer = sql_handler.get_answer_by_answer_id(answer_id)
     return render_template('comments.html',
@@ -129,7 +133,8 @@ def show_answer_comments(question_id, answer_id, comment_id=None, comment_messag
                            question_id=question_id,
                            back_url=url_for("show_question_details", id_=question_id),
                            comment_id=comment_id,
-                           comment_message=comment_message)
+                           comment_to_edit=comment_message,
+                           where_url=where_url)
 
 
 @app.route("/delete-answer-comment/<question_id>/<answer_id>/<comment_id>", methods=['GET', 'POST'])
@@ -171,6 +176,17 @@ def edit_question_comment():
     comment_details = sql_handler.get_comment(request.args['comment_id'])
     return redirect(
         f"/show-comments/{comment_details['question_id']}/{comment_details['id']}/{comment_details['comment']}")
+
+
+@app.route("/edit-answer-comment", methods=['GET', 'POST'])
+def edit_answer_comment():
+    if request.method == "POST":
+        sql_handler.edit_answer_comment({'comment_id': request.args['comment_id'], 'comment': request.form['comment']})
+        return redirect(f"show-answer-comments/{request.args['question_id']}/{request.args['answer_id']}")
+    comment_details = sql_handler.get_answer_comment(request.args['comment_id'])
+    return redirect(
+        f"show-answer-comments/{request.args['question_id']}/{comment_details['answer_id']}/{comment_details['id']}/{comment_details['comment']}"
+    )
 
 
 @app.route("/delete-comment/<comment_id>/<question_id>", methods=['GET', 'POST'])
