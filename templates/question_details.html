@@ -47,7 +47,7 @@
                     </td>
                 </tr>
                 <tr>
-                <td colspan="2">{{ comment_number_answer [loop.index0] }} comment(s)</td>
+                    <td colspan="2"><a href="{{ url_for('show_answer_comments', answer_id=item['id'], question_id=id_) }}">{{ comment_number_answer [loop.index0] }} comment(s)</a></td>
             </tr>
             {% endfor %}
         </table>

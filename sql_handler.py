@@ -260,7 +260,7 @@ def edit_answer_comment(cursor, add_dict):
 @database_common.connection_handler
 def get_answer_comments(cursor, answer_id):
     cursor.execute("""
-                    SELECT comment FROM answer_comments
+                    SELECT * FROM answer_comments
                     WHERE answer_id = %(answer_id)s
                     """, {'answer_id': answer_id})
     return normalize_output_multiple_rows(cursor.fetchall())
@@ -308,6 +308,7 @@ def search_sort(cursor, direction, search_phrase):
                         ORDER BY title DESC;
                         """).format(match=sql.SQL(search_phrase)))
         return normalize_output_multiple_rows(cursor.fetchall())
+
 
 @database_common.connection_handler
 def get_question_comments(cursor, question_id):
