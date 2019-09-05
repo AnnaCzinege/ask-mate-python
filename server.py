@@ -114,21 +114,37 @@ def delete_answer(answer_id):
         return redirect(f"/question_details/{question_id}")
 
 
+@app.route("/show-comments/<id_>/<comment_id>/<comment_message>")
 @app.route("/show-comments/<id_>", methods=['GET', 'POST'])
-def show_question_comments(id_):
+def show_question_comments(id_, comment_id=None, comment_message=''):
     if request.method == 'POST':
         add_dict = {'question_id': id_, 'comment': request.form['comment']}
         sql_handler.add_question_comment(add_dict)
+    if comment_id is not None:
+        where_url = url_for('edit_question_comment', comment_id=comment_id, id_=id_)
+    else:
+        where_url = url_for('show_question_comments', id_=id_)
     comments = sql_handler.get_question_comments(id_)
     question = sql_handler.get_question_details_by_id(id_)
     return render_template('comments.html',
                            comments=comments,
-                           where_url=url_for('show_question_comments', id_=id_),
+                           where_url=where_url,
                            question=question['message'],
                            question_title=question['title'],
                            back_url=url_for("show_question_details", id_=id_),
-                           id_=id_
+                           id_=id_,
+                           comment_id=comment_id,
+                           comment_to_edit=comment_message
                            )
+
+
+@app.route("/edit-question", methods=['GET', 'POST'])
+def edit_question_comment():
+    if request.method == 'POST':
+        sql_handler.edit_question_comment({'comment_id': request.args['comment_id'], 'comment': request.form['comment']})
+        return redirect(f"/show-comments/{request.args['id_']}")
+    comment_details = sql_handler.get_comment(request.args['comment_id'])
+    return redirect(f"/show-comments/{comment_details['question_id']}/{comment_details['id']}/{comment_details['comment']}")
 
 
 @app.route("/delete-comment/<comment_id>/<question_id>", methods=['GET', 'POST'])

@@ -32,7 +32,7 @@
                 <!--here comes the edit button-->
                     <td>
                         <form>
-                            <a href="#" style="text-decoration: none;"><img src="{{ url_for('static', filename='img/edit.png') }}"></a>
+                            <a href="{{ url_for('edit_question_comment', comment_id=comment['id']) }}" style="text-decoration: none;"><img src="{{ url_for('static', filename='img/edit.png') }}"></a>
                         </form>
 
                         <form>
@@ -48,8 +48,8 @@
         <form action="{{ where_url }}", method="POST">
             <table class="style_this_table">
                 <tr><td class="add_edit_label">Your Comment:</td></tr>
-                <tr><td><textarea class="add_edit_input" name="comment" rows="10" cols="50" ></textarea></td></tr>
-                <tr><td align="center"><input id="add_edit_button" type="submit" value="Submit comment"></td></tr>
+                <tr><td><textarea class="add_edit_input" name="comment" rows="10" cols="50" >{{ comment_to_edit }}</textarea></td></tr>
+                <tr><td align="center"><input id="add_edit_button" type="submit" value="{{ 'Update comment' if comment_to_edit else 'Submit comment'  }}"></td></tr>
             </table>
         </form>
     </div>
