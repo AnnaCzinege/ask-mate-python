@@ -155,10 +155,6 @@ a{
   -webkit-text-stroke-color: black;
 }
 
-#search_img:hover{
-  opacity: 0.5;
-}
-
 .add_edit_input{
   padding:8px;
   display:block;
@@ -180,4 +176,20 @@ a{
 }
 .action_button{
   display: inline-block;
+}
+
+.nav_bar{
+  position: fixed;
+  background-color: rgba(255,255,255,0.5);
+  border-radius: 15px;
+  width: 65%;
+  border: none;
+  margin: auto;
+  padding: 10px;
+  left: 0;
+  right: 0;
+}
+
+.hover_search_icon:hover{
+  opacity: 0.5;
 }
