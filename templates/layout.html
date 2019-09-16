@@ -6,6 +6,34 @@
     <title>{% block title %}AskMate{% endblock %}</title>
 </head>
 <body>
+{% if logged_in_as != 'You are not logged in' %}
+    <div class="btn-logout">
+        <form action="{{ url_for('logout') }}">
+            <input type="submit" value="Sign out">
+        </form>
+    </div>
+{% endif %}
+<div class="log-message"><p>{{ logged_in_as }}</p></div>
+<div class="login-div">
+    <h3>LOGIN</h3>
+    <form action="{{ url_for('login') }}" method="POST">
+        <p>Username:</p>
+        <p><input type="text" name="username"></p>
+        <p>Password:</p>
+        <p><input type="password" name="password"></p>
+        <p><input type="submit" value="Sign in"></p>
+    </form>
+</div>
+<div class="registration-div">
+    <h3>REG</h3>
+    <form action="{{ url_for('registration') }}" method="POST">
+        <p>Username:</p>
+        <p><input type="text" name="username"></p>
+        <p>Password:</p>
+        <p><input type="password" name="password"></p>
+        <p><input type="submit" value="Sign up"></p>
+    </form>
+</div>
 {% block content %}{% endblock %}
 </body>
 </html>
