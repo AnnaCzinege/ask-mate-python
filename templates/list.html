@@ -12,12 +12,15 @@
                        width="35px" height="35px" style="float: right;" onclick="form.submit();">
                 <input id="search_bar" name="search_phrase" type="text" placeholder="Search..">
             </form>
-            <div id="add_question_button" class="action_button">
-                <a href="{{ url_for('route_add') }}">Add question</a>
+            <a href="{{ url_for('route_add') }}"><div id="add_question_button" class="action_button">
+                Add question
             </div>
+            </a>
+            <a href="{{ url_for('display_latest_question_by_id') }}">
             <div id="latest_question_button" class="action_button">
-                <a href="{{ url_for('display_latest_question_by_id') }}">Latest question</a>
+                Latest question
             </div>
+            </a>
         </div>
     <div id="list_div">
     <center style="padding-top:60px;"><img src="{{ url_for('static', filename='img/logo.png') }}"></center>
