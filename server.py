@@ -63,6 +63,7 @@ def route_list(id_=None, num=None):
         user_name = escape(session['username'])
     else:
         session_name = 'You are not logged in'
+        user_name = None
     id_title = sql_handler.get_question_id_title()
     if request.method == "POST":
         found_search = sql_handler.search_by_phrase(request.form['search_phrase'])
@@ -96,6 +97,7 @@ def route_add():
         user_name = escape(session['username'])
     else:
         session_name = 'You are not logged in'
+        user_name = None
     # When finished adding
     if request.method == "POST":
         username = escape(session['username'])
@@ -118,6 +120,7 @@ def route_edit(id_=None):
         user_name = escape(session['username'])
     else:
         session_name = 'You are not logged in'
+        user_name = None
     # When you finished updating the question
     if request.method == "POST" and id_ is not None:
         updated_row = {'id': request.form["id_"], 'title': request.form["title"], 'message': request.form["message"]}
@@ -144,6 +147,7 @@ def show_question_details(id_=None, answer_id=None, answer_message=''):
         user_name = escape(session['username'])
     else:
         session_name = 'You are not logged in'
+        user_name = None
 
     question = sql_handler.get_question_details_by_id(id_)
     answers = sql_handler.list_answers_by_question_id(id_)
@@ -211,6 +215,7 @@ def show_answer_comments(question_id, answer_id, comment_id=None, comment_messag
         user_name = escape(session['username'])
     else:
         session_name = 'You are not logged in'
+        user_name = None
     if request.method == "POST":
         add_dict = {'answer_id': answer_id, 'comment': request.form['comment']}
         sql_handler.add_answer_comment(add_dict)
@@ -246,6 +251,7 @@ def show_question_comments(id_, comment_id=None, comment_message=''):
         user_name = escape(session['username'])
     else:
         session_name = 'You are not logged in'
+        user_name = None
     if request.method == 'POST':
         add_dict = {'question_id': id_, 'comment': request.form['comment']}
         sql_handler.add_question_comment(add_dict)
@@ -303,6 +309,7 @@ def display_latest_question_by_id():
         user_name = escape(session['username'])
     else:
         session_name = 'You are not logged in'
+        user_name = None
     latest_question = sql_handler.display_latest_question()
     question_id = latest_question['id']
     return render_template('latest_question.html',
@@ -319,6 +326,7 @@ def search(search_phrase, dir_):
         user_name = escape(session['username'])
     else:
         session_name = 'You are not logged in'
+        user_name = None
     found_search = sql_handler.search_sort(dir_, search_phrase)
     return render_template("search.html",
                            search_phrase=search_phrase,
