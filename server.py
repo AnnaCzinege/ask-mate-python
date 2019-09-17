@@ -95,7 +95,10 @@ def route_add():
         session_name = 'You are not logged in'
     # When finished adding
     if request.method == "POST":
-        row = {'title': str(request.form["title"]), 'message': str(request.form["message"])}
+        username = escape(session['username'])
+        user_id = user_data_handler.get_userid_by_username(username)
+        user_id = user_id['id']
+        row = {'user_id': str(user_id), 'title': str(request.form["title"]), 'message': str(request.form["message"])}
         sql_handler.add_new_question(row)
         return redirect("/")
 

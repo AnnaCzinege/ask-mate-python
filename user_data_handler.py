@@ -28,3 +28,20 @@ def get_hashed_pass(cursor, username):
                                 WHERE username = '{username}'
                                 """).format(username=sql.SQL(username)))
     return sql_handler.normalize_output_single_row(cursor.fetchall())
+
+
+@database_common.connection_handler
+def get_userid_by_username(cursor, username):
+    cursor.execute(sql.SQL("""
+                    SELECT id FROM users
+                    WHERE username = '{username}'
+                    """).format(username=sql.SQL(username)))
+    return sql_handler.normalize_output_single_row(cursor.fetchall())
+
+@database_common.connection_handler
+def get_username_by_id(cursor, userid):
+    cursor.execute(sql.SQL("""
+                    SELECT username FROM users
+                    WHERE id = '{userid}'
+                    """).format(username=sql.SQL(userid)))
+    return sql_handler.normalize_output_single_row(cursor.fetchall())
