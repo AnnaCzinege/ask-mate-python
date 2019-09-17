@@ -37,16 +37,19 @@
             <th style="width: 80%;"><a href="#"># of answers added by You (click on the number to see the answers)</a></th>
         </tr>
 
-        {% for row in user_answers %}
+        {% for row in user_answers_count %}
         <tr>
             <td><a href="{{ url_for('show_question_details', id_=row['question_id']) }}">{{ row['title'] }}</a></td>
-            <td><a href="#"> {{ row['All answers'] }}</a></td>
+            <td><a href="#"> {{ row['count_answers'] }}</a></td>
         </tr>
-
-        <tr>
-            <td>{{ row['message'] }}</td>
-            <td> </td>
-        </tr>
+            {% for item in user_answers %}
+                {% if item['question_id'] == row['question_id'] %}
+                <tr>
+                    <td>{{ item['message'] }}</td>
+                    <td> </td>
+                </tr>
+                {% endif %}
+            {% endfor %}
         {% endfor %}
         </table>
 </div>
