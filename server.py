@@ -217,7 +217,9 @@ def show_answer_comments(question_id, answer_id, comment_id=None, comment_messag
         session_name = 'You are not logged in'
         user_name = None
     if request.method == "POST":
-        add_dict = {'answer_id': answer_id, 'comment': request.form['comment']}
+        user_id = user_data_handler.get_userid_by_username(user_name)
+        user_id = user_id['id']
+        add_dict = {'answer_id': answer_id, 'user_id': user_id, 'comment': request.form['comment']}
         sql_handler.add_answer_comment(add_dict)
     if comment_id is not None:
         where_url = url_for('edit_answer_comment', question_id=question_id, answer_id=answer_id, comment_id=comment_id)
@@ -253,7 +255,9 @@ def show_question_comments(id_, comment_id=None, comment_message=''):
         session_name = 'You are not logged in'
         user_name = None
     if request.method == 'POST':
-        add_dict = {'question_id': id_, 'comment': request.form['comment']}
+        user_id = user_data_handler.get_userid_by_username(user_name)
+        user_id = user_id['id']
+        add_dict = {'question_id': id_, 'user_id': user_id, 'comment': request.form['comment']}
         sql_handler.add_question_comment(add_dict)
     if comment_id is not None:
         where_url = url_for('edit_question_comment', comment_id=comment_id, id_=id_)
