@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet " type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <script type="text/javascript" src="/static/js/menu.js"></script>
     <title>{% block title %}AskMate{% endblock %}</title>
 </head>
 <body>
@@ -21,19 +22,47 @@
     </div>
 
 {% endif %}
-<div class="log-message"><p>{{ logged_in_as }}</p></div>
+    <div class="main-logo">
+        <img src="{{ url_for('static', filename='img/logo.png') }}">
+    </div>
+<nav class="nav_bar" >
+    <div class="btn-toggle-nav" onclick="toggleNav()"></div>
+    <div><a href="{{ url_for('route_list') }}"><span class="home-img"></span></a></div>
+    {% if logged_in_as != 'You are not logged in' %}
+        <div><a href="{{ url_for('logout') }}"><span class="logout-img"></span></a></div>
+    {% endif %}
+            <div class="log-message"><p>{{ logged_in_as }}</p></div>
+            <a href="{{ url_for('route_add') }}"><div id="add_question_button" class="action_button">
+                Add question
+            </div>
+            </a>
+            <a href="{{ url_for('display_latest_question_by_id') }}">
+            <div id="latest_question_button" class="action_button">
+                Latest question
+            </div>
+            </a>
+            <form action=" {{ url_for('route_list') }}" method="POST">
+                <input type="image" src="{{ url_for('static', filename='img/search.png') }}" class="hover_search_icon"
+                       width="35px" height="35px" style="float: right;" onclick="form.submit();">
+                <input id="search_bar" name="search_phrase" type="text" placeholder="Search..">
+            </form>
+            </nav>
+<aside class="nav-sidebar">
+    <ul>
+        <li onclick="signInNav()">sign in</li>
+        <li onclick="regNav()">sign up</li>
+    </ul>
+</aside>
 <div class="login-div">
-    <h3>LOGIN</h3>
     <form action="{{ url_for('login') }}" method="POST">
         <p>Username:</p>
         <p><input type="text" name="username"></p>
         <p>Password:</p>
         <p><input type="password" name="password"></p>
-        <p><input type="submit" value="Sign in"></p>
+        <p><input type="image" name="login" src="{{ url_for('static', filename='img/login.png') }}" width="50px"/></p>
     </form>
 </div>
 <div class="registration-div">
-    <h3>REG</h3>
     <form action="{{ url_for('registration') }}" method="POST">
         <p>Username:</p>
         <p><input type="text" name="username"></p>

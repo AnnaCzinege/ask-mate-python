@@ -5,25 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="nav_bar" >
-            <form action=" {{ url_for('route_list') }}" method="POST">
-
-                <input type="image" src="{{ url_for('static', filename='img/search.png') }}" class="hover_search_icon"
-                       width="35px" height="35px" style="float: right;" onclick="form.submit();">
-                <input id="search_bar" name="search_phrase" type="text" placeholder="Search..">
-            </form>
-            <a href="{{ url_for('route_add') }}"><div id="add_question_button" class="action_button">
-                Add question
-            </div>
-            </a>
-            <a href="{{ url_for('display_latest_question_by_id') }}">
-            <div id="latest_question_button" class="action_button">
-                Latest question
-            </div>
-            </a>
-        </div>
     <div id="list_div">
-    <center style="padding-top:60px;"><img src="{{ url_for('static', filename='img/logo.png') }}"></center>
     <p id="title_text"> Questions </p>
     <table id="questions_list">
         <tr>
