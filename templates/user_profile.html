@@ -42,10 +42,10 @@
             <td align="center">
                 <div>
                     <div class="action_button">
-                        <a href="{{ url_for('edit_answer', id_=row['id']) }}" style="text-decoration: none;"><img src="{{ url_for('static', filename='img/edit.png') }}"></a>
+                        <a href="{{ url_for('edit_answer', answer_id=row['id']) }}" style="text-decoration: none;"><img src="{{ url_for('static', filename='img/edit.png') }}"></a>
                     </div>
                     <div class="action_button">
-                        <form action="{{ url_for('delete_answer', id_=row['id']) }}", method="POST">
+                        <form action="{{ url_for('delete_answer', answer_id=row['id']) }}", method="POST">
                             <input type="image" name="submit" src="{{ url_for('static', filename='img/trash.png') }}" width="30px"/>
                         </form>
                     </div>

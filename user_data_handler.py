@@ -63,3 +63,12 @@ def list_questions_by_user_id(cursor, user_id):
                     WHERE user_id = %(user_id)s
                     """, {'user_id': user_id})
     return cursor.fetchall()
+
+
+@database_common.connection_handler
+def list_answers_by_user_id(cursor, user_id):
+    cursor.execute("""
+                    SELECT * FROM answers
+                    WHERE user_id = %(user_id)s
+                    """, {'user_id': user_id})
+    return cursor.fetchall()

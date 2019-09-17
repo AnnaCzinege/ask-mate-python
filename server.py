@@ -49,8 +49,9 @@ def view_profile(user_name):
     user = user_name
     user_id = user_data_handler.get_userid_by_username(user)['id']
     user_questions = user_data_handler.list_questions_by_user_id(user_id)
+    user_answers = user_data_handler.list_answers_by_user_id(user_id)
     return render_template('user_profile.html', user_name=user_name, user=user,
-                           user_questions=user_questions)
+                           user_questions=user_questions, user_answers=user_answers)
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -75,7 +76,8 @@ def route_list(id_=None, num=None):
     if num is not None:
         dir_ = request.args.get("dir_")
         id_title = sql_handler.sort_questions(dir_)
-        return render_template("list.html", id_title=id_title, dir_=dir_, logged_in_as=session_name, user_name=user_name)
+        return render_template("list.html", id_title=id_title, dir_=dir_, logged_in_as=session_name,
+                               user_name=user_name)
     return render_template("list.html", id_title=id_title, logged_in_as=session_name, user_name=user_name)
 
 
@@ -141,7 +143,6 @@ def route_edit(id_=None):
 @app.route("/question_details/<id_>", methods=['GET', 'POST'])
 @app.route("/question_details/<id_>/<answer_id>/<answer_message>", methods=["GET", "POST"])
 def show_question_details(id_=None, answer_id=None, answer_message=''):
-
     if 'username' in session:
         session_name = f"You are logged in as {escape(session['username'])}"
         user_name = escape(session['username'])
@@ -334,9 +335,6 @@ def search(search_phrase, dir_):
                            dir_=dir_,
                            logged_in_as=session_name,
                            user_name=user_name)
-
-
-
 
 
 if __name__ == "__main__":
