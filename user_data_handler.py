@@ -45,3 +45,21 @@ def get_username_by_id(cursor, userid):
                     WHERE id = '{userid}'
                     """).format(username=sql.SQL(userid)))
     return sql_handler.normalize_output_single_row(cursor.fetchall())
+
+
+@database_common.connection_handler
+def get_question_id_by_user_id(cursor, user_id):
+    cursor.execute("""
+                    SELECT id FROM questions
+                    WHERE user_id = %(user_id)s
+                    """, {'user_id': user_id})
+    return sql_handler.normalize_output_single_row(cursor.fetchall())
+
+
+@database_common.connection_handler
+def list_questions_by_user_id(cursor, user_id):
+    cursor.execute("""
+                    SELECT id, user_id, title FROM questions
+                    WHERE user_id = %(user_id)s
+                    """, {'user_id': user_id})
+    return cursor.fetchall()

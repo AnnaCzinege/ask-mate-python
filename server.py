@@ -47,7 +47,10 @@ def logout():
 @app.route('/<user_name>')
 def view_profile(user_name):
     user = user_name
-    return render_template('user_profile.html', user_name=user_name, user=user)
+    user_id = user_data_handler.get_userid_by_username(user)['id']
+    user_questions = user_data_handler.list_questions_by_user_id(user_id)
+    return render_template('user_profile.html', user_name=user_name, user=user,
+                           user_questions=user_questions)
 
 
 @app.route("/", methods=['GET', 'POST'])
