@@ -44,6 +44,12 @@ def logout():
     return redirect('/')
 
 
+@app.route('/<user_name>')
+def view_profile(user_name):
+    user = user_name
+    return render_template('user_profile.html', user_name=user_name, user=user)
+
+
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/<int:num>")
 @app.route("/show/<int:id_>", methods=["GET", "POST"])
@@ -51,6 +57,7 @@ def logout():
 def route_list(id_=None, num=None):
     if 'username' in session:
         session_name = f"You are logged in as {escape(session['username'])}"
+        user_name = escape(session['username'])
     else:
         session_name = 'You are not logged in'
     id_title = sql_handler.get_question_id_title()
@@ -59,12 +66,13 @@ def route_list(id_=None, num=None):
         dir_ = request.args.get("dir_")
         return render_template("search.html", found_search=found_search, dir_=dir_,
                                search_phrase=request.form['search_phrase'],
-                               logged_in_as=session_name)
+                               logged_in_as=session_name,
+                               user_name=user_name)
     if num is not None:
         dir_ = request.args.get("dir_")
         id_title = sql_handler.sort_questions(dir_)
-        return render_template("list.html", id_title=id_title, dir_=dir_, logged_in_as=session_name)
-    return render_template("list.html", id_title=id_title, logged_in_as=session_name)
+        return render_template("list.html", id_title=id_title, dir_=dir_, logged_in_as=session_name, user_name=user_name)
+    return render_template("list.html", id_title=id_title, logged_in_as=session_name, user_name=user_name)
 
 
 @app.route("/delete/<int:id_>", methods=["POST", "GET"])
@@ -82,6 +90,7 @@ def route_delete(id_=None):
 def route_add():
     if 'username' in session:
         session_name = f"You are logged in as {escape(session['username'])}"
+        user_name = escape(session['username'])
     else:
         session_name = 'You are not logged in'
     # When finished adding
@@ -91,7 +100,8 @@ def route_add():
         return redirect("/")
 
     # When someone clicks on add new question button
-    return render_template("add_edit.html", id_=None, title='Add new question', logged_in_as=session_name)
+    return render_template("add_edit.html", id_=None, title='Add new question',
+                           logged_in_as=session_name, user_name=user_name)
 
 
 @app.route("/edit", methods=["POST", "GET"])
@@ -99,6 +109,7 @@ def route_add():
 def route_edit(id_=None):
     if 'username' in session:
         session_name = f"You are logged in as {escape(session['username'])}"
+        user_name = escape(session['username'])
     else:
         session_name = 'You are not logged in'
     # When you finished updating the question
@@ -114,7 +125,8 @@ def route_edit(id_=None):
                                row_title=question['title'],
                                row_message=question['message'],
                                title="Edit question",
-                               logged_in_as=session_name)
+                               logged_in_as=session_name,
+                               user_name=user_name)
 
 
 @app.route("/question_details/<id_>", methods=['GET', 'POST'])
@@ -122,6 +134,7 @@ def route_edit(id_=None):
 def show_question_details(id_=None, answer_id=None, answer_message=''):
     if 'username' in session:
         session_name = f"You are logged in as {escape(session['username'])}"
+        user_name = escape(session['username'])
     else:
         session_name = 'You are not logged in'
     question = sql_handler.get_question_details_by_id(id_)
@@ -151,8 +164,8 @@ def show_question_details(id_=None, answer_id=None, answer_message=''):
                            comment_number_answer=list_of_comment_numbers_on_answers,
                            id_=id_,
                            answer_message=answer_message,
-                           logged_in_as=session_name
-                           )
+                           logged_in_as=session_name,
+                           user_name=user_name)
 
 
 @app.route('/edit-answer', methods=["POST", "GET"])
@@ -182,6 +195,7 @@ def delete_answer(answer_id):
 def show_answer_comments(question_id, answer_id, comment_id=None, comment_message=''):
     if 'username' in session:
         session_name = f"You are logged in as {escape(session['username'])}"
+        user_name = escape(session['username'])
     else:
         session_name = 'You are not logged in'
     if request.method == "POST":
@@ -201,7 +215,8 @@ def show_answer_comments(question_id, answer_id, comment_id=None, comment_messag
                            comment_id=comment_id,
                            comment_to_edit=comment_message,
                            where_url=where_url,
-                           logged_in_as=session_name)
+                           logged_in_as=session_name,
+                           user_name=user_name)
 
 
 @app.route("/delete-answer-comment/<question_id>/<answer_id>/<comment_id>", methods=['GET', 'POST'])
@@ -215,6 +230,7 @@ def delete_answer_comment(question_id, answer_id, comment_id):
 def show_question_comments(id_, comment_id=None, comment_message=''):
     if 'username' in session:
         session_name = f"You are logged in as {escape(session['username'])}"
+        user_name = escape(session['username'])
     else:
         session_name = 'You are not logged in'
     if request.method == 'POST':
@@ -235,8 +251,8 @@ def show_question_comments(id_, comment_id=None, comment_message=''):
                            id_=id_,
                            comment_id=comment_id,
                            comment_to_edit=comment_message,
-                           logged_in_as=session_name
-                           )
+                           logged_in_as=session_name,
+                           user_name=user_name)
 
 
 @app.route("/edit-question", methods=['GET', 'POST'])
@@ -271,6 +287,7 @@ def delete_question_comment(comment_id, question_id):
 def display_latest_question_by_id():
     if 'username' in session:
         session_name = f"You are logged in as {escape(session['username'])}"
+        user_name = escape(session['username'])
     else:
         session_name = 'You are not logged in'
     latest_question = sql_handler.display_latest_question()
@@ -278,13 +295,15 @@ def display_latest_question_by_id():
     return render_template('latest_question.html',
                            latest_question=latest_question,
                            question_id=question_id,
-                           logged_in_as=session_name)
+                           logged_in_as=session_name,
+                           user_name=user_name)
 
 
 @app.route("/search/<search_phrase>/<dir_>", methods=["GET", "POST"])
 def search(search_phrase, dir_):
     if 'username' in session:
         session_name = f"You are logged in as {escape(session['username'])}"
+        user_name = escape(session['username'])
     else:
         session_name = 'You are not logged in'
     found_search = sql_handler.search_sort(dir_, search_phrase)
@@ -292,13 +311,11 @@ def search(search_phrase, dir_):
                            search_phrase=search_phrase,
                            found_search=found_search,
                            dir_=dir_,
-                           logged_in_as=session_name)
+                           logged_in_as=session_name,
+                           user_name=user_name)
 
 
-@app.route('/user')
-def view_profile():
-    user_name = escape(session['username'])
-    return render_template('user_profile.html', user_name=user_name)
+
 
 
 if __name__ == "__main__":

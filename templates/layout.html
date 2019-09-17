@@ -9,8 +9,8 @@
 {% if logged_in_as != 'You are not logged in' %}
 
     <div class="btn-profile">
-        <form action="{{ url_for('route_list') if user_name else url_for('view_profile') }}">
-            <input type="submit" value="{{ 'Home' if user_name else 'View profile' }}">
+        <form action="{{ url_for('route_list') if user else url_for('view_profile', user_name=user_name) }}">
+            <input type="submit" value="{{ 'Home' if user else 'View profile' }}">
         </form>
     </div>
 
