@@ -295,5 +295,11 @@ def search(search_phrase, dir_):
                            logged_in_as=session_name)
 
 
+@app.route('/user')
+def view_profile():
+    user_name = escape(session['username'])
+    return render_template('user_profile.html', user_name=user_name)
+
+
 if __name__ == "__main__":
     app.run(debug=True)
