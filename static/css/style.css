@@ -211,6 +211,12 @@ a{
 
 .btn-logout {
   position: absolute;
+  top: 100px;
+  right: 5%;
+}
+
+.btn-profile {
+  position: absolute;
   top: 70px;
   right: 5%;
 }

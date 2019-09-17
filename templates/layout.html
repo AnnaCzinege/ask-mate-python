@@ -7,11 +7,19 @@
 </head>
 <body>
 {% if logged_in_as != 'You are not logged in' %}
+
+    <div class="btn-profile">
+        <form action="{{ url_for('view_profile') }}">
+            <input type="submit" value="View profile">
+        </form>
+    </div>
+
     <div class="btn-logout">
         <form action="{{ url_for('logout') }}">
             <input type="submit" value="Sign out">
         </form>
     </div>
+
 {% endif %}
 <div class="log-message"><p>{{ logged_in_as }}</p></div>
 <div class="login-div">
