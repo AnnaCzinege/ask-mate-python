@@ -174,12 +174,13 @@ def edit_answer(cursor, add_dict):
 
 @database_common.connection_handler
 def add_question_comment(cursor, add_dict):
+    user_id = add_dict['user_id']
     question_id = add_dict['question_id']
     comment = add_dict['comment']
     cursor.execute("""
-                    INSERT INTO question_comments (question_id, comment)
-                    VALUES (%(question_id)s, %(comment)s);
-                    """, {'question_id': question_id, 'comment': comment})
+                    INSERT INTO question_comments (user_id, question_id, comment)
+                    VALUES (%(user_id)s, %(question_id)s, %(comment)s);
+                    """, {'user_id': user_id, 'question_id': question_id, 'comment': comment})
 
 
 @database_common.connection_handler
@@ -244,12 +245,13 @@ def count_comments_for_answer(cursor, answer_id_):
 
 @database_common.connection_handler
 def add_answer_comment(cursor, add_dict):
+    user_id = add_dict['user_id']
     answer_id = add_dict['answer_id']
     comment = add_dict['comment']
     cursor.execute("""
-                    INSERT INTO answer_comments (answer_id, comment)
-                    VALUES (%(answer_id)s, %(comment)s)
-                    """, {'answer_id': answer_id, 'comment': comment})
+                    INSERT INTO answer_comments (user_id, answer_id, comment)
+                    VALUES (%(user_id)s, %(answer_id)s, %(comment)s)
+                    """, {'user_id': user_id, 'answer_id': answer_id, 'comment': comment})
 
 
 @database_common.connection_handler
