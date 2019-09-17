@@ -41,13 +41,14 @@ def get_question_id_title(cursor):
 
 @database_common.connection_handler
 def add_new_question(cursor, add_dict):
+    user_id = add_dict['user_id']
     title = add_dict['title']
     message = add_dict['message']
     cursor.execute("""
-                    INSERT INTO questions (title, message)
-                    VALUES (%(title)s, %(message)s);
+                    INSERT INTO questions (user_id, title, message)
+                    VALUES (%(user_id)s, %(title)s, %(message)s);
                     """,
-                   {'title': title, 'message': message})
+                   {'user_id': user_id,'title': title, 'message': message})
 
 
 @database_common.connection_handler
