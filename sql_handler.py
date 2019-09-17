@@ -54,12 +54,13 @@ def add_new_question(cursor, add_dict):
 @database_common.connection_handler
 def add_new_answer(cursor, add_dict):
     question_id = add_dict['id']
+    user_id = add_dict['user_id']
     question_message = add_dict['message']
     cursor.execute("""
-                    INSERT INTO answers (question_id, message)
-                    VALUES (%(id)s, %(message)s);
+                    INSERT INTO answers (question_id, user_id, message)
+                    VALUES (%(id)s, %(user_id)s, %(message)s);
                     """,
-                   {'id': question_id, 'message': question_message})
+                   {'id': question_id, 'user_id': user_id, 'message': question_message})
 
 
 @database_common.connection_handler

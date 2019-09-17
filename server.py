@@ -138,26 +138,33 @@ def route_edit(id_=None):
 @app.route("/question_details/<id_>", methods=['GET', 'POST'])
 @app.route("/question_details/<id_>/<answer_id>/<answer_message>", methods=["GET", "POST"])
 def show_question_details(id_=None, answer_id=None, answer_message=''):
+
     if 'username' in session:
         session_name = f"You are logged in as {escape(session['username'])}"
         user_name = escape(session['username'])
     else:
         session_name = 'You are not logged in'
+
     question = sql_handler.get_question_details_by_id(id_)
     answers = sql_handler.list_answers_by_question_id(id_)
     comment_number = sql_handler.count_comments_for_question(id_)
     list_of_comment_numbers_on_answers = []
+
     if answer_id is not None:
         where_url = url_for("edit_answer", answer_id=answer_id)
     else:
         where_url = url_for("show_question_details", id_=id_)
+
     for item in answers:
         answer_id = item['id']
         num_of_comments = sql_handler.count_comments_for_answer(answer_id)
         list_of_comment_numbers_on_answers.append(num_of_comments)
 
     if request.method == "POST":  # When you submit an answer
-        answer = {'id': id_, 'message': str(request.form['answer'])}
+
+        user_id = user_data_handler.get_userid_by_username(user_name)
+        user_id = user_id['id']
+        answer = {'id': id_, 'user_id': user_id, 'message': str(request.form['answer'])}
         sql_handler.add_new_answer(answer)
         return redirect(url_for('show_question_details', id_=id_))
 
