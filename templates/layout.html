@@ -7,21 +7,6 @@
     <title>{% block title %}AskMate{% endblock %}</title>
 </head>
 <body>
-{% if logged_in_as != 'You are not logged in' %}
-
-    <div class="btn-profile">
-        <form action="{{ url_for('route_list') if user else url_for('view_profile', user_name=user_name) }}">
-            <input type="submit" value="{{ 'Home' if user else 'View profile' }}">
-        </form>
-    </div>
-
-    <div class="btn-logout">
-        <form action="{{ url_for('logout') }}">
-            <input type="submit" value="Sign out">
-        </form>
-    </div>
-
-{% endif %}
     <div class="main-logo">
         <img src="{{ url_for('static', filename='img/logo.png') }}">
     </div>
@@ -29,6 +14,7 @@
     <div class="btn-toggle-nav" onclick="toggleNav()"></div>
     <div><a href="{{ url_for('route_list') }}"><span class="home-img"></span></a></div>
     {% if logged_in_as != 'You are not logged in' %}
+        <div><a href="{{ url_for('view_profile', user_name=user_name) }}"><span class="profile-img"></span></a></div>
         <div><a href="{{ url_for('logout') }}"><span class="logout-img"></span></a></div>
     {% endif %}
             <div class="log-message"><p>{{ logged_in_as }}</p></div>

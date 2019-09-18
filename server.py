@@ -46,6 +46,11 @@ def logout():
 
 @app.route('/<user_name>')
 def view_profile(user_name):
+    if 'username' in session:
+        session_name = f"You are logged in as {escape(session['username'])}"
+        user_name = escape(session['username'])
+    else:
+        session_name = 'You are not logged in'
     user = user_name
     user_id = user_data_handler.get_userid_by_username(user)['id']
     user_questions = user_data_handler.list_questions_by_user_id(user_id)
@@ -53,7 +58,8 @@ def view_profile(user_name):
     #user_comments_on_question
     #user_comments_on_answer
     return render_template('user_profile.html', user_name=user_name, user=user,
-                           user_questions=user_questions, user_answers=user_answers)
+                           user_questions=user_questions, user_answers=user_answers,
+                           logged_in_as=session_name)
 
 
 @app.route("/", methods=['GET', 'POST'])
