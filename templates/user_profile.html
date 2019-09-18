@@ -61,7 +61,7 @@
 
         {% for row in user_comments_count_question %}
         <tr>
-            <td><a href="{{ url_for('show_question_details', id_=row['question_id']) }}">{{ row['title'] }}</a></td>
+            <td><a href="{{ url_for('show_question_comments', id_=row['question_id']) }}">{{ row['title'] }}</a></td>
             <td><a href="#"> {{ row['count_comments'] }}</a></td>
         </tr>
             {% for item in user_comments_on_questions %}
@@ -84,7 +84,7 @@
 
         {% for row in user_comments_count_answer %}
         <tr>
-            <td><a href="{{ url_for('show_question_details', id_=row['question_id']) }}">{{ row['message'] }}</a></td>
+            <td><a href="{{ url_for('show_answer_comments', question_id=row['question_id'], answer_id=row['id']) }}">{{ row['message'] }}</a></td>
             <td><a href="#"> {{ row['count_comments'] }}</a></td>
         </tr>
             {% for item in user_comments_on_answers %}
