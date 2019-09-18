@@ -382,8 +382,12 @@ def display_latest_question_by_id():
         user_name = None
         user_role = None
     latest_question = sql_handler.display_latest_question()
-    question_id = latest_question['id']
-    question_user_id = latest_question['user_id']
+    try:
+        question_id = latest_question['id']
+        question_user_id = latest_question['user_id']
+    except KeyError:
+        question_id = None
+        question_user_id = None
     return render_template('latest_question.html',
                            latest_question=latest_question,
                            question_id=question_id,
