@@ -295,7 +295,7 @@ a{
     position: fixed;
     left: 0;
     bottom: 0;
-    width: 50px;
+    width: 0;
     height: calc(100vh - 60px);
     padding: 0 5px;
     background-color: #FFFFFF;
@@ -310,10 +310,15 @@ a{
   right: 5%;
 }
 
-.btn-profile {
-  position: absolute;
-  top: 70px;
-  right: 5%;
+.profile-img {
+    display: block;
+    width: 60px;
+    height: 100%;
+    background-image: url(../img/profile.png);
+    background-size: 40%;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 10px;
 }
 
 .nav-sidebar ul {
@@ -336,4 +341,5 @@ a{
     opacity: 0.5;
     cursor: pointer;
 }
+
 
