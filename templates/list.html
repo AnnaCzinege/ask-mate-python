@@ -12,9 +12,9 @@
             <th style="width: 80%;" colspan="2"><a href="{{ url_for('route_list', num='1', dir_='asc' if dir_ == 'desc' else 'desc') }}">Title</a></th>
         </tr>
         {% for row in id_title %}
-            {% if user_id == row['userid'] %}
+            {% if user_id == row['user_id'] %}
                 <tr>
-                    <td><a href="{{ url_for('show_question_details', id_=row['id']) }}">{{ row['title'] }} {{ row['user_id'] }}</a></td>
+                    <td><a href="{{ url_for('show_question_details', id_=row['id']) }}">{{ row['title'] }}</a></td>
                     <td align="center">
                         <div>
                             <div class="action_button">
@@ -30,7 +30,7 @@
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="2"><a href="{{ url_for('show_question_details', id_=row['id']) }}">{{ row['title'] }} {{ row['user_id'] }}</a></td>
+                    <td colspan="2"><a href="{{ url_for('show_question_details', id_=row['id']) }}">{{ row['title'] }}</a></td>
                 </tr>
             {% endif %}
         {% endfor %}
