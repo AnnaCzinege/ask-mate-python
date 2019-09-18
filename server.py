@@ -43,8 +43,11 @@ def view_profile(user_name):
     if 'username' in session:
         session_name = f"You are logged in as {escape(session['username'])}"
         user_name = escape(session['username'])
+        user_id = int(escape(session['user_id']))
+        user_role = user_data_handler.get_user_role(user_id)['role']
     else:
         session_name = 'You are not logged in'
+        user_role = None
     user = user_name
     user_id = user_data_handler.get_userid_by_username(user)['id']
     user_questions = user_data_handler.list_questions_by_user_id(user_id)
@@ -58,7 +61,7 @@ def view_profile(user_name):
                            user_questions=user_questions, user_answers=user_answers,
                            logged_in_as=session_name,
                            user_answers_count=user_answers_count,
-                           user_id=user_id,
+                           user_id=user_id, user_role=user_role,
                            user_comments_count_question=user_comments_count_question,
                            user_comments_on_questions=user_comments_on_questions,
                            user_comments_count_answer=user_comments_count_answer,
@@ -82,9 +85,11 @@ def route_list(id_=None, num=None):
         session_name = f"You are logged in as {escape(session['username'])}"
         user_name = escape(session['username'])
         user_id = int(escape(session['user_id']))
+        user_role = user_data_handler.get_user_role(user_id)['role']
     else:
         session_name = 'You are not logged in'
         user_name = None
+        user_role = None
 
     id_title = sql_handler.get_question_id_title()
     if request.method == "POST":
@@ -93,15 +98,16 @@ def route_list(id_=None, num=None):
         return render_template("search.html", found_search=found_search, dir_=dir_,
                                search_phrase=request.form['search_phrase'],
                                logged_in_as=session_name,
-                               user_name=user_name)
+                               user_name=user_name,
+                               user_role=user_role)
     if num is not None:
         dir_ = request.args.get("dir_")
         id_title = sql_handler.sort_questions(dir_)
         user_id = int(escape(session['user_id']))
         return render_template("list.html", id_title=id_title, dir_=dir_, logged_in_as=session_name,
-                               user_name=user_name, error_message=None, user_id=user_id)
+                               user_name=user_name, error_message=None, user_id=user_id, user_role=user_role)
     return render_template("list.html", id_title=id_title, logged_in_as=session_name, user_name=user_name,
-                           error_message=None, user_id=user_id)
+                           error_message=None, user_id=user_id, user_role=user_role)
 
 
 @app.route("/delete/<int:id_>", methods=["POST", "GET"])
@@ -120,9 +126,12 @@ def route_add():
     if 'username' in session:
         session_name = f"You are logged in as {escape(session['username'])}"
         user_name = escape(session['username'])
+        user_id = int(escape(session['user_id']))
+        user_role = user_data_handler.get_user_role(user_id)['role']
     else:
         session_name = 'You are not logged in'
         user_name = None
+        user_role = None
     # When finished adding
     if request.method == "POST":
         if 'username' in session:
@@ -140,11 +149,11 @@ def route_add():
             id_title = sql_handler.sort_questions(dir_)
             error_message = 'You have to log in first!'
             return render_template("list.html", id_title=id_title, logged_in_as=session_name, user_name=user_name,
-                                   error_message=error_message, user_id=user_id)
+                                   error_message=error_message, user_id=user_id, user_role=user_role)
 
     # When someone clicks on add new question button
     return render_template("add_edit.html", id_=None, title='Add new question',
-                           logged_in_as=session_name, user_name=user_name)
+                           logged_in_as=session_name, user_name=user_name, user_role=user_role)
 
 
 @app.route("/edit", methods=["POST", "GET"])
@@ -153,9 +162,12 @@ def route_edit(id_=None):
     if 'username' in session:
         session_name = f"You are logged in as {escape(session['username'])}"
         user_name = escape(session['username'])
+        user_id = int(escape(session['user_id']))
+        user_role = user_data_handler.get_user_role(user_id)['role']
     else:
         session_name = 'You are not logged in'
         user_name = None
+        user_role = None
     # When you finished updating the question
     if request.method == "POST" and id_ is not None:
         updated_row = {'id': request.form["id_"], 'title': request.form["title"], 'message': request.form["message"]}
@@ -170,7 +182,8 @@ def route_edit(id_=None):
                                row_message=question['message'],
                                title="Edit question",
                                logged_in_as=session_name,
-                               user_name=user_name)
+                               user_name=user_name,
+                               user_role=user_role)
 
 
 @app.route("/question_details/<id_>", methods=['GET', 'POST'])
@@ -179,9 +192,12 @@ def show_question_details(id_=None, answer_id=None, answer_message=''):
     if 'username' in session:
         session_name = f"You are logged in as {escape(session['username'])}"
         user_name = escape(session['username'])
+        user_id = int(escape(session['user_id']))
+        user_role = user_data_handler.get_user_role(user_id)['role']
     else:
         session_name = 'You are not logged in'
         user_name = None
+        user_role = None
 
     question = sql_handler.get_question_details_by_id(id_)
     answers = sql_handler.list_answers_by_question_id(id_)
@@ -218,6 +234,7 @@ def show_question_details(id_=None, answer_id=None, answer_message=''):
                            answer_message=answer_message,
                            logged_in_as=session_name,
                            user_name=user_name,
+                           user_role=user_role,
                            question_username=question_username['username']
                            )
 
@@ -250,9 +267,12 @@ def show_answer_comments(question_id, answer_id, comment_id=None, comment_messag
     if 'username' in session:
         session_name = f"You are logged in as {escape(session['username'])}"
         user_name = escape(session['username'])
+        user_id = int(escape(session['user_id']))
+        user_role = user_data_handler.get_user_role(user_id)['role']
     else:
         session_name = 'You are not logged in'
         user_name = None
+        user_role = None
     if request.method == "POST":
         user_id = user_data_handler.get_userid_by_username(user_name)
         user_id = user_id['id']
@@ -273,7 +293,8 @@ def show_answer_comments(question_id, answer_id, comment_id=None, comment_messag
                            comment_to_edit=comment_message,
                            where_url=where_url,
                            logged_in_as=session_name,
-                           user_name=user_name)
+                           user_name=user_name,
+                           user_role=user_role)
 
 
 @app.route("/delete-answer-comment/<question_id>/<answer_id>/<comment_id>", methods=['GET', 'POST'])
@@ -288,9 +309,12 @@ def show_question_comments(id_, comment_id=None, comment_message=''):
     if 'username' in session:
         session_name = f"You are logged in as {escape(session['username'])}"
         user_name = escape(session['username'])
+        user_id = int(escape(session['user_id']))
+        user_role = user_data_handler.get_user_role(user_id)['role']
     else:
         session_name = 'You are not logged in'
         user_name = None
+        user_role = None
     if request.method == 'POST':
         user_id = user_data_handler.get_userid_by_username(user_name)
         user_id = user_id['id']
@@ -312,7 +336,7 @@ def show_question_comments(id_, comment_id=None, comment_message=''):
                            comment_id=comment_id,
                            comment_to_edit=comment_message,
                            logged_in_as=session_name,
-                           user_name=user_name)
+                           user_name=user_name, user_role=user_role)
 
 
 @app.route("/edit-question", methods=['GET', 'POST'])
@@ -348,16 +372,19 @@ def display_latest_question_by_id():
     if 'username' in session:
         session_name = f"You are logged in as {escape(session['username'])}"
         user_name = escape(session['username'])
+        user_id = int(escape(session['user_id']))
+        user_role = user_data_handler.get_user_role(user_id)['role']
     else:
         session_name = 'You are not logged in'
         user_name = None
+        user_role
     latest_question = sql_handler.display_latest_question()
     question_id = latest_question['id']
     return render_template('latest_question.html',
                            latest_question=latest_question,
                            question_id=question_id,
                            logged_in_as=session_name,
-                           user_name=user_name)
+                           user_name=user_name, user_role=user_role)
 
 
 @app.route("/search/<search_phrase>/<dir_>", methods=["GET", "POST"])
@@ -365,16 +392,20 @@ def search(search_phrase, dir_):
     if 'username' in session:
         session_name = f"You are logged in as {escape(session['username'])}"
         user_name = escape(session['username'])
+        user_id = int(escape(session['user_id']))
+        user_role = user_data_handler.get_user_role(user_id)['role']
     else:
         session_name = 'You are not logged in'
         user_name = None
+        user_role = None
     found_search = sql_handler.search_sort(dir_, search_phrase)
     return render_template("search.html",
                            search_phrase=search_phrase,
                            found_search=found_search,
                            dir_=dir_,
                            logged_in_as=session_name,
-                           user_name=user_name)
+                           user_name=user_name,
+                           user_role=user_role)
 
 
 if __name__ == "__main__":
