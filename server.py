@@ -7,15 +7,6 @@ app = Flask(__name__)
 
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
-
-@app.route('/set-cookie')
-def cookie_insertion():
-    redirect_to_index = redirect('/')
-    response = make_response(redirect_to_index)
-    response.set_cookie('cookie-name', value='values')
-    return response
-
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     username = request.form['username'].lower()
