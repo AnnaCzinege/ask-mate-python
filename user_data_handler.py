@@ -147,3 +147,12 @@ def get_user_info(cursor):
                     FROM users
                     """)
     return cursor.fetchall()
+
+@database_common.connection_handler
+def get_user_role(cursor, user_id):
+    cursor.execute("""
+                    SELECT role 
+                    FROM users
+                    WHERE id = %(user_id)s
+                    """, {'user_id': user_id})
+    return sql_handler.normalize_output_single_row(cursor.fetchall())

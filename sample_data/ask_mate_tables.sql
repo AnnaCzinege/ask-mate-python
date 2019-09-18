@@ -32,5 +32,6 @@ CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username varchar(12) NOT NULL,
     password varchar(500) NOT NULL,
-    date date DEFAULT CURRENT_DATE
+    date date DEFAULT CURRENT_DATE,
+    role varchar(20) default 'user'
 )
