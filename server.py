@@ -60,8 +60,7 @@ def view_profile(user_name):
     #user_comments_on_answer
     return render_template('user_profile.html', user_name=user_name, user=user,
                            user_questions=user_questions, user_answers=user_answers,
-                           logged_in_as=session_name)
-                           user_questions=user_questions, user_answers=user_answers,
+                           logged_in_as=session_name,
                            user_answers_count=user_answers_count,
                            user_id=user_id)
 
