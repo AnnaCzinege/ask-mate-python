@@ -23,7 +23,7 @@ let toggleNav = async function() {
             getRegDiv.style.width = "0px";
             await sleep(300);
         }
-        getSidebar.style.width = "50px";
+        getSidebar.style.width = "0";
         getSidebarUl.style.visibility = "hidden";
         toggleNavStatus = false;
         signInStatus = false;
