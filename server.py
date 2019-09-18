@@ -189,6 +189,7 @@ def route_edit(id_=None):
 @app.route("/question_details/<id_>", methods=['GET', 'POST'])
 @app.route("/question_details/<id_>/<answer_id>/<answer_message>", methods=["GET", "POST"])
 def show_question_details(id_=None, answer_id=None, answer_message=''):
+    user_id = 0
     if 'username' in session:
         session_name = f"You are logged in as {escape(session['username'])}"
         user_name = escape(session['username'])
@@ -235,6 +236,7 @@ def show_question_details(id_=None, answer_id=None, answer_message=''):
                            logged_in_as=session_name,
                            user_name=user_name,
                            user_role=user_role,
+                           user_id=user_id,
                            question_username=question_username['username']
                            )
 
