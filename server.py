@@ -345,19 +345,25 @@ def delete_question_comment(comment_id, question_id):
 
 @app.route('/latest-question/', methods=["POST", "GET"])
 def display_latest_question_by_id():
+    user_id = 0
     if 'username' in session:
         session_name = f"You are logged in as {escape(session['username'])}"
         user_name = escape(session['username'])
+        user_id = int(escape(session['user_id']))
     else:
         session_name = 'You are not logged in'
         user_name = None
     latest_question = sql_handler.display_latest_question()
     question_id = latest_question['id']
+    question_user_id = latest_question['user_id']
     return render_template('latest_question.html',
                            latest_question=latest_question,
                            question_id=question_id,
                            logged_in_as=session_name,
-                           user_name=user_name)
+                           user_name=user_name,
+                           user_id=user_id,
+                           question_user_id=question_user_id
+                           )
 
 
 @app.route("/search/<search_phrase>/<dir_>", methods=["GET", "POST"])

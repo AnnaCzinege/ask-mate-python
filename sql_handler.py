@@ -286,7 +286,7 @@ def get_answer_comments(cursor, answer_id):
 @database_common.connection_handler
 def display_latest_question(cursor):
     cursor.execute("""
-                    SELECT title, id FROM questions
+                    SELECT title, id, user_id FROM questions
                     ORDER BY id DESC 
                     LIMIT 1;
                     """)
