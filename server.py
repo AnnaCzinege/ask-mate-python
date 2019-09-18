@@ -126,7 +126,7 @@ def route_add():
             dir_ = request.args.get("dir_")
             id_title = sql_handler.sort_questions(dir_)
             error_message = 'You have to log in first!'
-            render_template("list.html", id_title=id_title, logged_in_as=session_name, user_name=user_name, error_message=error_message)
+            return render_template("list.html", id_title=id_title, logged_in_as=session_name, user_name=user_name, error_message=error_message)
 
     # When someone clicks on add new question button
     return render_template("add_edit.html", id_=None, title='Add new question',
