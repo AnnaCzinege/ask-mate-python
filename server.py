@@ -56,13 +56,15 @@ def view_profile(user_name):
     user_questions = user_data_handler.list_questions_by_user_id(user_id)
     user_answers_count = user_data_handler.count_answers_by_user_id(user_id)
     user_answers = user_data_handler.list_answers_by_user_id(user_id)
-    #user_comments_count_question
-    #user_comments_on_questions
+    user_comments_count_question = user_data_handler.count_comments_on_question_by_user_id(user_id)
+    user_comments_on_questions = user_data_handler.list_comments_on_questions_by_user_id(user_id)
     return render_template('user_profile.html', user_name=user_name, user=user,
                            user_questions=user_questions, user_answers=user_answers,
                            logged_in_as=session_name,
                            user_answers_count=user_answers_count,
-                           user_id=user_id)
+                           user_id=user_id,
+                           user_comments_count_question=user_comments_count_question,
+                           user_comments_on_questions=user_comments_on_questions)
 
 
 @app.route("/", methods=['GET', 'POST'])
