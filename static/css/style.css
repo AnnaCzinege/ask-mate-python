@@ -18,7 +18,7 @@ a{
 
 #list_div{
   position: absolute;
-  top: 50%;
+  top: 30%;
   left: 17.5%;
   border: none;
   width: 65%;
@@ -186,6 +186,7 @@ a{
 }
 .align_to_center{
   margin: 0 auto;
+  text-align: center;
 }
 .action_button{
   display: inline-block;
@@ -261,6 +262,14 @@ a{
     background-repeat: no-repeat;
     background-position: center;
     margin-right: 10px;
+}
+
+.list_center{
+  position: absolute;
+  top: 40%;
+  left: 17.5%;
+  border: none;
+  width: 65%;
 }
 
 .home-img{

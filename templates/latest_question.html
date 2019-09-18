@@ -13,29 +13,38 @@
         </div>
     <br>
     <table id="questions_list">
+        {% if question_id != None %}
+
         <tr>
             <th style="width: 80%;">Title</th>
             <th> </th>
         </tr>
-        {% if user_id == question_user_id %}
-            <tr>
-                <td><a href="{{ url_for('show_question_details', id_=latest_question['id']) }}">{{ latest_question['title'] }}</td>
-                <td align="center">
-                    <div>
-                        <div class="action_button">
-                            <a href="{{ url_for('route_edit', id_=question_id) }}" style="text-decoration: none;"><img src="{{ url_for('static', filename='img/edit.png') }}"></a>
+
+            {% if user_id == question_user_id %}
+                <tr>
+                    <td><a href="{{ url_for('show_question_details', id_=latest_question['id']) }}">{{ latest_question['title'] }}</td>
+                    <td align="center">
+                        <div>
+                            <div class="action_button">
+                                <a href="{{ url_for('route_edit', id_=question_id) }}" style="text-decoration: none;"><img src="{{ url_for('static', filename='img/edit.png') }}"></a>
+                            </div>
+                            <div class="action_button">
+                                <form action="{{ url_for('route_delete', id_=question_id) }}", method="POST">
+                                    <input type="image" name="submit" src="{{ url_for('static', filename='img/trash.png') }}" width="30px"/>
+                                </form>
+                            </div>
                         </div>
-                        <div class="action_button">
-                            <form action="{{ url_for('route_delete', id_=question_id) }}", method="POST">
-                                <input type="image" name="submit" src="{{ url_for('static', filename='img/trash.png') }}" width="30px"/>
-                            </form>
-                        </div>
-                    </div>
-                </td>
-            </tr>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="2"><a href="{{ url_for('show_question_details', id_=latest_question['id']) }}">{{ latest_question['title'] }}</td>
+                </tr>
+            {% endif %}
         {% else %}
-            <tr>
-                <td colspan="2"><a href="{{ url_for('show_question_details', id_=latest_question['id']) }}">{{ latest_question['title'] }}</td>
-            </tr>
+        <tr>
+            <th style="width: 80%;">It seems that nobody has asked a question yet...</th>
+            <th> </th>
+        </tr>
         {% endif %}
 {% endblock %}
