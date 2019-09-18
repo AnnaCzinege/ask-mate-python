@@ -141,13 +141,13 @@ def delete_question_by_id(cursor, question_id):
 def sort_questions(cursor, direction):
     if direction == 'asc':
         cursor.execute("""
-                        SELECT id, title FROM questions
+                        SELECT id, title, user_id AS userid FROM questions
                         ORDER BY title;
                         """)
         return normalize_output_multiple_rows(cursor.fetchall())
     else:
         cursor.execute("""
-                        SELECT id, title FROM questions
+                        SELECT id, title, user_id AS userid FROM questions
                         ORDER BY title DESC;
                         """)
         return normalize_output_multiple_rows(cursor.fetchall())
