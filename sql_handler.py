@@ -336,7 +336,7 @@ def search_sort(cursor, direction, search_phrase):
 @database_common.connection_handler
 def get_question_comments(cursor, question_id):
     cursor.execute("""
-                    SELECT comment, id FROM question_comments
+                    SELECT comment, id, user_id FROM question_comments
                     WHERE question_id = %(question_id)s
                     ORDER BY id;
                     """, {'question_id': question_id})
