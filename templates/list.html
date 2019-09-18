@@ -15,7 +15,7 @@
             {% if user_id == row['user_id'] %}
                 <tr>
                     <td><a href="{{ url_for('show_question_details', id_=row['id']) }}">{{ row['title'] }}</a></td>
-                    <td align="center">
+                    <td align="center" width="10%">
                         <div>
                             <div class="action_button">
                                 <a href="{{ url_for('route_edit', id_=row['id']) }}" style="text-decoration: none;"><img src="{{ url_for('static', filename='img/edit.png') }}"></a>
