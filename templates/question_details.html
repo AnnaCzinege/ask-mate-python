@@ -36,6 +36,7 @@
                 <td class="add_edit_label" colspan="2">Answers:</td>
             </tr>
             {% for item in answer_list %}
+                {% if item['user_id'] == user_id %}
                 <tr>
                     <td id="answer_details">{{ item['message'] }}</td>
                 <!--here comes the edit button-->
@@ -49,9 +50,14 @@
                         </form>
                     </td>
                 </tr>
+                {% else %}
+                <tr>
+                    <td id="answer_details" colspan="2">{{ item['message'] }}</td>
+                </tr>
+                {% endif %}
                 <tr>
                     <td colspan="2"><a href="{{ url_for('show_answer_comments', answer_id=item['id'], question_id=id_) }}">{{ comment_number_answer [loop.index0] }} comment(s)</a></td>
-            </tr>
+                </tr>
             {% endfor %}
         </table>
         <hr>
