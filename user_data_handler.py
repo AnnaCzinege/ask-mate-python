@@ -138,3 +138,12 @@ def list_comments_on_answers_by_user_id(cursor, user_id):
                     WHERE user_id = %(user_id)s
                     """, {'user_id': user_id})
     return cursor.fetchall()
+
+
+@database_common.connection_handler
+def get_user_info(cursor):
+    cursor.execute("""
+                    SELECT * 
+                    FROM users
+                    """)
+    return cursor.fetchall()

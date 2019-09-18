@@ -71,6 +71,12 @@ def view_profile(user_name):
                            user_comments_on_answers=user_comments_on_answers)
 
 
+@app.route('/user-details')
+def view_user_details():
+    user_infos = user_data_handler.get_user_info()
+    return render_template('all_user_details.html',
+                           user_infos=user_infos)
+
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/<int:num>")
 @app.route("/show/<int:id_>", methods=["GET", "POST"])

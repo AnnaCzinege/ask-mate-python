@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+<div id="list_div">
+<p id="title_text">User details</p>
+    <table id="questions_list">
+        <tr>
+            <th style="width: 10%;">User ID</th>
+            <th style="width: 15%;">User name</th>
+            <th style="width: 15%;">Registration date</th>
+            <th style="width: 50%;"># of questions asked by user</th>
+            <th style="width: 50%;"># of answers added by user</th>
+            <th style="width: 50%;"># of comments added to questions by user</th>
+            <th style="width: 80%;"># of comments added to answers by user</th>
+        </tr>
+
+        {% for row in user_infos %}
+        <tr>
+            <td>{{ row['id'] }}</td>
+            <td>{{ row['username'] }}</td>
+            <td>{{ row['date'] }}</td>
+        </tr>
+        {% endfor %}
+
+        </table>
+</div>
+{% endblock %}
