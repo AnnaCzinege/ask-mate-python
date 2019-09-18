@@ -75,11 +75,22 @@ def list_questions_by_user_id(cursor, user_id):
 
 
 @database_common.connection_handler
-def list_answers_by_user_id(cursor, user_id):
+def count_answers_by_user_id(cursor, user_id):
     cursor.execute("""
-                    SELECT questions.title, answers.message, COUNT(answers.message) as "All answers", question_id FROM answers
+                    SELECT questions.title, COUNT(answers.message) as "count_answers", question_id 
+                    FROM answers
                     INNER JOIN questions ON question_id = questions.id
                     WHERE answers.user_id = %(user_id)s
-                    GROUP BY questions.title, question_id, answers.message
+                    GROUP BY question_id, questions.title
+                    """, {'user_id': user_id})
+    return cursor.fetchall()
+
+
+@database_common.connection_handler
+def list_answers_by_user_id(cursor, user_id):
+    cursor.execute("""
+                    SELECT *
+                    FROM answers
+                    WHERE user_id = %(user_id)s
                     """, {'user_id': user_id})
     return cursor.fetchall()
