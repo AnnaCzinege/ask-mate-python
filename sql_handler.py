@@ -341,3 +341,13 @@ def get_question_comments(cursor, question_id):
                     ORDER BY id;
                     """, {'question_id': question_id})
     return normalize_output_multiple_rows(cursor.fetchall())
+
+
+@database_common.connection_handler
+def show_username_at_question(cursor, question_id):
+    cursor.execute("""
+                    SELECT username FROM users as u
+                    JOIN questions as q ON q.user_id = u.id
+                    WHERE q.id = %(question_id)s;
+                    """, {'question_id': question_id})
+    return normalize_output_single_row(cursor.fetchall())
