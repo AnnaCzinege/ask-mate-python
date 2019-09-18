@@ -266,6 +266,7 @@ def delete_answer(answer_id):
 @app.route('/show-answer-comments/<question_id>/<answer_id>', methods=["POST", "GET"])
 @app.route('/show-answer-comments/<question_id>/<answer_id>/<comment_id>/<comment_message>', methods=["POST", "GET"])
 def show_answer_comments(question_id, answer_id, comment_id=None, comment_message=''):
+    user_id = 0
     if 'username' in session:
         session_name = f"You are logged in as {escape(session['username'])}"
         user_name = escape(session['username'])
@@ -296,6 +297,7 @@ def show_answer_comments(question_id, answer_id, comment_id=None, comment_messag
                            where_url=where_url,
                            logged_in_as=session_name,
                            user_name=user_name,
+                           user_id=user_id,
                            user_role=user_role)
 
 
@@ -308,6 +310,7 @@ def delete_answer_comment(question_id, answer_id, comment_id):
 @app.route("/show-comments/<id_>/<comment_id>/<comment_message>")
 @app.route("/show-comments/<id_>", methods=['GET', 'POST'])
 def show_question_comments(id_, comment_id=None, comment_message=''):
+    user_id = 0
     if 'username' in session:
         session_name = f"You are logged in as {escape(session['username'])}"
         user_name = escape(session['username'])
@@ -338,7 +341,7 @@ def show_question_comments(id_, comment_id=None, comment_message=''):
                            comment_id=comment_id,
                            comment_to_edit=comment_message,
                            logged_in_as=session_name,
-                           user_name=user_name, user_role=user_role)
+                           user_name=user_name, user_role=user_role, user_id=user_id)
 
 
 @app.route("/edit-question", methods=['GET', 'POST'])

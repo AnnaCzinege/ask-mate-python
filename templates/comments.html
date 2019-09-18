@@ -26,21 +26,25 @@
                 <td class="add_edit_label" colspan="2">Comments:</td>
             </tr>
             {% for comment in comments %}
-                <tr>
-                    <td id="answer_details">{{ comment['comment'] }}</td>
-                <!--here comes the edit button-->
-                    <td>
-                        <form>
-                            <a href="{{ url_for('edit_question_comment', comment_id=comment['id']) if question_title else url_for('edit_answer_comment', question_id=question_id, comment_id=comment['id']) }}" style="text-decoration: none;"><img src="{{ url_for('static', filename='img/edit.png') }}"></a>
-                        </form>
+                {% if comment['user_id'] == user_id %}
+                    <tr>
+                        <td id="answer_details">{{ comment['comment'] }}</td>
+                    <!--here comes the edit button-->
+                        <td>
+                            <form>
+                                <a href="{{ url_for('edit_question_comment', comment_id=comment['id']) if question_title else url_for('edit_answer_comment', question_id=question_id, comment_id=comment['id']) }}" style="text-decoration: none;"><img src="{{ url_for('static', filename='img/edit.png') }}"></a>
+                            </form>
 
-                        <form>
-                            <a href="{{ url_for('delete_question_comment', comment_id=comment['id'], question_id=id_) if question_title else url_for('delete_answer_comment', question_id=question_id, answer_id=comment['answer_id'], comment_id=comment['id']) }}" style="text-decoration: none;"><img src="{{ url_for('static', filename='img/trash.png') }}" width="30px"></a>
-                        </form>
-                    </td>
-                </tr>
-                <tr>
-            </tr>
+                            <form>
+                                <a href="{{ url_for('delete_question_comment', comment_id=comment['id'], question_id=id_) if question_title else url_for('delete_answer_comment', question_id=question_id, answer_id=comment['answer_id'], comment_id=comment['id']) }}" style="text-decoration: none;"><img src="{{ url_for('static', filename='img/trash.png') }}" width="30px"></a>
+                            </form>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td id="answer_details" colspan="2">{{ comment['comment'] }} {{ comment['user_id'] }}</td>
+                    </tr>
+                {% endif %}
             {% endfor %}
         </table>
         <hr>
