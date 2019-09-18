@@ -94,8 +94,8 @@ def route_list(id_=None, num=None):
         dir_ = request.args.get("dir_")
         id_title = sql_handler.sort_questions(dir_)
         return render_template("list.html", id_title=id_title, dir_=dir_, logged_in_as=session_name,
-                               user_name=user_name)
-    return render_template("list.html", id_title=id_title, logged_in_as=session_name, user_name=user_name)
+                               user_name=user_name, error_message=None)
+    return render_template("list.html", id_title=id_title, logged_in_as=session_name, user_name=user_name, error_message=None)
 
 
 @app.route("/delete/<int:id_>", methods=["POST", "GET"])
@@ -119,12 +119,20 @@ def route_add():
         user_name = None
     # When finished adding
     if request.method == "POST":
-        username = escape(session['username'])
-        user_id = user_data_handler.get_userid_by_username(username)
-        user_id = user_id['id']
-        row = {'user_id': str(user_id), 'title': str(request.form["title"]), 'message': str(request.form["message"])}
-        sql_handler.add_new_question(row)
-        return redirect("/")
+        if 'username' in session:
+            username = escape(session['username'])
+            user_id = user_data_handler.get_userid_by_username(username)
+            user_id = user_id['id']
+            row = {'user_id': str(user_id), 'title': str(request.form["title"]), 'message': str(request.form["message"])}
+            sql_handler.add_new_question(row)
+            return redirect("/")
+        else:
+            user_name = None
+            session_name = 'You are not logged in'
+            dir_ = request.args.get("dir_")
+            id_title = sql_handler.sort_questions(dir_)
+            error_message = 'You have to log in first!'
+            render_template("list.html", id_title=id_title, logged_in_as=session_name, user_name=user_name, error_message=error_message)
 
     # When someone clicks on add new question button
     return render_template("add_edit.html", id_=None, title='Add new question',
