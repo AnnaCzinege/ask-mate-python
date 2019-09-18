@@ -213,7 +213,7 @@ a{
 }
 
 .registration-div {
-    position: absolute;
+    position: fixed;
     top: 60px;
     left: 170px;
     background-color: #FFFFFF;
