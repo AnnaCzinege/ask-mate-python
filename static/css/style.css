@@ -18,7 +18,7 @@ a{
 
 #list_div{
   position: absolute;
-  top: 25%;
+  top: 50%;
   left: 17.5%;
   border: none;
   width: 65%;
@@ -308,6 +308,11 @@ a{
   position: absolute;
   top: 100px;
   right: 5%;
+}
+
+.inline_display{
+    display: inline;
+    font-weight: bold;
 }
 
 .profile-img {

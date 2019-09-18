@@ -187,6 +187,7 @@ def show_question_details(id_=None, answer_id=None, answer_message=''):
     answers = sql_handler.list_answers_by_question_id(id_)
     comment_number = sql_handler.count_comments_for_question(id_)
     list_of_comment_numbers_on_answers = []
+    question_username = sql_handler.show_username_at_question(id_)
 
     if answer_id is not None:
         where_url = url_for("edit_answer", answer_id=answer_id)
@@ -216,7 +217,9 @@ def show_question_details(id_=None, answer_id=None, answer_message=''):
                            id_=id_,
                            answer_message=answer_message,
                            logged_in_as=session_name,
-                           user_name=user_name)
+                           user_name=user_name,
+                           question_username=question_username['username']
+                           )
 
 
 @app.route('/edit-answer', methods=["POST", "GET"])

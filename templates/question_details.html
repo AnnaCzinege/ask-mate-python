@@ -6,19 +6,24 @@
 
 {% block content %}
     <div id="list_div">
-        <p id="title_text"> {{ row_title }}</p>
         <div>
-            <div id="latest_question_button" class="action_button">
-                <a href="{{ url_for('route_list') }}">Go back</a>
-            </div>
+            <a href="{{ url_for('view_profile', user_name=question_username) }}">
+                <img src="{{ url_for('static', filename='img/profile.png')}}", width="30px", height="30px">
+            </a>
+            <p class="inline_display">User: </p><a href="{{ url_for('view_profile', user_name=question_username) }}">
+            {{ question_username }}</a><br>
+            <p class="inline_display">Title: </p> {{ row_title }}<br><br>
+            <table class="style_this_table">
+                <tr><td class="add_edit_label">Question description: </td></tr>
+                <tr><td><textarea class="add_edit_input" name="question" rows="10" cols="50" >{{ row_question }}
+                        </textarea>
+                </td></tr>
+            </table>
+        </div>
+        <div id="latest_question_button" class="action_button">
+            <a href="{{ url_for('route_list') }}">Go back</a>
         </div>
         <table class="style_this_table">
-            <tr>
-                <th class="add_edit_label" colspan="2">Question description:</th>
-            </tr>
-            <tr id="question_details">
-                <td>{{ row_question }}</td>
-            </tr>
             <tr>
                 <td colspan="2">
                     <a href="{{ url_for('show_question_comments', id_=id_) }}">{{ comment_number }} comment(s)</a>
