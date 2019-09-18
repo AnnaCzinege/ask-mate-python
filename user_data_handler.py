@@ -94,3 +94,47 @@ def list_answers_by_user_id(cursor, user_id):
                     WHERE user_id = %(user_id)s
                     """, {'user_id': user_id})
     return cursor.fetchall()
+
+
+@database_common.connection_handler
+def count_comments_on_question_by_user_id(cursor, user_id):
+    cursor.execute("""
+                    SELECT questions.title, COUNT(question_comments.comment) as "count_comments", question_id 
+                    FROM question_comments
+                    INNER JOIN questions ON question_id = questions.id
+                    WHERE question_comments.user_id = %(user_id)s
+                    GROUP BY question_id, questions.title
+                    """, {'user_id': user_id})
+    return cursor.fetchall()
+
+
+@database_common.connection_handler
+def list_comments_on_questions_by_user_id(cursor, user_id):
+    cursor.execute("""
+                    SELECT *
+                    FROM question_comments
+                    WHERE user_id = %(user_id)s
+                    """, {'user_id': user_id})
+    return cursor.fetchall()
+
+@database_common.connection_handler
+def count_comments_on_answer_by_user_id(cursor, user_id):
+    cursor.execute("""
+                    SELECT answers.message, COUNT(answer_comments.comment) as "count_comments", 
+                    answers.id, answers.question_id
+                    FROM answer_comments
+                    INNER JOIN answers ON answer_comments.answer_id = answers.id
+                    WHERE answer_comments.user_id = %(user_id)s
+                    GROUP BY answers.message, answers.id, answers.question_id
+                    """, {'user_id': user_id})
+    return cursor.fetchall()
+
+
+@database_common.connection_handler
+def list_comments_on_answers_by_user_id(cursor, user_id):
+    cursor.execute("""
+                    SELECT *
+                    FROM answer_comments
+                    WHERE user_id = %(user_id)s
+                    """, {'user_id': user_id})
+    return cursor.fetchall()
