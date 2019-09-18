@@ -70,10 +70,12 @@ def view_profile(user_name):
 
 @app.route('/user-details')
 def view_user_details():
+    user_name = escape(session['username'])
     user_infos = user_data_handler.get_user_info()
     return render_template('all_user_details.html',
                            user_infos=user_infos,
                            logged_in_as=f"You are logged in as {escape(session['username'])}")
+
 
 
 @app.route("/", methods=['GET', 'POST'])
