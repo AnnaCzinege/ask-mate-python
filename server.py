@@ -15,6 +15,9 @@ def login():
         return redirect('/')
     elif hash.verify_pass(password, user_data_handler.get_hashed_pass(username)['password']):
         session['username'] = username
+        user_id = user_data_handler.get_userid_by_username(username)
+        user_id = user_id['id']
+        session['user_id'] = user_id
         return redirect('/')
     return redirect('/')
 
@@ -67,12 +70,16 @@ def view_profile(user_name):
 @app.route("/show/<int:id_>", methods=["GET", "POST"])
 @app.route("/list/<string:id_>", methods=["GET", "POST"])
 def route_list(id_=None, num=None):
+    user_id = 0
+
     if 'username' in session:
         session_name = f"You are logged in as {escape(session['username'])}"
         user_name = escape(session['username'])
+        user_id = int(escape(session['user_id']))
     else:
         session_name = 'You are not logged in'
         user_name = None
+
     id_title = sql_handler.get_question_id_title()
     if request.method == "POST":
         found_search = sql_handler.search_by_phrase(request.form['search_phrase'])
@@ -84,9 +91,11 @@ def route_list(id_=None, num=None):
     if num is not None:
         dir_ = request.args.get("dir_")
         id_title = sql_handler.sort_questions(dir_)
+        user_id = int(escape(session['user_id']))
         return render_template("list.html", id_title=id_title, dir_=dir_, logged_in_as=session_name,
-                               user_name=user_name, error_message=None)
-    return render_template("list.html", id_title=id_title, logged_in_as=session_name, user_name=user_name, error_message=None)
+                               user_name=user_name, error_message=None, user_id=user_id)
+    return render_template("list.html", id_title=id_title, logged_in_as=session_name, user_name=user_name,
+                           error_message=None, user_id=user_id)
 
 
 @app.route("/delete/<int:id_>", methods=["POST", "GET"])
@@ -119,11 +128,13 @@ def route_add():
             return redirect("/")
         else:
             user_name = None
+            user_id = int(escape(session['user_id']))
             session_name = 'You are not logged in'
             dir_ = request.args.get("dir_")
             id_title = sql_handler.sort_questions(dir_)
             error_message = 'You have to log in first!'
-            return render_template("list.html", id_title=id_title, logged_in_as=session_name, user_name=user_name, error_message=error_message)
+            return render_template("list.html", id_title=id_title, logged_in_as=session_name, user_name=user_name,
+                                   error_message=error_message, user_id=user_id)
 
     # When someone clicks on add new question button
     return render_template("add_edit.html", id_=None, title='Add new question',
