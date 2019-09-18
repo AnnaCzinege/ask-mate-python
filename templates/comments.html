@@ -44,6 +44,7 @@
             {% endfor %}
         </table>
         <hr>
+        {% if user_name %}
         <form action="{{ where_url }}", method="POST">
             <table class="style_this_table">
                 <tr><td class="add_edit_label">Your Comment:</td></tr>
@@ -51,5 +52,6 @@
                 <tr><td align="center"><input id="add_edit_button" type="submit" value="{{ 'Update comment' if comment_to_edit else 'Submit comment'  }}"></td></tr>
             </table>
         </form>
+        {% endif %}
     </div>
 {% endblock %}
