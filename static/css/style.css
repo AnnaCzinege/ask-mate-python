@@ -90,6 +90,7 @@ a{
 }
 
 #latest_question_button {
+  left: 0;
   color: white;
   width: 150px;
   padding-top: 10px;
