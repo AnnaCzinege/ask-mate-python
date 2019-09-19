@@ -42,7 +42,11 @@ AskMate
             {% for item in answer_list %}
                 {% if item['user_id'] == user_id or user_role == 'admin' %}
                 <tr>
-                    <td id="answer_details">{{ item['message'] }}</td>
+                    {% if item['accepted'] == True %}
+                    <td class="accepted-color" id="answer_details">{{ item['message'] }}</td>
+                    {% else %}
+                        <td id="answer_details">{{ item['message'] }}</td>
+                    {% endif %}
                     <!--here comes the edit button-->
                     <td width="20px">
                         <form>
