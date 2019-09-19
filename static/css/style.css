@@ -55,8 +55,8 @@ a{
   padding-bottom: 12px;
   text-align: left;
   font-size: 20px;
-  background-color: #8DD0FF;
   color: white;
+  background-color: #8DD0FF;
 }
 
 #questions_list th a{
@@ -367,7 +367,6 @@ a{
     cursor: pointer;
 }
 
-.trtr {
-    display: none;
+.edit-img {
+    width: 30px;
 }
-
