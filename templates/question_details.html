@@ -6,6 +6,9 @@ AskMate
 
 {% block content %}
 <div class="list_center">
+    <div id="latest_question_button" class="action_button" >
+        <a href="{{ url_for('route_list') }}">Go back</a>
+    </div>
     <div class="align_to_center">
         <img src="{{ url_for('static', filename='img/profile.png')}}" , width="30px" , height="30px">
         <p class="inline_display">User: </p>
@@ -13,6 +16,7 @@ AskMate
         <p class="inline_display"><img src="{{ url_for('static', filename='img/question_mark.png')}}" , width="30px" ,
                                        height="30px">
             Title:</p> {{ row_title }}<br><br>
+
         <table class="style_this_table">
             <tr>
                 <td class="add_edit_label">
@@ -23,18 +27,14 @@ AskMate
                 <td>
                     {{ row_question }}
                 </td></tr>
-            </table>
-        </div>
-        <div id="latest_question_button" class="action_button">
-            <a href="{{ url_for('route_list') }}">Go back</a>
-        </div>
-        <table class="style_this_table">
             <tr>
-                <td colspan="2">
+                <td colspan="2" align="left">
                     <a href="{{ url_for('show_question_comments', id_=id_) }}">{{ comment_number }} comment(s)</a>
                 </td>
             </tr>
-        </table>
+            </table>
+        </div>
+
         <hr>
         <table class="style_this_table">
             <tr>
