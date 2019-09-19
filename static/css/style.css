@@ -370,3 +370,8 @@ a{
 .edit-img {
     width: 30px;
 }
+
+.accept-btn {
+    width: 30px;
+    float: right;
+}

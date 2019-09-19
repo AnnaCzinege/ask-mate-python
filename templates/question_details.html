@@ -45,8 +45,12 @@
                             <a href="{{ url_for('edit_answer', answer_id=item['id']) }}" style="text-decoration: none;"><img class="edit-img" src="{{ url_for('static', filename='img/edit.png') }}"></a>
                         </form>
 
-                        <form action="{{ url_for('delete_answer', answer_id=item['id']) }}", method="POST">
+                        <form action="{{ url_for('delete_answer', answer_id=item['id']) }}" method="POST">
                             <input type="image" name="submit" src="{{ url_for('static', filename='img/trash.png') }}" width="30px"/>
+                        </form>
+
+                        <form action="#" method="POST">
+                            <input class="accept-btn" type="image" name="submit" src="{{ url_for('static', filename='img/accept.png') }}">
                         </form>
                     </td>
                 </tr>
