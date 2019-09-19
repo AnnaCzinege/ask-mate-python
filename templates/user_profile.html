@@ -16,7 +16,7 @@
             <td align="center">
                 <div>
                     <div class="action_button">
-                        <a href="{{ url_for('route_edit', id_=row['id']) }}" style="text-decoration: none;"><img src="{{ url_for('static', filename='img/edit.png') }}"></a>
+                        <a href="{{ url_for('route_edit', id_=row['id']) }}" style="text-decoration: none;"><img class="edit-img" src="{{ url_for('static', filename='img/edit.png') }}"></a>
                     </div>
                     <div class="action_button">
                         <form action="{{ url_for('route_delete', id_=row['id']) }}", method="POST">
