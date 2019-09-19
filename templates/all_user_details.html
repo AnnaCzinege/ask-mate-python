@@ -4,26 +4,29 @@
 
 {% block content %}
 <div id="list_div">
-<p id="title_text">User details</p>
+    <p id="title_text">User details</p>
     <table id="questions_list">
         <tr>
             <th style="width: 10%;">User ID</th>
-            <th style="width: 15%;">User name</th>
-            <th style="width: 15%;">Registration date</th>
-            <th style="width: 50%;"># of questions asked by user</th>
-            <th style="width: 50%;"># of answers added by user</th>
-            <th style="width: 50%;"># of comments added to questions by user</th>
-            <th style="width: 80%;"># of comments added to answers by user</th>
+            <th style="width: 11%;">User name</th>
+            <th style="width: 11%;">Registration date</th>
+            <th style="width: 15%;"># of questions asked by user</th>
+            <th style="width: 15%;"># of answers added by user</th>
+            <th style="width: 15%;"># of comments added to questions by user</th>
+            <th style="width: 15%;"># of comments added to answers by user</th>
         </tr>
-
         {% for row in user_infos %}
         <tr>
             <td>{{ row['id'] }}</td>
             <td>{{ row['username'] }}</td>
             <td>{{ row['date'] }}</td>
+            <td>{{ row['count'] }}</td>
+            <td>{{ row['count_answer'] }}</td>
+            <td>{{ row['count_q_c'] }}</td>
+            <td>{{ row['count_a_c'] }}</td>
         </tr>
         {% endfor %}
 
-        </table>
+    </table>
 </div>
 {% endblock %}

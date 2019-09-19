@@ -12,7 +12,7 @@
             <th style="width: 80%;" colspan="2"><a href="{{ url_for('route_list', num='1', dir_='asc' if dir_ == 'desc' else 'desc') }}">Title</a></th>
         </tr>
         {% for row in id_title %}
-            {% if user_id == row['user_id'] %}
+            {% if user_id == row['user_id'] or user_role == 'admin' %}
                 <tr>
                     <td><a href="{{ url_for('show_question_details', id_=row['id']) }}">{{ row['title'] }}</a></td>
                     <td align="center" width="10%">

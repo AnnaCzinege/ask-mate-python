@@ -32,8 +32,8 @@
     <p id="title_text">Answers added by You</p>
     <table id="questions_list">
         <tr>
-            <th style="width: 80%;">Title of question you answered</th>
-            <th style="width: 80%;"># of answers added by You (click on the number to see the answers)</th>
+            <th style="width: 60%;">Title of question you answered</th>
+            <th style="width: 40%;"># of answers added by You (click on the number to see the answers)</th>
         </tr>
 
         {% for row in user_answers_count %}
@@ -54,8 +54,8 @@
     <p id="title_text">Your comments on questions</p>
     <table id="questions_list" style="margin-bottom: 50px;">
         <tr>
-            <th style="width: 80%;">Title of question you commented</th>
-            <th style="width: 80%;"># of comments added by You (click on the number to see the comments)</th>
+            <th style="width: 60%;">Title of question you commented</th>
+            <th style="width: 40%;"># of comments added by You (click on the number to see the comments)</th>
         </tr>
 
         {% for row in user_comments_count_question %}
@@ -76,8 +76,8 @@
     <p id="title_text">Your comments on answers</p>
     <table id="questions_list" style="margin-bottom: 50px;">
         <tr>
-            <th style="width: 80%;">The answer you commented</th>
-            <th style="width: 80%;"># of comments added by You (click on the number to see the comments)</th>
+            <th style="width: 60%;">The answer you commented</th>
+            <th style="width: 40%;"># of comments added by You (click on the number to see the comments)</th>
         </tr>
 
         {% for row in user_comments_count_answer %}

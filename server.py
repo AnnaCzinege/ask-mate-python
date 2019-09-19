@@ -70,10 +70,12 @@ def view_profile(user_name):
 
 @app.route('/user-details')
 def view_user_details():
+    user_name = escape(session['username'])
     user_infos = user_data_handler.get_user_info()
     return render_template('all_user_details.html',
                            user_infos=user_infos,
                            logged_in_as=f"You are logged in as {escape(session['username'])}")
+
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -264,7 +266,7 @@ def delete_answer(answer_id):
 
 
 @app.route('/show-answer-comments/<question_id>/<answer_id>', methods=["POST", "GET"])
-@app.route('/show-answer-comments/<question_id>/<answer_id>/<comment_id>/<comment_message>', methods=["POST", "GET"])
+@app.route('/show-answer-comments/<qucomment_idestion_id>/<answer_id>/<comment_id>/<comment_message>', methods=["POST", "GET"])
 def show_answer_comments(question_id, answer_id, comment_id=None, comment_message=''):
     user_id = 0
     if 'username' in session:
