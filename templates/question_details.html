@@ -23,18 +23,16 @@ AskMate
                 <td>
                     {{ row_question }}
                 </td></tr>
+            <tr>
+                <td colspan="2" align="left">
+                    <a href="{{ url_for('show_question_comments', id_=id_) }}">{{ comment_number }} comment(s)</a>
+                </td>
+            </tr>
             </table>
         </div>
         <div id="latest_question_button" class="action_button">
             <a href="{{ url_for('route_list') }}">Go back</a>
         </div>
-        <table class="style_this_table">
-            <tr>
-                <td colspan="2">
-                    <a href="{{ url_for('show_question_comments', id_=id_) }}">{{ comment_number }} comment(s)</a>
-                </td>
-            </tr>
-        </table>
         <hr>
         <table class="style_this_table">
             <tr>
