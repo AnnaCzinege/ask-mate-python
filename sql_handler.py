@@ -351,3 +351,11 @@ def show_username_at_question(cursor, question_id):
                     WHERE q.id = %(question_id)s;
                     """, {'question_id': question_id})
     return normalize_output_single_row(cursor.fetchall())
+
+@database_common.connection_handler
+def get_questionuserid_by_questionid(cursor, questionid):
+    cursor.execute(sql.SQL("""
+                    SELECT user_id FROM questions
+                    WHERE id = '{questionid}'
+                    """).format(questionid=sql.SQL(questionid)))
+    return normalize_output_single_row(cursor.fetchall())
