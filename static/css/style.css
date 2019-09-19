@@ -24,7 +24,7 @@ a{
   width: 65%;
 }
 #title_text{
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  font-family: Negotiate, Arial, Helvetica, sans-serif;
   font-size: 40px;
   color: white;
   -webkit-text-fill-color: white; /* Will override color (regardless of order) */
@@ -32,7 +32,8 @@ a{
   -webkit-text-stroke-color: black;
 }
 #questions_list {
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  font-family: Negotiate, Arial, Helvetica, sans-serif;
+    font-size: x-large;
   border-collapse: collapse;
   width: 100%;
   margin-top: -20px;
@@ -54,7 +55,7 @@ a{
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  font-size: 20px;
+  font-size: 30px;
   background-color: #8DD0FF;
   color: white;
 }
@@ -367,7 +368,7 @@ a{
     cursor: pointer;
 }
 
-.trtr {
-    display: none;
+.edit-img {
+    width: 30px;
 }
 

@@ -143,10 +143,19 @@ def list_comments_on_answers_by_user_id(cursor, user_id):
 @database_common.connection_handler
 def get_user_info(cursor):
     cursor.execute("""
-                    SELECT * 
+                    SELECT users.id, users.username,
+                     users.date, count(distinct questions.id) as count,
+                     count(distinct answers.id) as count_answer,
+                     count(distinct question_comments.id) as count_q_c,
+                     count(distinct answer_comments.id) as count_a_c
                     FROM users
+                    LEFT JOIN questions ON users.id = questions.user_id
+                    LEFT JOIN answers ON users.id = answers.user_id
+                    LEFT JOIN question_comments ON users.id = question_comments.user_id
+                    LEFT JOIN answer_comments ON users.id = answer_comments.user_id
+                    GROUP BY users.id
                     """)
-    return cursor.fetchall()
+    return sql_handler.normalize_output_multiple_rows(cursor.fetchall())
 
 @database_common.connection_handler
 def get_user_role(cursor, user_id):
@@ -156,3 +165,13 @@ def get_user_role(cursor, user_id):
                     WHERE id = %(user_id)s
                     """, {'user_id': user_id})
     return sql_handler.normalize_output_single_row(cursor.fetchall())
+
+
+@database_common.connection_handler
+def get_question_num_user(cursor):
+    cursor.execute("""
+                    SELECT user_id, count(id) as count_questions
+                    FROM questions
+                    GROUP BY user_id
+                    """)
+    return sql_handler.normalize_output_multiple_rows(cursor.fetchall())

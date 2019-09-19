@@ -70,9 +70,13 @@ def view_profile(user_name):
 
 @app.route('/user-details')
 def view_user_details():
+    user_name = escape(session['username'])
     user_infos = user_data_handler.get_user_info()
     return render_template('all_user_details.html',
-                           user_infos=user_infos)
+                           user_infos=user_infos,
+                           logged_in_as=f"You are logged in as {escape(session['username'])}")
+
+
 
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/<int:num>")
@@ -129,9 +133,7 @@ def route_add():
         user_id = int(escape(session['user_id']))
         user_role = user_data_handler.get_user_role(user_id)['role']
     else:
-        session_name = 'You are not logged in'
-        user_name = None
-        user_role = None
+        return redirect('/')
     # When finished adding
     if request.method == "POST":
         if 'username' in session:
