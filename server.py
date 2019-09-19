@@ -264,7 +264,7 @@ def delete_answer(answer_id):
 
 
 @app.route('/show-answer-comments/<question_id>/<answer_id>', methods=["POST", "GET"])
-@app.route('/show-answer-comments/<question_id>/<answer_id>/<comment_id>/<comment_message>', methods=["POST", "GET"])
+@app.route('/show-answer-comments/<qucomment_idestion_id>/<answer_id>/<comment_id>/<comment_message>', methods=["POST", "GET"])
 def show_answer_comments(question_id, answer_id, comment_id=None, comment_message=''):
     user_id = 0
     if 'username' in session:

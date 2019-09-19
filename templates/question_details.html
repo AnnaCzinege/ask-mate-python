@@ -36,7 +36,7 @@
                 <td class="add_edit_label" colspan="2">Answers:</td>
             </tr>
             {% for item in answer_list %}
-                {% if item['user_id'] == user_id %}
+                {% if item['user_id'] == user_id or user_role == 'admin' %}
                 <tr>
                     <td id="answer_details">{{ item['message'] }}</td>
                 <!--here comes the edit button-->

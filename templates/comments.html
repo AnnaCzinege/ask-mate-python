@@ -26,7 +26,7 @@
                 <td class="add_edit_label" colspan="2">Comments:</td>
             </tr>
             {% for comment in comments %}
-                {% if comment['user_id'] == user_id %}
+                {% if comment['user_id'] == user_id or user_role == 'admin' %}
                     <tr>
                         <td id="answer_details">{{ comment['comment'] }}</td>
                     <!--here comes the edit button-->
@@ -42,7 +42,7 @@
                     </tr>
                 {% else %}
                     <tr>
-                        <td id="answer_details" colspan="2">{{ comment['comment'] }} {{ comment['user_id'] }}</td>
+                        <td id="answer_details" colspan="2">{{ comment['comment'] }}</td>
                     </tr>
                 {% endif %}
             {% endfor %}
