@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, url_for, make_response, session, escape
+from flask import Flask, request, render_template, redirect, url_for, session, escape
 import sql_handler
 import user_data_handler
 import hash
@@ -18,7 +18,7 @@ def login():
         user_id = user_id['id']
         session['user_id'] = user_id
         return redirect('/')
-    return redirect(url_for('route_list', wrong='wrong'))
+    return redirect('/')
 
 
 @app.route('/registration', methods=['GET', 'POST'])

@@ -13,7 +13,7 @@ a{
 .main-logo {
   position: absolute;
   top: 8%;
-  left: 40%;
+  left: 39%;
 }
 
 #list_div{
@@ -26,8 +26,8 @@ a{
 #title_text{
   font-family: Negotiate, Arial, Helvetica, sans-serif;
   font-size: 40px;
-  color: white;
-  -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+  color: #485e59;
+  -webkit-text-fill-color: #485e59; /* Will override color (regardless of order) */
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
 }
@@ -56,7 +56,7 @@ a{
   padding-bottom: 12px;
   text-align: left;
   font-size: 25px;
-  background-color: #8DD0FF;
+  background-color: #485e59;
   color: white;
 }
 
@@ -74,14 +74,14 @@ a{
   font-size: 14px;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   background: white;
-  border: 2px solid black;
+  border: 2px solid #485e59;
   border-radius: 10px;
   margin-top: 10px;
   margin-right: 5px;
 }
 
 #add_question_button:hover {
-  box-shadow: inset 0px 0px 10px black;
+  box-shadow: inset 0px 0px 10px #485e59;
 }
 
 #add_question_button a{
@@ -99,13 +99,13 @@ a{
   font-size: 14px;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   background: #FFFFFF;
-  border: 2px solid black;
+  border: 2px solid #485e59;
   border-radius: 10px;
   margin-top: 10px;
 }
 
 #latest_question_button:hover {
-  box-shadow: inset 0 0 10px black;
+  box-shadow: inset 0 0 10px #485e59;
 }
 
 #latest_question_button a{
@@ -116,7 +116,7 @@ a{
   height: 40px;
   font-size: 20px;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  background: #8DD0FF;
+  background: #485e59;
   color: #fff;
   border: 1px solid #eee;
   border-radius: 5px;
@@ -180,7 +180,7 @@ a{
   font-size: 20px;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   font-weight: bold;
-  background-color: #8DD0FF;
+  background-color: #485e59;
   color: white;
 }
 .align_to_center{
@@ -286,7 +286,7 @@ a{
   width: 60px;
   height: 100%;
   background-image: url(../img/toggle.png);
-  background-color: lightskyblue;
+  background-color: #485e59;
   background-repeat: no-repeat;
   background-size: 40%;
   background-position: center;
