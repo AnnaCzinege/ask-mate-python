@@ -27,9 +27,6 @@ a{
   font-family: Negotiate, Arial, Helvetica, sans-serif;
   font-size: 40px;
   color: #485e59;
-  -webkit-text-fill-color: #485e59; /* Will override color (regardless of order) */
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: black;
 }
 #questions_list {
   font-family: Negotiate, Arial, Helvetica, sans-serif;
@@ -48,7 +45,7 @@ a{
 
 #questions_list tr:nth-child(odd){background-color: #f6f6f6;}
 
-#questions_list tr:hover {background-color: #EDFDFF;}
+#questions_list tr:hover {background-color: #E0E9E8;}
 
 #questions_list th{
   padding-left: 12px;
@@ -126,7 +123,7 @@ a{
 
 #add_edit_button:hover {
   height: 40px;
-  background: #016ABC;
+  background: #77918D;
   color: #fff;
   border: 1px solid #eee;
   border-radius: 5px;
@@ -142,6 +139,7 @@ a{
 
 .style_this_table {
   margin: 0 auto;
+    width: 80%;
 }
 
 .style_this_table tr:nth-child(even){background-color: #ffffff;}
@@ -153,7 +151,7 @@ a{
 }
 
 #search_bar:hover{
-    background-color: #F1FDFF;
+    background-color: #E0E9E8;
 }
 
 #search_bar{
@@ -203,6 +201,7 @@ a{
   z-index: 1000;
 }
 .hover_search_icon {
+    z-index: 10;
     position: absolute;
     right: 3%;
     top: 23%;
