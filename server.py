@@ -170,9 +170,15 @@ def route_edit(id_=None):
         user_role = None
     # When you finished updating the question
     if request.method == "POST" and id_ is not None:
-        updated_row = {'id': request.form["id_"], 'title': request.form["title"], 'message': request.form["message"]}
-        sql_handler.edit_question(updated_row)
-        return redirect("/")
+        user_id = int(escape(session['user_id']))
+        questionuserid = sql_handler.get_questionuserid_by_questionid(id_)
+        questionuserid = questionuserid['user_id']
+        if user_id == questionuserid:
+            updated_row = {'id': request.form["id_"], 'title': request.form["title"], 'message': request.form["message"]}
+            sql_handler.edit_question(updated_row)
+            return redirect("/")
+        else:
+            return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
 
     # When you click the edit action button
     if id_ is not None:
