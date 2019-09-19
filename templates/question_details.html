@@ -52,7 +52,7 @@ AskMate
                         <form action="{{ url_for('delete_answer', answer_id=item['id']) }}" method="POST">
                             <input type="image" name="submit" src="{{ url_for('static', filename='img/trash.png') }}" width="30px"/>
                         </form>
-                        {% if item['question_id'] == id_ %}
+                        {% if item['question_id'] == id_ or user_role=='admin' %}
                         <form action="{{ url_for('accept_answer', answer_id=item['id'], id_=id_) }}" method="POST">
                             <input class="accept-btn" type="image" name="submit" src="{{ url_for('static', filename='img/accept.png') }}">
                         </form>
@@ -78,7 +78,6 @@ AskMate
                             </td>
                         {% endif %}
                     {% else %}
-                        {{ item }}
                         {% if item['accepted'] == True %}
                         <td class="accepted-color" id="answer_details">{{ item['message'] }}</td>
                             <td class="accepted-color"></td>
