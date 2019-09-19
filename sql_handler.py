@@ -352,6 +352,24 @@ def show_username_at_question(cursor, question_id):
                     """, {'question_id': question_id})
     return normalize_output_single_row(cursor.fetchall())
 
+
+@database_common.connection_handler
+def mark_answer_as_accepted(cursor, answer_id):
+    cursor.execute("""
+                    UPDATE answers
+                    SET accepted = TRUE
+                    WHERE id = %(answer_id)s;
+                    """, {'answer_id': answer_id})
+
+
+@database_common.connection_handler
+def having_accepted_answer(cursor, question_id):
+    cursor.execute("""
+                    UPDATE questions
+                    SET accepted = TRUE
+                    WHERE id = %(question_id)s;
+                    """, {'question_id': question_id})
+
 @database_common.connection_handler
 def get_questionuserid_by_questionid(cursor, questionid):
     cursor.execute(sql.SQL("""
