@@ -5,6 +5,9 @@
 {% endblock %}
 
 {% block content %}
+    {% if wrong == none %}
+        <div class="wrong-message">Incorrect username or password</div>
+    {% endif %}
     <div id="list_div">
     <p id="title_text"> Questions </p>
     <table id="questions_list">

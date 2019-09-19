@@ -7,19 +7,18 @@ app = Flask(__name__)
 
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     username = request.form['username'].lower()
     password = request.form['password']
-    if username not in user_data_handler.get_usernames():
-        return redirect('/')
-    elif hash.verify_pass(password, user_data_handler.get_hashed_pass(username)['password']):
+    if username in user_data_handler.get_usernames() and hash.verify_pass(password, user_data_handler.get_hashed_pass(username)['password']):
         session['username'] = username
         user_id = user_data_handler.get_userid_by_username(username)
         user_id = user_id['id']
         session['user_id'] = user_id
         return redirect('/')
-    return redirect('/')
+    return redirect(url_for('route_list', wrong='wrong'))
 
 
 @app.route('/registration', methods=['GET', 'POST'])
@@ -84,7 +83,6 @@ def view_user_details():
 @app.route("/list/<string:id_>", methods=["GET", "POST"])
 def route_list(id_=None, num=None):
     user_id = 0
-
     if 'username' in session:
         session_name = f"You are logged in as {escape(session['username'])}"
         user_name = escape(session['username'])
