@@ -81,7 +81,7 @@ a{
 }
 
 #add_question_button:hover {
-  box-shadow: 0px 0px 10px black;
+  box-shadow: inset 0px 0px 10px black;
 }
 
 #add_question_button a{
