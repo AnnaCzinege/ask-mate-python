@@ -184,3 +184,18 @@ def get_author_of_answer_by_questionid(cursor, questionid):
                     WHERE answers.question_id = '{questionid}'
                     """).format(questionid=sql.SQL(questionid)))
     return sql_handler.normalize_output_multiple_rows(cursor.fetchall())
+
+
+
+@database_common.connection_handler
+def mark_answer_as_accepted(cursor, answer_id, question_id):
+    cursor.execute("""
+                    UPDATE answers
+                    SET accepted = FALSE
+                    WHERE accepted = TRUE and question_id = %(question_id)s;
+                    
+                    UPDATE answers
+                    SET accepted = TRUE
+                    WHERE id = %(answer_id)s;
+                    """, {'answer_id': answer_id,
+                          'question_id': question_id})

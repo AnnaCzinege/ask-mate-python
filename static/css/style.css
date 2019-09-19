@@ -377,3 +377,7 @@ a{
     width: 30px;
     float: right;
 }
+
+.accepted-color {
+    background-color: lightgreen;
+}

@@ -235,6 +235,7 @@ def show_question_details(id_=None, answer_id=None, answer_message=''):
         return redirect(url_for('show_question_details', id_=id_))
 
     return render_template("question_details.html",
+                           row_user_id=question['user_id'],
                            row_title=question['title'],
                            row_question=question['message'],
                            answer_list=answers,
@@ -432,6 +433,12 @@ def search(search_phrase, dir_):
                            logged_in_as=session_name,
                            user_name=user_name,
                            user_role=user_role)
+
+
+@app.route('/accept/<answer_id>/<id_>', methods=['GET', 'POST'])
+def accept_answer(answer_id, id_):
+    user_data_handler.mark_answer_as_accepted(answer_id, id_)
+    return redirect(f"/question_details/{id_}")
 
 
 if __name__ == "__main__":

@@ -4,14 +4,16 @@ CREATE TABLE questions (
     id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     title VARCHAR(255) NOT NULL,
-    message VARCHAR(2048) NOT NULL
+    message VARCHAR(2048) NOT NULL,
+    accepted BOOLEAN DEFAULT false
 );
 
 CREATE TABLE answers (
     id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     question_id INT NOT NULL,
-    message VARCHAR(2048) NOT NULL
+    message VARCHAR(2048) NOT NULL,
+    accepted BOOLEAN DEFAULT false
 );
 
 CREATE TABLE answer_comments (
