@@ -21,7 +21,7 @@
         <div><a href="{{ url_for('view_profile', user_name=user_name) }}"><span class="profile-img"></span></a></div>
         <div><a href="{{ url_for('logout') }}"><span class="logout-img"></span></a></div>
         {% if user_role == 'admin' %}
-        <div><a href="{{ url_for('view_user_details') }}"><span class="admin-img"></span></a></div>
+        <div><a href="{{ url_for('view_user_details') }}" ><span class="admin-img"></span></a></div>
         {% endif %}
     {% endif %}
             <div class="log-message"><p>{{ logged_in_as }}</p></div>
