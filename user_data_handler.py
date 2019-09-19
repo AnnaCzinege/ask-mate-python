@@ -175,3 +175,12 @@ def get_question_num_user(cursor):
                     GROUP BY user_id
                     """)
     return sql_handler.normalize_output_multiple_rows(cursor.fetchall())
+
+@database_common.connection_handler
+def get_author_of_answer_by_questionid(cursor, questionid):
+    cursor.execute(sql.SQL("""
+                    SELECT answers.id, users.username FROM answers
+                    INNER JOIN users ON answers.user_id = users.id
+                    WHERE answers.question_id = '{questionid}'
+                    """).format(questionid=sql.SQL(questionid)))
+    return sql_handler.normalize_output_multiple_rows(cursor.fetchall())

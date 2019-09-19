@@ -16,7 +16,6 @@ AskMate
         <p class="inline_display"><img src="{{ url_for('static', filename='img/question_mark.png')}}" , width="30px" ,
                                        height="30px">
             Title:</p> {{ row_title }}<br><br>
-
         <table class="style_this_table">
             <tr>
                 <td class="add_edit_label">
@@ -42,31 +41,32 @@ AskMate
             </tr>
             {% for item in answer_list %}
                 {% if item['user_id'] == user_id or user_role == 'admin' %}
-                <tr>
-                    <td id="answer_details">{{ item['message'] }}</td>
-                <!--here comes the edit button-->
-                    <td width="20px">
-                        <form>
-                            <a href="{{ url_for('edit_answer', answer_id=item['id']) }}" style="text-decoration: none;"><img class="edit-img" src="{{ url_for('static', filename='img/edit.png') }}"></a>
-                        </form>
+                    <tr>
+                        <td id="answer_details">{{ item['message'] }}</td>
+                    <!--here comes the edit button-->
+                        <td width="20px">
+                            <form>
+                                <a href="{{ url_for('edit_answer', answer_id=item['id']) }}" style="text-decoration: none;"><img class="edit-img" src="{{ url_for('static', filename='img/edit.png') }}"></a>
+                            </form>
 
-                        <form action="{{ url_for('delete_answer', answer_id=item['id']) }}" method="POST">
-                            <input type="image" name="submit" src="{{ url_for('static', filename='img/trash.png') }}" width="30px"/>
-                        </form>
+                            <form action="{{ url_for('delete_answer', answer_id=item['id']) }}" method="POST">
+                                <input type="image" name="submit" src="{{ url_for('static', filename='img/trash.png') }}" width="30px"/>
+                            </form>
 
-                        <form action="#" method="POST">
-                            <input class="accept-btn" type="image" name="submit" src="{{ url_for('static', filename='img/accept.png') }}">
-                        </form>
-                    </td>
-                </tr>
-                {% else %}
-                <tr>
-                    <td id="answer_details" colspan="2">{{ item['message'] }}</td>
-                </tr>
-                {% endif %}
-                <tr>
-                    <td colspan="2"><a href="{{ url_for('show_answer_comments', answer_id=item['id'], question_id=id_) }}">{{ comment_number_answer [loop.index0] }} comment(s)</a></td>
-                </tr>
+                            <form action="#" method="POST">
+                                <input class="accept-btn" type="image" name="submit" src="{{ url_for('static', filename='img/accept.png') }}">
+                            </form>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td id="answer_details" colspan="2">{{ item['message'] }}</td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <td><a href="{{ url_for('show_answer_comments', answer_id=item['id'], question_id=id_) }}">{{ comment_number_answer [loop.index0] }} comment(s)</a></td>
+                        <td>by: {{ authors_of_answers[loop.index0] }}</td>
+                    </tr>
             {% endfor %}
         </table>
         <hr>

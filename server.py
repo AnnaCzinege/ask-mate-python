@@ -213,6 +213,8 @@ def show_question_details(id_=None, answer_id=None, answer_message=''):
     comment_number = sql_handler.count_comments_for_question(id_)
     list_of_comment_numbers_on_answers = []
     question_username = sql_handler.show_username_at_question(id_)
+    authors_of_answers = user_data_handler.get_author_of_answer_by_questionid(id_)
+    authors_of_answers = [element['username'] for element in authors_of_answers]
 
     if answer_id is not None:
         where_url = url_for("edit_answer", answer_id=answer_id)
@@ -245,7 +247,8 @@ def show_question_details(id_=None, answer_id=None, answer_message=''):
                            user_name=user_name,
                            user_role=user_role,
                            user_id=user_id,
-                           question_username=question_username['username']
+                           question_username=question_username['username'],
+                           authors_of_answers=authors_of_answers
                            )
 
 
